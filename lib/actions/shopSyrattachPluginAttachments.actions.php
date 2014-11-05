@@ -1,0 +1,94 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of shopSyrattachPluginAttachments
+ *
+ * @author serge
+ */
+class shopSyrattachPluginAttachmentsActions extends waViewActions
+{
+    /** @var string */
+    protected $template_folder = 'templates/Attachments';
+    
+    /** @var shopProductModel */
+    private $Product;
+    
+    /** @var shopSyrattachFileModel */
+    private $Attachment;
+
+    /**
+     * Shows the tab content
+     * 
+     * @throws waException
+     */
+    public function defaultAction()
+    {
+        $product_id = waRequest::get('id', NULL, waRequest::TYPE_INT);
+        $product = $this->Product->getById($product_id);
+        if(!$product) {
+            throw new waException(_wp("Unknown product"));
+        }
+        
+        $attachments = $this->Attachment->
+                select("*")->
+                where('product_id=i:product_id', array('product_id' => $product_id))->
+                order('sort ASC')
+                ->fetchAll();
+        
+        foreach($attachments as $key => $value) {
+            $attachments[$key]['url'] = shopSyrattachPlugin::getFileUrl($value);
+        }
+        
+        $count = count($attachments);
+        
+        $this->view->assign(compact('attachments', 'count', 'product'));
+        
+    }
+    
+    /**
+     * Returns full path to the template file to render
+     * 
+     * @return string
+     */
+    protected function getTemplate()
+    {
+        $pluginRoot = $this->getPluginRoot();
+
+        if ($this->template === null) {
+            if($this->getResponse()->getHeader('Content-type') === 'application/json') {
+                return "{$pluginRoot}templates/json.tpl";
+            }
+            $template = ucfirst($this->action);
+        } else {
+            // If path contains / or : then it's a full path to template
+            if (strpbrk($this->template, '/:') !== false) {
+                return $this->template;
+            }
+
+            // otherwise it's a template name and we need to figure out its directory
+            $template = $this->template;
+        }
+
+        $match = array();
+        preg_match("/[A-Z][^A-Z]+/", get_class($this), $match);
+        $template = "{$pluginRoot}{$this->template_folder}/$template".$this->view->getPostfix();
+        return $template;
+    }
+
+    /**
+     * Initialize controller-wide variables
+     */
+    protected function preExecute()
+    {
+        parent::preExecute();
+        $this->Product = new shopProductModel();
+        $this->Attachment = new shopSyrattachFileModel();
+    }
+
+}
