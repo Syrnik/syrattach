@@ -15,16 +15,16 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
 {
     /** @var string */
     protected $template_folder = 'templates/Attachments';
-    
+
     /** @var shopProductModel */
     private $Product;
-    
+
     /** @var shopSyrattachFileModel */
     private $Attachment;
 
     /**
      * Shows the tab content
-     * 
+     *
      * @throws waException
      */
     public function defaultAction()
@@ -34,26 +34,27 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
         if(!$product) {
             throw new waException(_wp("Unknown product"));
         }
-        
-        $attachments = $this->Attachment->
-                select("*")->
-                where('product_id=i:product_id', array('product_id' => $product_id))->
-                order('sort ASC')
-                ->fetchAll();
-        
-        foreach($attachments as $key => $value) {
-            $attachments[$key]['url'] = shopSyrattachPlugin::getFileUrl($value);
-        }
-        
+
+        $attachments = $this->Attachment->getByProductId($product_id, TRUE);
         $count = count($attachments);
-        
+
         $this->view->assign(compact('attachments', 'count', 'product'));
-        
     }
-    
+
+    public function deleteAction()
+    {
+        $id = waRequest::post('id', NULL, waRequest::TYPE_INT);
+
+        try {
+            $this->Attachment->delete($id, TRUE);
+        } catch (waException $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
     /**
      * Returns full path to the template file to render
-     * 
+     *
      * @return string
      */
     protected function getTemplate()

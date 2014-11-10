@@ -2,7 +2,7 @@
 <script type="text/javascript" src="{$wa_url}wa-content/js/jquery-plugins/fileupload/jquery.fileupload.js"></script>
 <script type="text/javascript" src="{$wa_app_static_url}plugins/syrattach/js/syrattach.js"></script>
 <div id="s-plugin-syrattach-fileupload" class="block double-padded s-plugin-syrattach-upload-dropzone" data-url="?plugin=syrattach&amp;module=attachments&amp;action=upload">
-    <a href="javascript:void(0);" id="s-plugin-syrattach-upload-files-link" class="fileinput-button">
+    <a href="javascript:void(0);" id="s-plugin-syrattach-upload-files-link"{* class="fileinput-button"*}>
         <i class="icon16 upload"></i>
         {_wp('Select files')}
         <input type="file" name="files[]" multiple>
@@ -10,7 +10,7 @@
     <span class="gray">{_w('or drag them here to start upload')}</span>
     {$wa->csrf()}
     <input type="hidden" name="syrattach_product_id" value="{$product.id}">
-    <span id="s-plugin-syrattach-upload-progress">
+    <span id="s-plugin-syrattach-upload-progress" style="display:none">
         <div class="progressbar small yellow" style="width:150px;display:inline-block; margin:0;vertical-align:middle">
             <div class="progressbar-outer">
                 <div class="progressbar-inner" id="s-plugin-syrattach-upload-progressbar-id" style="width:0">
@@ -54,7 +54,7 @@
             </div>
             {% } %}
             <div class="s-plugin-syrattach-attachmant-actions">
-                <a href="javascript:void(0);">
+                <a href="javascript:void(0);" class="s-plugin-syrattach-delete-action" data-id="{%=attachment.id%}">
                     <i class="icon16 delete"></i>
                     {/literal}[s`Delete`]{literal}
                 </a>
@@ -70,4 +70,6 @@
     #s-plugin-syrattach-product-files-list li { display: block; margin-bottom: 15px; padding: 5px; border: 1px solid #ccc}
     #s-plugin-syrattach-product-files-list .s-plugin-syrattach-filelink { font-size: 146%}
     #s-plugin-syrattach-product-files-list .s-plugin-syrattach-file-description { margin: 10px 0; padding: 3px; line-height: 120%}
+    #s-plugin-syrattach-upload-files-link input[type=file] { position: absolute;top:0;right:0;margin:0;padding:0;opacity:0;filter:alpha(opacity=0);cursor:pointer}
+    #s-plugin-syrattach-upload-files-link { position: relative;overflow: hidden}
 </style>
