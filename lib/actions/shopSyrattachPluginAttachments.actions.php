@@ -43,13 +43,20 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
 
     public function deleteAction()
     {
+        $errors = array();
+        $response = _wp("Deleted");
+
+        $this->getResponse()->addHeader('Content-type', 'application/json');
+
         $id = waRequest::post('id', NULL, waRequest::TYPE_INT);
 
         try {
             $this->Attachment->delete($id, TRUE);
         } catch (waException $exc) {
-            echo $exc->getTraceAsString();
+            $errors[] = $exc->getMessage();
         }
+
+        $this->view->assign(compact('response', 'errors'));
     }
 
     /**
@@ -61,7 +68,7 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
     {
         $pluginRoot = $this->getPluginRoot();
 
-        if ($this->template === null) {
+        if ($this->template === NULL) {
             if($this->getResponse()->getHeader('Content-type') === 'application/json') {
                 return "{$pluginRoot}templates/json.tpl";
             }
