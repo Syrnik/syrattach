@@ -7,6 +7,7 @@ return array(
     'vendor' => '670917',
     'handlers' =>
     array(
-        'backend_product' => 'backendProduct'
+        'backend_product' => 'backendProduct',
+        'product_delete' => 'productDelete'
     ),
 );
