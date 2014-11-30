@@ -43,7 +43,7 @@ class shopSyrattachPlugin extends shopPlugin
      */
     public function productDelete($product_ids)
     {
-        $this->Attachments->deleteByField('product_id', $product_ids);
+        $this->Attachments->deleteByField('product_id', $product_ids['ids']);
     }
 
     public static function getDirectory($product_id)
