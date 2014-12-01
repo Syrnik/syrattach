@@ -1,15 +1,12 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of shopSyrattachPluginAttachments
  *
- * @author serge
+ * @package Syrattach/controller
+ * @author Serge Rodovnichenko <sergerod@gmail.com>
+ * @version 1.0.0
+ * @copyright (c) 2014, Serge Rodovnichenko
+ * @license http://www.webasyst.com/terms/#eula Webasyst
  */
 class shopSyrattachPluginAttachmentsActions extends waViewActions
 {

@@ -1,21 +1,18 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of shopSyrattachPluginBackendUpload
+ * File Upload controller
  *
- * @author serge
+ * @package Syrattach/controller
+ * @author Serge Rodovnichenko <sergerod@gmail.com>
+ * @version 1.0.0
+ * @copyright (c) 2014, Serge Rodovnichenko
+ * @license http://www.webasyst.com/terms/#eula Webasyst
  */
 class shopSyrattachPluginAttachmentsUploadController extends shopUploadController
 {
     /** @var shopProductModel */
     private $Product;
-    
+
     /** @var shopSyrattachFileModel */
     private $SyrattachFile;
 
@@ -25,16 +22,16 @@ class shopSyrattachPluginAttachmentsUploadController extends shopUploadControlle
         $this->Product = new shopProductModel();
         $this->SyrattachFile = new shopSyrattachFileModel();
     }
-    
+
     protected function save(waRequestFile $file)
     {
         $product_id = waRequest::post('syrattach_product_id', NULL, waRequest::TYPE_INT);
         $config = $this->getConfig();
-        
+
         $this->checkProductRights($product_id);
 
         $data = $this->SyrattachFile->add($product_id, $file);
-        
+
         return array(
             'id' => $data['id'],
             'name' => $data['name'],
@@ -42,13 +39,13 @@ class shopSyrattachPluginAttachmentsUploadController extends shopUploadControlle
             'size' => $file->size,
             'description' => ''
         );
-        
+
     }
 
     /**
      * Throws an error if user hasn't enough rights to access product
      * We're trying to keep our main method clean
-     * 
+     *
      * @param int $product_id
      * @throws waException
      */

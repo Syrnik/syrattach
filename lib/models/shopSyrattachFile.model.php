@@ -1,15 +1,10 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of shopSyrattachFile
- *
- * @author serge
+ * @package Syrattach/model
+ * @author Serge Rodovnichenko <sergerod@gmail.com>
+ * @version 1.0.0
+ * @copyright (c) 2014, Serge Rodovnichenko
+ * @license http://www.webasyst.com/terms/#eula Webasyst
  */
 class shopSyrattachFileModel extends waModel
 {
