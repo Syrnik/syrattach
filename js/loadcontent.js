@@ -1,11 +1,18 @@
 
 $.product.editTabSyrattachmentsLoad = function(path, post) {
     var self = this;
-    path = path || this.path;
+    var path = path || this.path;
     var url = '?plugin=syrattach&module=attachments&id=' + path.id;
     var r = Math.random();
     this.ajax.random = r;
     var $tab = $('#s-product-edit-forms .s-product-form.' + path.tab);
+    
+    if(path.id == 'new') {
+        $.shop.trace('product.attachmentsTabHandler: create', [path.tab + ' — create', path]);
+        this.saveData(this.path.mode, path.tab, function () { });
+        return;
+    }
+    
     if ($tab.length) {
         $tab.remove();
     }
@@ -15,7 +22,7 @@ $.product.editTabSyrattachmentsLoad = function(path, post) {
     $tab = $('#s-product-edit-forms .s-product-form.' + path.tab);
     this.ajax.target = $tab;
     this.ajax.link = $('#s-product-edit-menu li.' + path.tab);
-    $.shop.trace('$.product.editTabSyrattachmantsLoad', [path, url, path.params]);
+    $.shop.trace('$.product.editTabSyrattachmentsLoad', [path, url, path.params]);
     if (path.params && post) {
         var type = typeof (path.params);
         switch (type) {

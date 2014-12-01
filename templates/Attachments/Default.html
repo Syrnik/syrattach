@@ -39,19 +39,15 @@
 <script id="template-syrattach-attachments" type="text/html">
     {literal}
         {% for(var i=0, cnt=o.attachments.length, attachment=o.attachments[0]; i < cnt; attachment = o.attachments[++i]) { %}
-        <li>
+        <li data-attachment-id="{%=attachment.id%}">
             <div class="s-plugin-syrattach-filelink-container">
                 <a href="{%=attachment.url%}" class="s-plugin-syrattach-filelink" target="_blank">{%=attachment.name%}</a>
                 <span class="hint">({%=o.formatFileSize(attachment.size)%})</span>
             <div>
             {% if(attachment.description) { %}
-            <div class="s-plugin-syrattach-file-description editable">
-                {%=attachment.description%}
-            </div>
+            <div class="s-plugin-syrattach-file-description editable">{%=attachment.description%}</div>
             {% } else { %}
-            <div class="s-plugin-syrattach-file-description gray editable">
-                {%=o.placeholder%}
-            </div>
+            <div class="s-plugin-syrattach-file-description gray editable">{%=o.placeholder%}</div>
             {% } %}
             <div class="s-plugin-syrattach-attachmant-actions">
                 <a href="javascript:void(0);" class="s-plugin-syrattach-delete-action" data-id="{%=attachment.id%}">

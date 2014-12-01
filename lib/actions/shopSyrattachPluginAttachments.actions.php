@@ -60,6 +60,68 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
     }
 
     /**
+     * Список всех аттачей
+     *
+     * @throws waException
+     */
+    public function listAction()
+    {
+        $product_id = waRequest::get('product_id', 0, waRequest::TYPE_INT);
+        $errors = array();
+        $response = '';
+        $this->getResponse()->addHeader('Content-type', 'application/json');
+
+        try {
+            if(!$product_id) {
+                throw new waException(_wp('Unknown product'));
+            }
+
+            $response['attachments'] = $this->Attachment->getByProductId($product_id, TRUE);
+            $response['count'] = count($response['attachments']);
+
+        } catch (waException $ex) {
+            $errors[] = $ex->getMessage();
+        }
+
+        $this->view->assign(compact('response', 'errors'));
+    }
+
+    /**
+     * Сохранение описания вложения
+     *
+     * @throws waException
+     */
+    public function descriptionsaveAction()
+    {
+        $id = waRequest::post('id', 0, waRequest::TYPE_INT);
+        $data = waRequest::post('data', array(), waRequest::TYPE_ARRAY);
+        $errors = array();
+        $response='';
+        $this->getResponse()->addHeader('Content-type', 'application/json');
+
+        try {
+
+            if(!$id) {
+                throw new waException(_wp('Unknown attachment ID'));
+            }
+
+            if(empty($data) || !is_array($data) || !isset($data['description'])) {
+                throw new waException(_wp('Discription is not set'));
+            }
+
+            // TODO: Не лучшая идея. Переделать при случае.
+            $this->Attachment->updateById($id, array('description'=>$data['description']));
+
+            $response=_wp("Saved");
+
+        } catch (waException $exc) {
+            $errors[] = $exc->getMessage();
+        }
+
+        $this->view->assign(compact('response', 'errors'));
+    }
+
+    /**
      * Returns full path to the template file to render
      *
      * @return string

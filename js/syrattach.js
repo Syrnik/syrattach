@@ -7,6 +7,8 @@
         product_id: 0,
 
         tail: null,
+        
+        counter: $("li.syrattachments span.hint"),
 
         progressbar: {
             element : null,
@@ -38,6 +40,7 @@
             this.initAttachmentsList(options);
             this.initAttachDeleteAction();
             this.initProgressBar();
+            this.initListEditable();
             
             $.product.editTabSyrattachmentsBlur = function(path){
                 $("#s-plugin-syrattach-fileupload").fileupload('destroy');
@@ -92,12 +95,74 @@
                     if(data.status === 'ok') {
                         list_item.slideUp(500, function(){
                             list_item.remove();
+                            cnt = parseInt($.product_syrattachments.counter.text());
+                            cnt--;
+                            if(cnt >0) {
+                                $.product_syrattachments.counter.text(cnt);
+                            } else {
+                                $.product_syrattachments.counter.text(' ');
+                            }
                         });
                     }
                 }, 'json');
             });
         },
         
+        initListEditable: function() {
+            this.attachments_list.off('click', '.editable').on('click', '.editable', function() {
+                $(this).inlineEditable({
+                    inputType: 'textarea',
+                    makeReadableBy: ['esc'],
+                    updateBy: ['ctrl+enter'],
+                    placeholderClass: 'gray',
+                    placeholder: $.product_syrattachments.options.placeholder,
+                    minSize: {
+                        height: 40
+                    },
+                    allowEmpty: true,
+                    beforeMakeEditable: function(input) {
+                        var self = $(this);
+
+                        input.css({
+                            'font-size': self.css('font-size'),
+                            'line-height': self.css('line-height')
+                        }).width(
+                            //self.parents('li:first').find('img').width()
+                            '95%'
+                        );
+
+                        var button_id = this.id + '-button';
+                        var button = $('#' + button_id);
+                        if (!button.length) {
+                            input.after('<br><input type="button" id="' + button_id + '" value="' + $_('Save') + '"> <em class="hint" id="' + this.id + '-hint">Ctrl+Enter</em>');
+                            $('#' + button_id).click(function() {
+                                self.trigger('readable');
+                            });
+                        }
+                        $('#'+this.id+'-hint').show();
+                        button.show();
+                    },
+                    afterBackReadable: function(input, data) {
+                        var self = $(this);
+                        var attachment_id = parseInt(self.parents('li:first').attr('data-attachment-id'), 10);
+                        var value = $(input).val();
+                        var prefix = '#'+this.id+'-';
+
+                        $(prefix + 'button').hide();
+                        $(prefix + 'hint').hide();
+                        if (data.changed) {
+                            $.products.jsonPost('?plugin=syrattach&module=attachments&action=descriptionsave', {
+                                id: attachment_id,
+                                data: {
+                                    description: value
+                                }
+                            });
+                        }
+                    }
+                }).trigger('editable');
+            });
+        },
+
         _formatFileSize: function (bytes) {
             
             if(typeof bytes === 'string') {
@@ -129,6 +194,18 @@
         stop : function(e) {
             $.product_syrattachments.progressbar.element.parent().hide();
             $.shop.trace('File upload ends');
+            $.get("?plugin=syrattach&module=attachments&action=list", { product_id: $.product_syrattachments.product_id })
+                .success(function(data){
+                    if(data.status == 'ok') {
+                        $.product_syrattachments.options.attachments = data.response.attachments;
+                        $.product_syrattachments.attachments_list.html(tmpl('template-syrattach-attachments', {
+                            attachments: $.product_syrattachments.options.attachments,
+                            formatFileSize: $.product_syrattachments._formatFileSize,
+                            placeholder: $.product_syrattachments.options.placeholder
+                        }));
+                        $.product_syrattachments.counter.text(data.response.count);
+                    }
+                });
         },
         fail : function(e, data) {
             $.shop.trace('Fail called', data);
