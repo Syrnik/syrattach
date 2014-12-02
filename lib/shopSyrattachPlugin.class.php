@@ -102,7 +102,8 @@ class shopSyrattachPlugin extends shopPlugin
      *        'name'
      *        'ext'
      *        'description',
-     *        'size'
+     *        'size',
+     *        'url'
      *     )
      * )
      *
@@ -123,6 +124,10 @@ class shopSyrattachPlugin extends shopPlugin
                 where('product_id=i:id', array('id'=>$product_id))->
                 order('`sort` ASC')->
                 fetchAll();
+        
+        foreach($files as &$file) {
+            $file['url'] = shopSyrattachPlugin::getFileUrl($file + array('product_id' => $product_id));
+        }
 
         return $files;
     }
