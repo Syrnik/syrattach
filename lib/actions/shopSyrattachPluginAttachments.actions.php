@@ -105,7 +105,7 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
             }
 
             if(empty($data) || !is_array($data) || !isset($data['description'])) {
-                throw new waException(_wp('Discription is not set'));
+                throw new waException(_wp('Description is not set'));
             }
 
             // TODO: Не лучшая идея. Переделать при случае.

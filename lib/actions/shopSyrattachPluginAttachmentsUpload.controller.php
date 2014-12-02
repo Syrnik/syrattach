@@ -52,7 +52,7 @@ class shopSyrattachPluginAttachmentsUploadController extends shopUploadControlle
     private function checkProductRights($product_id)
     {
         if(!$this->Product->checkRights($product_id)) {
-            throw new waException(_w('Access denied'));
+            throw new waException(_wp('Access denied'));
         }
     }
 }

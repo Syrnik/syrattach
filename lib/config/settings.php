@@ -10,7 +10,7 @@ return array(
     'frontend_product_hook' => array(
         'title'         => _wp('Hook'),
         'description'   => _wp('Hook name to display filelist. Each hook placement depends of theme design. <a href="http://www.webasyst.com/developers/docs/plugins/hooks/shop/frontend_product/" target="_blank">More info about hooks.</a>'),
-        'value'         => _wp('0'),
+        'value'         => '0',
         'control_type'  => waHtmlControl::SELECT,
         'options'       => array(
             array(

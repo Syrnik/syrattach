@@ -1,0 +1,128 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: shop/plugins/syrattach\n"
+"POT-Creation-Date: 2014-12-03 01:43+0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Serge Rodovnichenko <sergerod@gmail.com>\n"
+"Language-Team: shop/plugins/syrattach\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n"
+"%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\n"
+
+#: /wa-apps/shop/plugins/syrattach/templates/Attachments/Default.html:11
+msgid "Max. file size for upload:"
+msgstr "Максимальный размер файла для загрузки:"
+
+#: /wa-apps/shop/plugins/syrattach/templates/Attachments/Default.html:7
+msgid "Select files"
+msgstr "Выберите файлы"
+
+#: /wa-apps/shop/plugins/syrattach/templates/Attachments/Default.html:35
+msgid "Add file description"
+msgstr "Добавить описание файла"
+
+#: /wa-apps/shop/plugins/syrattach/templates/Attachments/Default.html:58
+msgid "Delete"
+msgstr "Удалить"
+
+#: /wa-apps/shop/plugins/syrattach/templates/frontend_product.html:3
+msgid "Related files"
+msgstr "Сопутствующие файлы"
+
+#: /wa-apps/shop/plugins/syrattach/templates/backend_product.html:3
+msgid "Attached files"
+msgstr "Прикрепленные файлы"
+
+#: /wa-apps/shop/plugins/syrattach/js/fileupload-widget.js:107
+msgid "Empty result"
+msgstr "Пустой ответ"
+
+#: /wa-apps/shop/plugins/syrattach/js/fileupload-widget.js:227
+#: /wa-apps/shop/plugins/syrattach/js/fileupload-widget.js:233
+#: /wa-apps/shop/plugins/syrattach/js/fileupload-widget.js:255
+msgid "Stop upload"
+msgstr "Остановить загрузку"
+
+#: /wa-apps/shop/plugins/syrattach/js/fileupload-widget.js:258
+msgid "Close"
+msgstr "Закрыть"
+
+#: /wa-apps/shop/plugins/syrattach/js/fileupload-widget.js:375
+msgid "Files with extensions *.gif, *.jpg, *.jpeg, *.png are allowed only."
+msgstr ""
+
+#: /wa-apps/shop/plugins/syrattach/js/syrattach.js:137
+msgid "Save"
+msgstr "Сохранить"
+
+#: /wa-apps/shop/plugins/syrattach/lib/actions/shopSyrattachPluginAttachments.actions.php:32
+#: /wa-apps/shop/plugins/syrattach/lib/actions/shopSyrattachPluginAttachments.actions.php:75
+msgid "Unknown product"
+msgstr "Неизвестный товар"
+
+#: /wa-apps/shop/plugins/syrattach/lib/actions/shopSyrattachPluginAttachments.actions.php:46
+msgid "Deleted"
+msgstr "Удалено"
+
+#: /wa-apps/shop/plugins/syrattach/lib/actions/shopSyrattachPluginAttachments.actions.php:117
+#: /wa-apps/shop/plugins/syrattach/lib/actions/settings/shopSyrattachPluginBackendSave.controller.php:33
+msgid "Saved"
+msgstr "Записано"
+
+#: /wa-apps/shop/plugins/syrattach/lib/actions/shopSyrattachPluginAttachments.actions.php:107
+msgid "Unknown attachment ID"
+msgstr "Неизвестный идентификатор вложения"
+
+#: /wa-apps/shop/plugins/syrattach/lib/actions/shopSyrattachPluginAttachmentsUpload.controller.php:55
+msgid "Access denied"
+msgstr "Доступ запрещен"
+
+#: /wa-apps/shop/plugins/syrattach/lib/config/plugin.php:10
+msgid "Attached Files"
+msgstr "Прикрепленные Файлы"
+
+#: /wa-apps/shop/plugins/syrattach/lib/config/settings.php:11
+msgid "Hook"
+msgstr "Хук"
+
+#: /wa-apps/shop/plugins/syrattach/lib/config/settings.php:12
+msgid ""
+"Hook name to display filelist. Each hook placement depends of theme design. "
+"<a href=\"http://www.webasyst.com/developers/docs/plugins/hooks/shop/"
+"frontend_product/\" target=\"_blank\">More info about hooks.</a>"
+msgstr ""
+"Название хука для показа списка файлов. Конкретное место расположение хука "
+"зависит от темы дизайна. <a href=\"http://www.webasyst.ru/developers/docs/"
+"plugins/hooks/shop/frontend_product/\" target=\"_blank\">Подробнее о хуках.</"
+"a>"
+
+#: /wa-apps/shop/plugins/syrattach/lib/config/settings.php:18
+msgid "No. Disable hooks"
+msgstr "Нет. Запретить хуки."
+
+#: /wa-apps/shop/plugins/syrattach/lib/models/shopSyrattachFile.model.php:27
+msgid "Product ID missing while file metadata saving"
+msgstr "Не указан идентификатор товара при записи мета-данных"
+
+#: /wa-apps/shop/plugins/syrattach/lib/models/shopSyrattachFile.model.php:87
+msgid "Cannot find a record for attachment ID#%d"
+msgstr "Не могу найти запись для вложения с идентификатором %d"
+
+#: /wa-apps/shop/plugins/syrattach/lib/models/shopSyrattachFile.model.php:99
+msgid "Delete error"
+msgstr "Ошибка удаления"
+
+#: /wa-apps/shop/plugins/syrattach/lib/models/shopSyrattachFile.model.php:105
+msgid "SyrAttach Plugin cannot delete file %s. Message: %s"
+msgstr "Плагин SyrAttach не смог удалить файл %s. Сообщение: %s"
+
+#: /wa-apps/shop/plugins/syrattach/lib/actions/shopSyrattachPluginAttachments.actions.php:111
+msgid "Description is not set"
+msgstr "Описание не задано"

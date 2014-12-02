@@ -7,7 +7,7 @@
  * @license http://www.webasyst.com/terms/#eula Webasyst
  */
 return array(
-    'name' => _wp('Product Attachments'),
+    'name' => _wp('Attached Files'),
     'img' => 'img/syrattach.png',
     'version' => '1.0.0',
     'vendor' => '670917',
