@@ -80,7 +80,7 @@ class shopSyrattachPlugin extends shopPlugin
      */
     public static function templateControl($param, $settings)
     {
-        $control_template_path = 'plugins/syrattach/templates/settings/template_control.tpl';
+        $control_template_path = 'plugins/syrattach/templates/settings/template_control.html';
         $control_template = waSystem::getInstance()->getAppPath($control_template_path, 'shop');
         $view = waSystem::getInstance()->getView();
         $template_path = 'plugins/syrattach/templates/frontend_product.html';

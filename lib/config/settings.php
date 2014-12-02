@@ -28,8 +28,8 @@ return array(
         )
     ),
     'template' => array(
-        'title'             => 'Template',
-        'description'       => "Template to display at the hook position. HTML+Smarty",
+        'title'             => _wp('Template'),
+        'description'       => _wp("Template to display at the hook position. HTML+Smarty"),
         'control_type'      => waHtmlControl::CUSTOM . ' shopSyrattachPlugin::templateControl'
     )
 );

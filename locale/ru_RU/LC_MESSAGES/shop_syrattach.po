@@ -126,3 +126,57 @@ msgstr "Плагин SyrAttach не смог удалить файл %s. Соо�
 #: /wa-apps/shop/plugins/syrattach/lib/actions/shopSyrattachPluginAttachments.actions.php:111
 msgid "Description is not set"
 msgstr "Описание не задано"
+
+#: /wa-apps/shop/plugins/syrattach/templates/settings/template_control.html:41
+msgid ""
+"Do you really want to reset the template to the original one? All changes "
+"you're made will lost!"
+msgstr ""
+"Вы действительно хотите восстановить шаблон по умолчанию? Все внесенные вами "
+"изменения будут потеряны!"
+
+#: /wa-apps/shop/plugins/syrattach/templates/settings/template_control.html:2
+msgid "Restore original template"
+msgstr "Восстановить стандартный шаблон"
+
+#: /wa-apps/shop/plugins/syrattach/templates/settings/template_control.html:8
+msgid "Variables available within the template:"
+msgstr "Переменные, доступные в шаблоне"
+
+#: /wa-apps/shop/plugins/syrattach/templates/settings/template_control.html:9
+msgid "A list of file data. Each file item is an array with keys:"
+msgstr ""
+"Список данных о файлах. Каждая запись о файле представляет из себя массив со "
+"следующими ключами:"
+
+#: /wa-apps/shop/plugins/syrattach/templates/settings/template_control.html:11
+msgid "Attachment ID#"
+msgstr "ID"
+
+#: /wa-apps/shop/plugins/syrattach/templates/settings/template_control.html:12
+msgid "File name"
+msgstr "Имя файла"
+
+#: /wa-apps/shop/plugins/syrattach/templates/settings/template_control.html:13
+msgid "File extension"
+msgstr "Расширение файла"
+
+#: /wa-apps/shop/plugins/syrattach/templates/settings/template_control.html:14
+msgid "File description"
+msgstr "Описание файла"
+
+#: /wa-apps/shop/plugins/syrattach/templates/settings/template_control.html:15
+msgid "File size in bytes"
+msgstr "Размер файла в байтах"
+
+#: /wa-apps/shop/plugins/syrattach/templates/settings/template_control.html:16
+msgid "File URL"
+msgstr "URL"
+
+#: /wa-apps/shop/plugins/syrattach/lib/config/settings.php:32
+msgid "Template to display at the hook position. HTML+Smarty"
+msgstr "Шаблон для отображения в выбранном хуке. HTML и Smarty"
+
+#: /wa-apps/shop/plugins/syrattach/lib/config/settings.php:31
+msgid "Template"
+msgstr "Шаблон"
