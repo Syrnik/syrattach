@@ -68,7 +68,7 @@ class shopSyrattachPlugin extends shopPlugin
 
         return waSystem::getInstance()->getDataUrl($path, TRUE, 'shop', $absolute);
     }
-    
+
     public static function templateControl($param, $settings)
     {
         $control_template_path = 'plugins/syrattach/templates/settings/template_control.tpl';
@@ -77,7 +77,7 @@ class shopSyrattachPlugin extends shopPlugin
         $template_path = 'plugins/syrattach/templates/frontend_product.html';
         $original_template = waSystem::getInstance()->getAppPath($template_path, 'shop');
         $modified_template = waSystem::getInstance()->getDataPath($template_path, FALSE, 'shop', FALSE);
-        
+
         if(file_exists($modified_template)) {
             $template = file_get_contents($modified_template);
             $template_modified = TRUE;
@@ -85,11 +85,46 @@ class shopSyrattachPlugin extends shopPlugin
             $template = file_get_contents($original_template);
             $template_modified = FALSE;
         }
-        
+
         $params = print_r(func_get_args(), TRUE);
-        
-        $view->assign(compact('param', 'settings', 'template', 'template_modified'));        
+
+        $view->assign(compact('param', 'settings', 'template', 'template_modified'));
         return $view->fetch($control_template);
+    }
+
+    /**
+     * Helper method.
+     * Returns an array of attached files
+     *
+     * array(
+     *     array(
+     *        'id'
+     *        'name'
+     *        'ext'
+     *        'description',
+     *        'size'
+     *     )
+     * )
+     *
+     * @param int $product_id
+     * @return array
+     */
+    public static function getList($product_id)
+    {
+        $product_id = intval($product_id);
+        if(!$product_id) {
+            return array();
+        }
+
+        $Attachment = new shopSyrattachFileModel();
+
+        $files = $Attachment->
+                select("`id`,`name`, `ext`, `description`, `size`")->
+                where('product_id=i:id', array('id'=>$product_id))->
+                order('`sort` ASC')->
+                fetchAll();
+
+        return $files;
     }
 
 }
