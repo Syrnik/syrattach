@@ -20,9 +20,9 @@ class shopSyrattachPluginSettingsOriginaltemplateController extends waJsonContro
         $original_template = waSystem::getInstance()->getAppPath($template_path, 'shop');
         $modified_template = waSystem::getInstance()->getDataPath($template_path, FALSE, 'shop', FALSE);
         $this->getResponse()->addHeader('Content-type', 'application/json');
-        
+
         waFiles::delete($modified_template);
-        
+
         $this->response['template'] = file_get_contents($original_template);
     }
 }

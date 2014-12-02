@@ -15,16 +15,16 @@ class shopSyrattachPluginBackendSaveController extends waJsonController
         if (!$this->getUser()->getRights('shop', 'settings')) {
             throw new waException(_w('Access denied'));
         }
-        
+
         $namespace = 'shop_syrattach';
-        
+
         $template = waRequest::post('syrattach_template', '', waRequest::TYPE_STRING);
         if($template) {
             $template_path = 'plugins/syrattach/templates/frontend_product.html';
             $modified_template = waSystem::getInstance()->getDataPath($template_path, FALSE, 'shop', TRUE);
             waFiles::write($modified_template, $template);
         }
-        
+
         $plugin = waSystem::getInstance()->getPlugin('syrattach');
         $settings = (array)$this->getRequest()->post($namespace);
 
