@@ -41,9 +41,9 @@
             if(confirm("{_wp("Do you really want to reset the template to the original one? All changes you're made will lost!")|escape:javascript}") === true) {
                 $.get("?plugin=syrattach&module=settings&action=originaltemplate", function(r){
                     if(r.status == 'ok'){
-                        console.log(c);
                         $("#{$settings.id}").val(r.data.template);
                         c.setValue($("#{$settings.id}").val());
+                        $("#{$settings.id}-restore-template").hide();
                     }
                 });
             }
