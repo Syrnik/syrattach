@@ -86,9 +86,7 @@ class shopSyrattachPlugin extends shopPlugin
             $template_modified = FALSE;
         }
 
-        $params = print_r(func_get_args(), TRUE);
-
-        $view->assign(compact('param', 'settings', 'template', 'template_modified'));
+        $view->assign(compact('template', 'template_modified'));
         return $view->fetch($control_template);
     }
 
@@ -124,12 +122,38 @@ class shopSyrattachPlugin extends shopPlugin
                 where('product_id=i:id', array('id'=>$product_id))->
                 order('`sort` ASC')->
                 fetchAll();
-        
+
         foreach($files as &$file) {
             $file['url'] = shopSyrattachPlugin::getFileUrl($file + array('product_id' => $product_id));
         }
 
         return $files;
+    }
+
+    public static function render($product_id, $force_on_empty=FALSE)
+    {
+        $attachments = self::getList($product_id);
+
+        $result = "";
+
+        if($attachments || $force_on_empty) {
+            $view = waSystem::getInstance()->getView();
+            $template_path = 'plugins/syrattach/templates/frontend_product.html';
+            $original_template = waSystem::getInstance()->getAppPath($template_path, 'shop');
+            $modified_template = waSystem::getInstance()->getDataPath($template_path, FALSE, 'shop', FALSE);
+
+            if(file_exists($modified_template)) {
+                $template = $modified_template;
+            } else {
+                $template = $original_template;
+            }
+
+            $view->assign(compact('attachments'));
+
+            $result = $view->fetch($template);
+        }
+
+        return $result;
     }
 
 }
