@@ -69,6 +69,15 @@ class shopSyrattachPlugin extends shopPlugin
         return waSystem::getInstance()->getDataUrl($path, TRUE, 'shop', $absolute);
     }
 
+    /**
+     * Template editor
+     *
+     * Renders the template with custom form control
+     *
+     * @param string $param
+     * @param array $settings
+     * @return string
+     */
     public static function templateControl($param, $settings)
     {
         $control_template_path = 'plugins/syrattach/templates/settings/template_control.tpl';
@@ -86,7 +95,7 @@ class shopSyrattachPlugin extends shopPlugin
             $template_modified = FALSE;
         }
 
-        $view->assign(compact('template', 'template_modified'));
+        $view->assign(compact('settings', 'template', 'template_modified'));
         return $view->fetch($control_template);
     }
 
