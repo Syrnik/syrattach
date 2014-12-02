@@ -139,6 +139,15 @@ class shopSyrattachPlugin extends shopPlugin
         return $files;
     }
 
+    /**
+     * Helper mothod.
+     *
+     * Returns the rendered template with list of files
+     *
+     * @param int $product_id
+     * @param bool $force_on_empty If TRUE render template even the list of files is empty
+     * @return string
+     */
     public static function render($product_id, $force_on_empty=FALSE)
     {
         $attachments = self::getList($product_id);
