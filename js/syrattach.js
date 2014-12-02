@@ -186,6 +186,7 @@
     syrattachupload.fileupload({
         formData : $("#s-plugin-syrattach-fileupload input[type=hidden]").serializeArray(),
         dropZone : $(".s-plugin-syrattach-upload-dropzone"),
+        maxFileSize: $.product_syrattachments.options.maxFileSize,
         start : function(e) {
             $.product_syrattachments.progressbar.update(0);
             $.product_syrattachments.progressbar.element.parent().show();

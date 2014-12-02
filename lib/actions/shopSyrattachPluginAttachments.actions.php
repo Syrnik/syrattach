@@ -35,7 +35,9 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
         $attachments = $this->Attachment->getByProductId($product_id, TRUE);
         $count = count($attachments);
 
-        $this->view->assign(compact('attachments', 'count', 'product'));
+        $max_file_size = $this->determineMaxUploadSize();
+
+        $this->view->assign(compact('attachments', 'count', 'max_file_size', 'product'));
     }
 
     public function deleteAction()
@@ -156,6 +158,54 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
         parent::preExecute();
         $this->Product = new shopProductModel();
         $this->Attachment = new shopSyrattachFileModel();
+    }
+
+    /**
+     * Determines maximum upload size in bytes
+     *
+     * @see http://stackoverflow.com/a/2840875/2558549
+     *
+     * @return int
+     */
+    private function determineMaxUploadSize()
+    {
+        $max_upload = $this->convertPHPSizeToBytes(ini_get('upload_max_filesize'));
+        $max_post = $this->convertPHPSizeToBytes(ini_get('post_max_size'));
+        $memory_limit = $this->convertPHPSizeToBytes(ini_get('memory_limit'));
+        $upload_mb = min($max_upload, $max_post, $memory_limit);
+
+        return (int)($upload_mb * 0.8);
+    }
+
+    /**
+     * Convert php.ini sizes like 64M to the numbers
+     *
+     * @see http://stackoverflow.com/a/22500394/2558549
+     *
+     * @param int|string $size
+     * @return int
+     */
+    private function convertPHPSizeToBytes($size)
+    {
+        if ( is_numeric( $size) ) {
+            return $size;
+        }
+        $sSuffix = substr($size, -1);
+        $iValue = substr($size, 0, -1);
+        switch(strtoupper($sSuffix)){
+        case 'P':
+            $iValue *= 1024;
+        case 'T':
+            $iValue *= 1024;
+        case 'G':
+            $iValue *= 1024;
+        case 'M':
+            $iValue *= 1024;
+        case 'K':
+            $iValue *= 1024;
+            break;
+        }
+        return $iValue;
     }
 
 }

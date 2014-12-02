@@ -8,6 +8,8 @@
         <input type="file" name="files[]" multiple>
     </a>
     <span class="gray">{_w('or drag them here to start upload')}</span>
+    {_wp("Max. file size for upload:")}
+    {$max_file_size|wa_format_file_size}
     {$wa->csrf()}
     <input type="hidden" name="syrattach_product_id" value="{$product.id}">
     <span id="s-plugin-syrattach-upload-progress" style="display:none">
@@ -30,7 +32,8 @@
         product_id: {$product.id},
         attachments: {json_encode($attachments)},
         count: {$count},
-        placeholder: '{_wp('Add file description')|escape:javascript}'
+        placeholder: '{_wp('Add file description')|escape:javascript}',
+        maxFileSize: {$max_file_size}
     });
     $(function(){
     });
