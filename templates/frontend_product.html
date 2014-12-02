@@ -4,10 +4,10 @@
         <ul>
             {foreach $attachments as $file}
                 <li>
-                    <span class="s-plugin-syrattach-filename"><a href="{$file.url}">{$file.name}</a></span>
+                    <span class="s-plugin-syrattach-filename"><a href="{$file.url}">{$file.name|escape}</a></span>
                     <span class="s-plugin-syrattach-filesize">{$file.size|wa_format_file_size}</span>
                     {if $file.description}
-                        <span class="s-plugin-syrattach-filedescription">{$file.description}</span>
+                        <span class="s-plugin-syrattach-filedescription">{$file.description|escape}</span>
                     {/if}
                 </li>
             {/foreach}
