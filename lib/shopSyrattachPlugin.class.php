@@ -174,4 +174,21 @@ class shopSyrattachPlugin extends shopPlugin
         return $result;
     }
 
+    /**
+     * Handler for frontend_product hook
+     *
+     * @param shopProduct $product
+     * @return string
+     */
+    public function frontendProduct($product)
+    {
+        $placement = $this->getSettings('frontend_product_hook');
+
+        if(!in_array($placement, array('block', 'block_aux'))) {
+            return array();
+        }
+
+        return array($placement => self::render($product->id));
+    }
+
 }
