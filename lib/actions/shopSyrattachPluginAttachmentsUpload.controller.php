@@ -1,4 +1,5 @@
 <?php
+
 /**
  * File Upload controller
  *
@@ -23,6 +24,12 @@ class shopSyrattachPluginAttachmentsUploadController extends shopUploadControlle
         $this->SyrattachFile = new shopSyrattachFileModel();
     }
 
+    /**
+     *
+     * @param waRequestFile $file
+     * @return array
+     * @throws waException
+     */
     protected function save(waRequestFile $file)
     {
         $product_id = waRequest::post('syrattach_product_id', NULL, waRequest::TYPE_INT);
@@ -33,10 +40,10 @@ class shopSyrattachPluginAttachmentsUploadController extends shopUploadControlle
         $data = $this->SyrattachFile->add($product_id, $file);
 
         return array(
-            'id' => $data['id'],
-            'name' => $data['name'],
-            'type' => $file->type,
-            'size' => $file->size,
+            'id'          => $data['id'],
+            'name'        => $data['name'],
+            'type'        => $file->type,
+            'size'        => $file->size,
             'description' => ''
         );
 
@@ -51,7 +58,7 @@ class shopSyrattachPluginAttachmentsUploadController extends shopUploadControlle
      */
     private function checkProductRights($product_id)
     {
-        if(!$this->Product->checkRights($product_id)) {
+        if (!$this->Product->checkRights($product_id)) {
             throw new waException(_wp('Access denied'));
         }
     }

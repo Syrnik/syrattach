@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package Syrattach
  * @author Serge Rodovnichenko <sergerod@gmail.com>
@@ -57,14 +58,14 @@ class shopSyrattachPlugin extends shopPlugin
         return shopProduct::getPath($product_id, self::SYRATTACH_ATTACHMENTS_FOLDER, TRUE);
     }
 
-    public static function getFileUrl($attachment, $absolute=FALSE)
+    public static function getFileUrl($attachment, $absolute = FALSE)
     {
         $path = shopProduct::getFolder($attachment['product_id']) .
-                "/" .
-                "{$attachment['product_id']}" .
-                "/" .
-                self::SYRATTACH_ATTACHMENTS_FOLDER .
-                "/{$attachment['name']}";
+            "/" .
+            "{$attachment['product_id']}" .
+            "/" .
+            self::SYRATTACH_ATTACHMENTS_FOLDER .
+            "/{$attachment['name']}";
 
         return waSystem::getInstance()->getDataUrl($path, TRUE, 'shop', $absolute);
     }
@@ -87,7 +88,7 @@ class shopSyrattachPlugin extends shopPlugin
         $original_template = waSystem::getInstance()->getAppPath($template_path, 'shop');
         $modified_template = waSystem::getInstance()->getDataPath($template_path, FALSE, 'shop', FALSE);
 
-        if(file_exists($modified_template)) {
+        if (file_exists($modified_template)) {
             $template = file_get_contents($modified_template);
             $template_modified = TRUE;
         } else {
@@ -96,6 +97,7 @@ class shopSyrattachPlugin extends shopPlugin
         }
 
         $view->assign(compact('settings', 'template', 'template_modified'));
+
         return $view->fetch($control_template);
     }
 
@@ -120,19 +122,19 @@ class shopSyrattachPlugin extends shopPlugin
     public static function getList($product_id)
     {
         $product_id = intval($product_id);
-        if(!$product_id) {
+        if (!$product_id) {
             return array();
         }
 
         $Attachment = new shopSyrattachFileModel();
 
-        $files = $Attachment->
-                select("`id`,`name`, `ext`, `description`, `size`")->
-                where('product_id=i:id', array('id'=>$product_id))->
-                order('`sort` ASC')->
-                fetchAll();
+        $files = $Attachment
+            ->select("`id`,`name`, `ext`, `description`, `size`")
+            ->where('product_id=i:id', array('id' => $product_id))
+            ->order('`sort` ASC')
+            ->fetchAll();
 
-        foreach($files as &$file) {
+        foreach ($files as &$file) {
             $file['url'] = shopSyrattachPlugin::getFileUrl($file + array('product_id' => $product_id));
         }
 
@@ -140,7 +142,7 @@ class shopSyrattachPlugin extends shopPlugin
     }
 
     /**
-     * Helper mothod.
+     * Helper method.
      *
      * Returns the rendered template with list of files
      *
@@ -148,19 +150,19 @@ class shopSyrattachPlugin extends shopPlugin
      * @param bool $force_on_empty If TRUE render template even the list of files is empty
      * @return string
      */
-    public static function render($product_id, $force_on_empty=FALSE)
+    public static function render($product_id, $force_on_empty = FALSE)
     {
         $attachments = self::getList($product_id);
 
         $result = "";
 
-        if($attachments || $force_on_empty) {
+        if ($attachments || $force_on_empty) {
             $view = waSystem::getInstance()->getView();
             $template_path = 'plugins/syrattach/templates/frontend_product.html';
             $original_template = waSystem::getInstance()->getAppPath($template_path, 'shop');
             $modified_template = waSystem::getInstance()->getDataPath($template_path, FALSE, 'shop', FALSE);
 
-            if(file_exists($modified_template)) {
+            if (file_exists($modified_template)) {
                 $template = $modified_template;
             } else {
                 $template = $original_template;
@@ -184,7 +186,7 @@ class shopSyrattachPlugin extends shopPlugin
     {
         $placement = $this->getSettings('frontend_product_hook');
 
-        if(!in_array($placement, array('block', 'block_aux'))) {
+        if (!in_array($placement, array('block', 'block_aux'))) {
             return array();
         }
 
