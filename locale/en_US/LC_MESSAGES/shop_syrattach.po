@@ -165,3 +165,11 @@ msgstr ""
 #: /wa-apps/shop/plugins/syrattach/lib/config/settings.php:31
 msgid "Template"
 msgstr ""
+
+#: /wa-apps/shop/plugins/syrattach/templates/actions/settings/Settings.html:1
+msgid "Attached Files Plugin Setup"
+msgstr ""
+
+#: /wa-apps/shop/plugins/syrattach/lib/actions/settings/shopSyrattachPluginSettings.action.php:25
+msgid "Attached Files Plugin Settings"
+msgstr ""

@@ -180,3 +180,11 @@ msgstr "Шаблон для отображения в выбранном хук�
 #: /wa-apps/shop/plugins/syrattach/lib/config/settings.php:31
 msgid "Template"
 msgstr "Шаблон"
+
+#: /wa-apps/shop/plugins/syrattach/templates/actions/settings/Settings.html:1
+msgid "Attached Files Plugin Setup"
+msgstr "Настройка плагина Прикрепленные Файлы"
+
+#: /wa-apps/shop/plugins/syrattach/lib/actions/settings/shopSyrattachPluginSettings.action.php:25
+msgid "Attached Files Plugin Settings"
+msgstr "Настройки плагина Прикрепленные Файлы"
