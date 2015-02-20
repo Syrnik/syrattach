@@ -8,13 +8,15 @@
  * @copyright (c) 2014, Serge Rodovnichenko
  * @license http://www.webasyst.com/terms/#eula Webasyst
  */
-class shopSyrattachPluginBackendSaveController extends waJsonController
+class shopSyrattachPluginSettingsSaveController extends waJsonController
 {
     public function execute()
     {
         if (!$this->getUser()->getRights('shop', 'settings')) {
             throw new waException(_w('Access denied'));
         }
+
+        waLog::log('save', 'syrattach.log');
 
         $namespace = 'shop_syrattach';
 
