@@ -1,7 +1,7 @@
 
 $.product.editTabSyrattachmentsLoad = function(path, post) {
     var self = this;
-    var path = path || this.path;
+    path = path || this.path;
     var url = '?plugin=syrattach&module=attachments&id=' + path.id;
     var r = Math.random();
     this.ajax.random = r;
@@ -71,6 +71,6 @@ $.product.editTabSyrattachmentsLoad = function(path, post) {
             self.dispatch(path);
         }
     });
-}
+};
 
 
