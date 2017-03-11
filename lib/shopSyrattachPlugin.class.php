@@ -86,7 +86,7 @@ class shopSyrattachPlugin extends shopPlugin
         // Нам ID товара нужен позарез
         if (empty($params['data']['id'])) {
             if (wa()->getConfig()->isDebug()) {
-                waLog::log(sprintf_wp('No ID given for product "%s"', ifset($params['data']['name'], '')) . self::LOG);
+                waLog::log(sprintf(_wp('No ID given for product "%s"'), ifset($params['data']['name'], '')) . self::LOG);
             }
             return;
         }
@@ -96,13 +96,13 @@ class shopSyrattachPlugin extends shopPlugin
 
         foreach ($files as $file) {
             if ((strpos($file, '/') !== false) || (strpos($file, '\\') !== false)) {
-                waLog::log(sprintf_wp('Wrong file name "%s" for product "%s". File not saved.', $file, ifset($params['data']['name'])), self::LOG);
+                waLog::log(sprintf(_wp('Wrong file name "%s" for product "%s". File not saved.'), $file, ifset($params['data']['name'])), self::LOG);
                 continue;
             }
 
             $full_path = $data_path . DIRECTORY_SEPARATOR . $file;
             if (!file_exists($full_path) || !is_file($full_path) || !is_readable($full_path)) {
-                waLog::log(sprintf_wp('File named "%s" not exists or it is not a file or file is not readable. File not saved.', $file), self::LOG);
+                waLog::log(sprintf(_wp('File named "%s" not exists or it is not a file or file is not readable. File not saved.'), $file), self::LOG);
                 continue;
             }
 
