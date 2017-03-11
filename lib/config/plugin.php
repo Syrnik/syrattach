@@ -11,11 +11,12 @@ return array(
     'img'           => 'img/syrattach.png',
     'version'       => '1.0.1',
     'vendor'        => '670917',
-    'shop_settings' => TRUE,
+    'shop_settings' => true,
     'handlers'      =>
         array(
-            'backend_product'  => 'backendProduct',
-            'frontend_product' => 'frontendProduct',
-            'product_delete'   => 'productDelete'
+            'backend_product'       => 'backendProduct',
+            'frontend_product'      => 'frontendProduct',
+            'product_delete'        => 'productDelete',
+            'product_custom_fields' => 'productCustomFields'
         ),
 );

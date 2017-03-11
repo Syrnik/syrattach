@@ -40,6 +40,20 @@ class shopSyrattachPlugin extends shopPlugin
     }
 
     /**
+     * Handler for 'product_custom_fields' hook
+     *
+     * List of columns in the CSV file
+     *
+     * @return array
+     */
+    public function productCustomFields()
+    {
+        return array(
+            'product' => array('syrattach_attachment' => _wp('Attached file'))
+        );
+    }
+
+    /**
      * Handler for 'product_delete' hook
      *
      * We don't care about attached files because they will be deleted by
