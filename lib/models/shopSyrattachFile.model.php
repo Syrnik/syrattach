@@ -87,25 +87,31 @@ class shopSyrattachFileModel extends waModel
         $attachment = $this->getById($id);
 
         if (!$attachment) {
-            throw new waException(sprintf(_wp("Cannot find a record for attachment ID#%d"), $id));
+            throw new waException(sprintf_wp("Cannot find a record for attachment ID#%d", $id));
         }
 
-        /** @todo We need our own getPath? */
         $file = shopProduct::getPath(
             $attachment['product_id'],
             shopSyrattachPlugin::SYRATTACH_ATTACHMENTS_FOLDER . DIRECTORY_SEPARATOR . $attachment['name'],
             true);
 
-        waLog::log("Try to delete '$file'", 'syrattach.log');
+        if (wa()->getConfig()->isDebug()) {
+            waLog::log(sprintf_wp("Try to delete '%s'", $file), shopSyrattachPlugin::LOG);
+        }
 
         if (!$this->deleteById($id)) {
             throw new waException(_wp("Delete error"));
         }
 
         try {
-            waFiles::delete($file);
+            if ($delete_file) {
+                waFiles::delete($file);
+            }
         } catch (waException $e) {
-            waLog::log(sprintf(_wp("SyrAttach Plugin cannot delete file %s. Message: %s"), $file, $e->getMessage()));
+            waLog::log(
+                sprintf_wp("SyrAttach Plugin cannot delete file %s. Message: %s", $file, $e->getMessage()),
+                shopSyrattachPlugin::LOG
+            );
         }
     }
 
