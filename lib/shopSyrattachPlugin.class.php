@@ -12,6 +12,8 @@ class shopSyrattachPlugin extends shopPlugin
 
     const SYRATTACH_ATTACHMENTS_FOLDER = "attachments";
 
+    const LOG = 'shop/plugins/syrattach.log';
+
     /** @var shopSyrattachFileModel */
     private $Attachments;
 
@@ -40,6 +42,20 @@ class shopSyrattachPlugin extends shopPlugin
     }
 
     /**
+     * Handler for 'product_custom_fields' hook
+     *
+     * List of columns in the CSV file
+     *
+     * @return array
+     */
+    public function productCustomFields()
+    {
+        return array(
+            'product' => array('file' => _wp('Attached File'))
+        );
+    }
+
+    /**
      * Handler for 'product_delete' hook
      *
      * We don't care about attached files because they will be deleted by
@@ -51,6 +67,60 @@ class shopSyrattachPlugin extends shopPlugin
     public function productDelete($product_ids)
     {
         $this->Attachments->deleteByField('product_id', $product_ids['ids']);
+    }
+
+    /**
+     * Handler for 'product_save' hook
+     * Copy files from directory on CSV import
+     *
+     * @param array $params
+     * @throws waException
+     */
+    public function productSave($params)
+    {
+        // No data for plugin
+        if (!array_key_exists('syrattach_plugin', $params['data'])) {
+            return;
+        }
+
+        // Нам ID товара нужен позарез
+        if (empty($params['data']['id'])) {
+            if (wa()->getConfig()->isDebug()) {
+                waLog::log(sprintf_wp('No ID given for product "%s"', ifset($params['data']['name'], '')) . self::LOG);
+            }
+            return;
+        }
+
+        $data_path = wa()->getDataPath('syrattach', true, 'site', false);
+        $files = (array)$params['data']['syrattach_plugin'];
+
+        foreach ($files as $file) {
+            if ((strpos($file, '/') !== false) || (strpos($file, '\\') !== false)) {
+                waLog::log(sprintf_wp('Wrong file name "%s" for product "%s". File not saved.', $file, ifset($params['data']['name'])), self::LOG);
+                continue;
+            }
+
+            $full_path = $data_path . DIRECTORY_SEPARATOR . $file;
+            if (!file_exists($full_path) || !is_file($full_path) || !is_readable($full_path)) {
+                waLog::log(sprintf_wp('File named "%s" not exists or it is not a file or file is not readable. File not saved.', $file), self::LOG);
+                continue;
+            }
+
+            $this->Attachments->add(
+                $params['data']['id'],
+                new waRequestFile(
+                    array(
+                        'name'     => $file,
+                        'type'     => 'application/binary',
+                        'size'     => filesize($full_path),
+                        'tmp_name' => $full_path,
+                        'error'    => 0
+                    ),
+                    true
+                ),
+                true
+            );
+        }
     }
 
     public static function getDirectory($product_id)

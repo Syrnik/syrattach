@@ -22,7 +22,7 @@ class shopSyrattachFileModel extends waModel
      * @return array
      * @throws waException
      */
-    public function add($product_id, $file)
+    public function add($product_id, $file, $copy = false)
     {
         if (!intval($product_id)) {
             throw new waException(_wp("Product ID missing while file metadata saving"));
@@ -34,7 +34,7 @@ class shopSyrattachFileModel extends waModel
 
         $data = array(
             'product_id'      => intval($product_id),
-            'name'            => $this->getUniqueFileName(intval($product_id), $file),
+            'name'            => $this->getUniqueFileName($file, $target_dir),
             'sort'            => $this->getSortValue(intval($product_id)),
             'upload_datetime' => date("Y-m-d H:i:s"),
             'size'            => $file->size,
@@ -47,7 +47,11 @@ class shopSyrattachFileModel extends waModel
             throw new waException(_w('Database error'));
         }
 
-        $file->moveTo($target_dir, $data['name']);
+        if (!$copy) {
+            $file->moveTo($target_dir, $data['name']);
+        } else {
+            $file->copyTo($target_dir, $data['name']);
+        }
 
         return $data;
     }
@@ -58,7 +62,7 @@ class shopSyrattachFileModel extends waModel
      * @param bool $file_urls
      * @return array
      */
-    public function getByProductId($product_id, $file_urls = FALSE)
+    public function getByProductId($product_id, $file_urls = false)
     {
         $attachments = $this->select("*")->
         where("product_id=i:product_id", array('product_id' => $product_id))->
@@ -82,30 +86,36 @@ class shopSyrattachFileModel extends waModel
      * @throws Exception
      * @throws waException
      */
-    public function delete($id, $delete_file = TRUE)
+    public function delete($id, $delete_file = true)
     {
         $attachment = $this->getById($id);
 
         if (!$attachment) {
-            throw new waException(sprintf(_wp("Cannot find a record for attachment ID#%d"), $id));
+            throw new waException(sprintf_wp("Cannot find a record for attachment ID#%d", $id));
         }
 
-        /** @todo We need our own getPath? */
         $file = shopProduct::getPath(
             $attachment['product_id'],
             shopSyrattachPlugin::SYRATTACH_ATTACHMENTS_FOLDER . DIRECTORY_SEPARATOR . $attachment['name'],
-            TRUE);
+            true);
 
-        waLog::log("Try to delete '$file'", 'syrattach.log');
+        if (wa()->getConfig()->isDebug()) {
+            waLog::log(sprintf_wp("Try to delete '%s'", $file), shopSyrattachPlugin::LOG);
+        }
 
         if (!$this->deleteById($id)) {
             throw new waException(_wp("Delete error"));
         }
 
         try {
-            waFiles::delete($file);
+            if ($delete_file) {
+                waFiles::delete($file);
+            }
         } catch (waException $e) {
-            waLog::log(sprintf(_wp("SyrAttach Plugin cannot delete file %s. Message: %s"), $file, $e->getMessage()));
+            waLog::log(
+                sprintf_wp("SyrAttach Plugin cannot delete file %s. Message: %s", $file, $e->getMessage()),
+                shopSyrattachPlugin::LOG
+            );
         }
     }
 
@@ -130,13 +140,24 @@ class shopSyrattachFileModel extends waModel
 
     /**
      *
-     * @param int $product_id
      * @param waRequestFile $file
+     * @param $path
      * @return string
+     * @internal param int $product_id
      */
-    private function getUniqueFileName($product_id, $file)
+    private function getUniqueFileName($file, $path)
     {
-        return $file->name;
+        if (!file_exists($path . '/' . $file->name)) return $file->name;
+
+        $i = 1;
+        $pathinfo = pathinfo($file->name);
+        do {
+            $name = sprintf('%s_%d', $pathinfo['filename'], $i++);
+            $filename = $name . "." . $pathinfo['extension'];
+        } while (file_exists($path . DIRECTORY_SEPARATOR . $filename) && is_file($path . DIRECTORY_SEPARATOR . $filename));
+
+
+        return $filename;
     }
 
     /**
@@ -147,7 +168,7 @@ class shopSyrattachFileModel extends waModel
     private function checkDirectory($dir)
     {
 
-        if ((file_exists($dir) && !is_writable($dir)) || (!file_exists($dir) && !waFiles::create($dir, TRUE))) {
+        if ((file_exists($dir) && !is_writable($dir)) || (!file_exists($dir) && !waFiles::create($dir, true))) {
             throw new waException("Error saving file. Check write permissions.");
         }
     }
