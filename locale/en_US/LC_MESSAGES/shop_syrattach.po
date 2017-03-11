@@ -173,3 +173,19 @@ msgstr ""
 #: /wa-apps/shop/plugins/syrattach/lib/actions/settings/shopSyrattachPluginSettings.action.php:25
 msgid "Attached Files Plugin Settings"
 msgstr ""
+
+#: /wa-apps/shop/plugins/syrattach/lib/shopSyrattachPlugin.class.php:54
+msgid "Attached File"
+msgstr ""
+
+#: /wa-apps/shop/plugins/syrattach/lib/shopSyrattachPlugin.class.php:89
+msgid "No ID given for product \"%s\""
+msgstr ""
+
+#: /wa-apps/shop/plugins/syrattach/lib/shopSyrattachPlugin.class.php:99
+msgid "Wrong file name \"%s\" for product \"%s\". File not saved."
+msgstr ""
+
+#: /wa-apps/shop/plugins/syrattach/lib/shopSyrattachPlugin.class.php:105
+msgid "File named \"%s\" not exists or it is not a file or file is not readable. File not saved."
+msgstr ""

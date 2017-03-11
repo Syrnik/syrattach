@@ -8,11 +8,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n"
-"%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n%10)>=2)&&((n"
+"%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.9\n"
+"Language: ru_RU\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: .\n"
 
@@ -94,14 +95,13 @@ msgstr "Хук"
 
 #: /wa-apps/shop/plugins/syrattach/lib/config/settings.php:12
 msgid ""
-"Hook name to display filelist. Each hook placement depends of theme design. "
-"<a href=\"http://www.webasyst.com/developers/docs/plugins/hooks/shop/"
-"frontend_product/\" target=\"_blank\">More info about hooks.</a>"
+"Hook name to display filelist. Each hook placement depends of theme design. <a href=\"http://"
+"www.webasyst.com/developers/docs/plugins/hooks/shop/frontend_product/\" target=\"_blank\">More "
+"info about hooks.</a>"
 msgstr ""
-"Название хука для показа списка файлов. Конкретное место расположение хука "
-"зависит от темы дизайна. <a href=\"http://www.webasyst.ru/developers/docs/"
-"plugins/hooks/shop/frontend_product/\" target=\"_blank\">Подробнее о хуках.</"
-"a>"
+"Название хука для показа списка файлов. Конкретное место расположение хука зависит от темы "
+"дизайна. <a href=\"http://www.webasyst.ru/developers/docs/plugins/hooks/shop/frontend_product/"
+"\" target=\"_blank\">Подробнее о хуках.</a>"
 
 #: /wa-apps/shop/plugins/syrattach/lib/config/settings.php:18
 msgid "No. Disable hooks"
@@ -129,11 +129,11 @@ msgstr "Описание не задано"
 
 #: /wa-apps/shop/plugins/syrattach/templates/settings/template_control.html:41
 msgid ""
-"Do you really want to reset the template to the original one? All changes "
-"you're made will lost!"
+"Do you really want to reset the template to the original one? All changes you're made will "
+"lost!"
 msgstr ""
-"Вы действительно хотите восстановить шаблон по умолчанию? Все внесенные вами "
-"изменения будут потеряны!"
+"Вы действительно хотите восстановить шаблон по умолчанию? Все внесенные вами изменения будут "
+"потеряны!"
 
 #: /wa-apps/shop/plugins/syrattach/templates/settings/template_control.html:2
 msgid "Restore original template"
@@ -146,8 +146,8 @@ msgstr "Переменные, доступные в шаблоне"
 #: /wa-apps/shop/plugins/syrattach/templates/settings/template_control.html:9
 msgid "A list of file data. Each file item is an array with keys:"
 msgstr ""
-"Список данных о файлах. Каждая запись о файле представляет из себя массив со "
-"следующими ключами:"
+"Список данных о файлах. Каждая запись о файле представляет из себя массив со следующими "
+"ключами:"
 
 #: /wa-apps/shop/plugins/syrattach/templates/settings/template_control.html:11
 msgid "Attachment ID#"
@@ -188,3 +188,21 @@ msgstr "Настройка плагина Прикрепленные Файлы"
 #: /wa-apps/shop/plugins/syrattach/lib/actions/settings/shopSyrattachPluginSettings.action.php:25
 msgid "Attached Files Plugin Settings"
 msgstr "Настройки плагина Прикрепленные Файлы"
+
+#: /wa-apps/shop/plugins/syrattach/lib/shopSyrattachPlugin.class.php:54
+msgid "Attached File"
+msgstr "Прикрепленный файл"
+
+#: /wa-apps/shop/plugins/syrattach/lib/shopSyrattachPlugin.class.php:89
+msgid "No ID given for product \"%s\""
+msgstr "Не указан идентификатор (ID) для товара '%s'"
+
+#: /wa-apps/shop/plugins/syrattach/lib/shopSyrattachPlugin.class.php:99
+msgid "Wrong file name \"%s\" for product \"%s\". File not saved."
+msgstr "Неверное имя файла '%s' для товара '%s'. Файл не записан"
+
+#: /wa-apps/shop/plugins/syrattach/lib/shopSyrattachPlugin.class.php:105
+msgid "File named \"%s\" not exists or it is not a file or file is not readable. File not saved."
+msgstr ""
+"Файл с именем '%s' не существует или недоступен для чтения. Или это вообще не файл. Файл не "
+"записан."
