@@ -9,7 +9,7 @@
 return array(
     'name'          => _wp('Attached Files'),
     'img'           => 'img/syrattach.png',
-    'version'       => '1.0.1',
+    'version'       => '1.1.0',
     'vendor'        => '670917',
     'shop_settings' => true,
     'handlers'      =>
