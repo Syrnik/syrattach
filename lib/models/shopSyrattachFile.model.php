@@ -150,12 +150,14 @@ class shopSyrattachFileModel extends waModel
         if (!file_exists($path . '/' . $file->name)) return $file->name;
 
         $i = 1;
+        $pathinfo = pathinfo($file->name);
         do {
-            $name = sprintf('%s_%d', $file->name, $i);
-        } while (file_exists($path . '/' . $file->name) && is_file($path . '/' . $file->name));
+            $name = sprintf('%s_%d', $pathinfo['filename'], $i++);
+            $filename = $name . "." . $pathinfo['extension'];
+        } while (file_exists($path . DIRECTORY_SEPARATOR . $filename) && is_file($path . DIRECTORY_SEPARATOR . $filename));
 
 
-        return $name;
+        return $filename;
     }
 
     /**
