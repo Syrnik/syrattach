@@ -125,10 +125,10 @@ class shopSyrattachPlugin extends shopPlugin
 
     public static function getDirectory($product_id)
     {
-        return shopProduct::getPath($product_id, self::SYRATTACH_ATTACHMENTS_FOLDER, TRUE);
+        return shopProduct::getPath($product_id, self::SYRATTACH_ATTACHMENTS_FOLDER, true);
     }
 
-    public static function getFileUrl($attachment, $absolute = FALSE)
+    public static function getFileUrl($attachment, $absolute = false)
     {
         $path = shopProduct::getFolder($attachment['product_id']) .
             "/" .
@@ -137,7 +137,7 @@ class shopSyrattachPlugin extends shopPlugin
             self::SYRATTACH_ATTACHMENTS_FOLDER .
             "/{$attachment['name']}";
 
-        return waSystem::getInstance()->getDataUrl($path, TRUE, 'shop', $absolute);
+        return waSystem::getInstance()->getDataUrl($path, true, 'shop', $absolute);
     }
 
     /**
@@ -156,14 +156,14 @@ class shopSyrattachPlugin extends shopPlugin
         $view = waSystem::getInstance()->getView();
         $template_path = 'plugins/syrattach/templates/frontend_product.html';
         $original_template = waSystem::getInstance()->getAppPath($template_path, 'shop');
-        $modified_template = waSystem::getInstance()->getDataPath($template_path, FALSE, 'shop', FALSE);
+        $modified_template = waSystem::getInstance()->getDataPath($template_path, false, 'shop', false);
 
         if (file_exists($modified_template)) {
             $template = file_get_contents($modified_template);
-            $template_modified = TRUE;
+            $template_modified = true;
         } else {
             $template = file_get_contents($original_template);
-            $template_modified = FALSE;
+            $template_modified = false;
         }
 
         $view->assign(compact('settings', 'template', 'template_modified'));
@@ -220,17 +220,17 @@ class shopSyrattachPlugin extends shopPlugin
      * @param bool $force_on_empty If TRUE render template even the list of files is empty
      * @return string
      */
-    public static function render($product_id, $force_on_empty = FALSE)
+    public static function render($product_id, $force_on_empty = false)
     {
         $attachments = self::getList($product_id);
 
         $result = "";
 
         if ($attachments || $force_on_empty) {
-            $view = waSystem::getInstance()->getView();
+            $view = wa()->getView();
             $template_path = 'plugins/syrattach/templates/frontend_product.html';
-            $original_template = waSystem::getInstance()->getAppPath($template_path, 'shop');
-            $modified_template = waSystem::getInstance()->getDataPath($template_path, FALSE, 'shop', FALSE);
+            $original_template = wa()->getAppPath($template_path, 'shop');
+            $modified_template = wa()->getDataPath($template_path, false, 'shop', false);
 
             if (file_exists($modified_template)) {
                 $template = $modified_template;
