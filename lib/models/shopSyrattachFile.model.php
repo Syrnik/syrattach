@@ -22,7 +22,7 @@ class shopSyrattachFileModel extends waModel
      * @return array
      * @throws waException
      */
-    public function add($product_id, $file)
+    public function add($product_id, $file, $copy = false)
     {
         if (!intval($product_id)) {
             throw new waException(_wp("Product ID missing while file metadata saving"));
@@ -47,7 +47,11 @@ class shopSyrattachFileModel extends waModel
             throw new waException(_w('Database error'));
         }
 
-        $file->moveTo($target_dir, $data['name']);
+        if (!$copy) {
+            $file->moveTo($target_dir, $data['name']);
+        } else {
+            $file->copyTo($target_dir, $data['name']);
+        }
 
         return $data;
     }
