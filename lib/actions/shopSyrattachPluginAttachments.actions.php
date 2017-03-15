@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Description of shopSyrattachPluginAttachments
  *
@@ -28,7 +29,7 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
     {
         $product_id = waRequest::get('id', NULL, waRequest::TYPE_INT);
         $product = $this->Product->getById($product_id);
-        if(!$product) {
+        if (!$product) {
             throw new waException(_wp("Unknown product"));
         }
 
@@ -71,7 +72,7 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
         $this->getResponse()->addHeader('Content-type', 'application/json');
 
         try {
-            if(!$product_id) {
+            if (!$product_id) {
                 throw new waException(_wp('Unknown product'));
             }
 
@@ -95,23 +96,23 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
         $id = waRequest::post('id', 0, waRequest::TYPE_INT);
         $data = waRequest::post('data', array(), waRequest::TYPE_ARRAY);
         $errors = array();
-        $response='';
+        $response = '';
         $this->getResponse()->addHeader('Content-type', 'application/json');
 
         try {
 
-            if(!$id) {
+            if (!$id) {
                 throw new waException(_wp('Unknown attachment ID'));
             }
 
-            if(empty($data) || !is_array($data) || !isset($data['description'])) {
+            if (empty($data) || !is_array($data) || !isset($data['description'])) {
                 throw new waException(_wp('Description is not set'));
             }
 
             // TODO: Не лучшая идея. Переделать при случае.
-            $this->Attachment->updateById($id, array('description'=>$data['description']));
+            $this->Attachment->updateById($id, array('description' => $data['description']));
 
-            $response=_wp("Saved");
+            $response = _wp("Saved");
 
         } catch (waException $exc) {
             $errors[] = $exc->getMessage();
@@ -130,13 +131,13 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
         $pluginRoot = $this->getPluginRoot();
 
         if ($this->template === NULL) {
-            if($this->getResponse()->getHeader('Content-type') === 'application/json') {
+            if ($this->getResponse()->getHeader('Content-type') === 'application/json') {
                 return "{$pluginRoot}templates/json.tpl";
             }
             $template = ucfirst($this->action);
         } else {
             // If path contains / or : then it's a full path to template
-            if (strpbrk($this->template, '/:') !== false) {
+            if (strpbrk($this->template, '/:') !== FALSE) {
                 return $this->template;
             }
 
@@ -146,7 +147,8 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
 
         $match = array();
         preg_match("/[A-Z][^A-Z]+/", get_class($this), $match);
-        $template = "{$pluginRoot}{$this->template_folder}/$template".$this->view->getPostfix();
+        $template = "{$pluginRoot}{$this->template_folder}/$template" . $this->view->getPostfix();
+
         return $template;
     }
 
@@ -187,24 +189,25 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
      */
     private function convertPHPSizeToBytes($size)
     {
-        if ( is_numeric( $size) ) {
+        if (is_numeric($size)) {
             return $size;
         }
         $sSuffix = substr($size, -1);
         $iValue = substr($size, 0, -1);
-        switch(strtoupper($sSuffix)){
-        case 'P':
-            $iValue *= 1024;
-        case 'T':
-            $iValue *= 1024;
-        case 'G':
-            $iValue *= 1024;
-        case 'M':
-            $iValue *= 1024;
-        case 'K':
-            $iValue *= 1024;
-            break;
+        switch (strtoupper($sSuffix)) {
+            case 'P':
+                $iValue *= 1024;
+            case 'T':
+                $iValue *= 1024;
+            case 'G':
+                $iValue *= 1024;
+            case 'M':
+                $iValue *= 1024;
+            case 'K':
+                $iValue *= 1024;
+                break;
         }
+
         return $iValue;
     }
 

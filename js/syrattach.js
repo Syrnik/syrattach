@@ -28,7 +28,7 @@
 
         init: function(options) {
             
-            $.shop.trace('$.product_syrattachments.init');
+            $.shop.trace('$.product_syrattachments.init', 'Init');
             
             this.options = options;
             this.product_id = parseInt(this.options.product_id, 10) || 0;
@@ -95,7 +95,7 @@
                     if(data.status === 'ok') {
                         list_item.slideUp(500, function(){
                             list_item.remove();
-                            cnt = parseInt($.product_syrattachments.counter.text());
+                            var cnt = parseInt($.product_syrattachments.counter.text());
                             cnt--;
                             if(cnt >0) {
                                 $.product_syrattachments.counter.text(cnt);
@@ -164,11 +164,11 @@
         },
 
         _formatFileSize: function (bytes) {
-            
-            if(typeof bytes === 'string') {
+
+            if (typeof bytes === 'string') {
                 bytes = parseInt(bytes);
             }
-            
+
             if (typeof bytes !== 'number') {
                 return '';
             }
@@ -181,23 +181,24 @@
             return (bytes / 1000).toFixed(2) + ' KB';
         }
     };
-    
+
     var syrattachupload = $("#s-plugin-syrattach-fileupload");
+
     syrattachupload.fileupload({
-        formData : $("#s-plugin-syrattach-fileupload input[type=hidden]").serializeArray(),
-        dropZone : $(".s-plugin-syrattach-upload-dropzone"),
+        formData: $("#s-plugin-syrattach-fileupload input[type=hidden]").serializeArray(),
+        dropZone: $(".s-plugin-syrattach-upload-dropzone"),
         maxFileSize: $.product_syrattachments.options.maxFileSize,
-        start : function(e) {
+        start: function (e) {
             $.product_syrattachments.progressbar.update(0);
             $.product_syrattachments.progressbar.element.parent().show();
-            $.shop.trace('File upload starts');
+            $.shop.trace('File upload starts', '');
         },
-        stop : function(e) {
+        stop: function (e) {
             $.product_syrattachments.progressbar.element.parent().hide();
-            $.shop.trace('File upload ends');
-            $.get("?plugin=syrattach&module=attachments&action=list", { product_id: $.product_syrattachments.product_id })
-                .success(function(data){
-                    if(data.status == 'ok') {
+            $.shop.trace('File upload ends', '');
+            $.get("?plugin=syrattach&module=attachments&action=list", {product_id: $.product_syrattachments.product_id})
+                .success(function (data) {
+                    if (data.status == 'ok') {
                         $.product_syrattachments.options.attachments = data.response.attachments;
                         $.product_syrattachments.attachments_list.html(tmpl('template-syrattach-attachments', {
                             attachments: $.product_syrattachments.options.attachments,
@@ -208,10 +209,10 @@
                     }
                 });
         },
-        fail : function(e, data) {
+        fail: function (e, data) {
             $.shop.trace('Fail called', data);
         },
-        done : function(e, data) {
+        done: function (e, data) {
             $.shop.trace('Done called', data);
         }
     });
