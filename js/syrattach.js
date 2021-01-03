@@ -196,18 +196,20 @@
         stop: function (e) {
             $.product_syrattachments.progressbar.element.parent().hide();
             $.shop.trace('File upload ends', '');
-            $.get("?plugin=syrattach&module=attachments&action=list", {product_id: $.product_syrattachments.product_id})
-                .success(function (data) {
-                    if (data.status == 'ok') {
-                        $.product_syrattachments.options.attachments = data.response.attachments;
-                        $.product_syrattachments.attachments_list.html(tmpl('template-syrattach-attachments', {
-                            attachments: $.product_syrattachments.options.attachments,
-                            formatFileSize: $.product_syrattachments._formatFileSize,
-                            placeholder: $.product_syrattachments.options.placeholder
-                        }));
-                        $.product_syrattachments.counter.text(data.response.count);
-                    }
-                });
+            $.shop.getJSON(
+                "?plugin=syrattach&module=attachments&action=list",
+                {product_id: $.product_syrattachments.product_id},
+                function (r) {
+                    $.shop.trace('Syrattach new file listing', r);
+                    $.product_syrattachments.options.attachments = r.data.attachments;
+                    $.product_syrattachments.attachments_list.html(tmpl('template-syrattach-attachments', {
+                        attachments: $.product_syrattachments.options.attachments,
+                        formatFileSize: $.product_syrattachments._formatFileSize,
+                        placeholder: $.product_syrattachments.options.placeholder
+                    }));
+                    $.product_syrattachments.counter.text(r.data.count);
+                }
+            );
         },
         fail: function (e, data) {
             $.shop.trace('Fail called', data);
