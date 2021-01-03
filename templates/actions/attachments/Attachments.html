@@ -1,6 +1,6 @@
 <script src="{$wa_url}wa-content/js/jquery-plugins/fileupload/jquery.iframe-transport.js"></script>
 <script src="{$wa_url}wa-content/js/jquery-plugins/fileupload/jquery.fileupload.js"></script>
-<script src="{$wa_app_static_url}plugins/syrattach/js/syrattach.{if !waSystemConfig::isDebug()}min.{/if}js"></script>
+<script src="{$wa_app_static_url}plugins/syrattach/js/syrattach.{if !$wa->debug()}min.{/if}js"></script>
 <div id="s-plugin-syrattach-fileupload" class="block double-padded s-plugin-syrattach-upload-dropzone" data-url="?plugin=syrattach&amp;module=attachments&amp;action=upload">
     <a href="javascript:void(0);" id="s-plugin-syrattach-upload-files-link"{* class="fileinput-button"*}>
         <i class="icon16 upload"></i>
