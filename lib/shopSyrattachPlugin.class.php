@@ -96,7 +96,7 @@ class shopSyrattachPlugin extends shopPlugin
         }
 
         $data_path = wa()->getDataPath('syrattach', true, 'site', false);
-        $files = (array)$params['data']['syrattach_plugin'];
+        if (!($files = (array)ifset($params, 'data', 'syrattach_plugin', 'file', []))) return;
 
         foreach ($files as $file) {
             if ((strpos($file, '/') !== false) || (strpos($file, '\\') !== false)) {
