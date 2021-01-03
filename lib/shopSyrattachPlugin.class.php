@@ -254,7 +254,7 @@ class shopSyrattachPlugin extends shopPlugin
      * Handler for frontend_product hook
      *
      * @param shopProduct $product
-     * @return string
+     * @return array
      */
     public function frontendProduct($product)
     {

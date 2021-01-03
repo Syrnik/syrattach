@@ -156,7 +156,6 @@ class shopSyrattachFileModel extends waModel
             $filename = $name . "." . $pathinfo['extension'];
         } while (file_exists($path . DIRECTORY_SEPARATOR . $filename) && is_file($path . DIRECTORY_SEPARATOR . $filename));
 
-
         return $filename;
     }
 

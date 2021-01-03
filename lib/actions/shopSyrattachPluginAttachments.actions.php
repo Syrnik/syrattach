@@ -169,7 +169,7 @@ class shopSyrattachPluginAttachmentsActions extends waViewActions
      *
      * @return int
      */
-    private function determineMaxUploadSize()
+    private function determineMaxUploadSize(): int
     {
         $max_upload = $this->convertPHPSizeToBytes(ini_get('upload_max_filesize'));
         $max_post = $this->convertPHPSizeToBytes(ini_get('post_max_size'));
