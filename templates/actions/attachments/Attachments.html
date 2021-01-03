@@ -26,6 +26,7 @@
 </ul>
 {* Init tab *}
 <script>
+    $.wa.locale['Errors'] = {_wp('Errors')|json_encode:256};
     $.product_syrattachments.init({
         container: 's-product-form.syrattachments',
         counter: '#s-product-edit-menu li.syrattachments span.hint',
@@ -71,4 +72,5 @@
     #s-plugin-syrattach-product-files-list .s-plugin-syrattach-file-description { margin: 10px 0; padding: 3px; line-height: 120%}
     #s-plugin-syrattach-upload-files-link input[type=file] { position: absolute;top:0;right:0;margin:0;padding:0;opacity:0;filter:alpha(opacity=0);cursor:pointer}
     #s-plugin-syrattach-upload-files-link { position: relative;overflow: hidden}
+    .s-plugin-syrattach-dialog__error { height: 100%; overflow-y: auto; }
 </style>

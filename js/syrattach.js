@@ -186,7 +186,7 @@
     var syrattachupload = $("#s-plugin-syrattach-fileupload");
 
     function errorDialog(text) {
-        $(`<div class="s-plugin-syrattach-dialog__error"><form><div class="dialog-content"><header><h2>Ошибка</h2></header><section><p>${text}</p></section></div><div class="dialog-buttons"><button class="cancel button">Закрыть</button></div></form></div>`)
+        $(`<div class="s-plugin-syrattach-dialog__error"><form><div class="dialog-content"><header><h2>${$_('Errors')}</h2></header><section><p>${text}</p></section></div><div class="dialog-buttons"><button class="cancel button">Закрыть</button></div></form></div>`)
             .waDialog({
                 width: '550px',
                 height: '150px',
@@ -196,40 +196,49 @@
             })
     }
 
+    const errors = [];
+
     syrattachupload.fileupload({
         formData: $("#s-plugin-syrattach-fileupload input[type=hidden]").serializeArray(),
         dropZone: $(".s-plugin-syrattach-upload-dropzone"),
         maxFileSize: $.product_syrattachments.options.maxFileSize,
         disableValidation: false,
-        start: function (e) {
+        start: function (event, data) {
+            $.shop.trace('File upload starts', data);
             $.product_syrattachments.progressbar.update(0);
             $.product_syrattachments.progressbar.element.parent().show();
-            $.shop.trace('File upload starts', '');
         },
         fail: function (e, data) {
             $.shop.trace('Fail called', data);
+        },
+        stop(event) {
+            $.shop.trace('File upload stop() called', event);
+            if(errors.length) {
+                errorDialog('<ul>'+errors.map(e=>`<li>${e}</li>`).join('')+'</ul>');
+                errors.splice(0);
+            }
+            $.shop.getJSON(
+                "?plugin=syrattach&module=attachments&action=list",
+                {product_id: $.product_syrattachments.product_id},
+                function (r) {
+                    $.shop.trace('Syrattach new file listing', r);
+                    $.product_syrattachments.options.attachments = r.data.attachments;
+                    $.product_syrattachments.attachments_list.html(tmpl('template-syrattach-attachments', {
+                        attachments: $.product_syrattachments.options.attachments,
+                        formatFileSize: $.product_syrattachments._formatFileSize,
+                        placeholder: $.product_syrattachments.options.placeholder
+                    }));
+                    $.product_syrattachments.counter.text(r.data.count);
+                }
+            );
         },
         done(e, data) {
             $.shop.trace('File upload done() called', data);
             $.product_syrattachments.progressbar.element.parent().hide();
             if (data && data.result && data.result.files && data.result.files[0] && data.result.files[0].error) {
-                const error = typeof data.result.files[0].error === 'string' ? data.result.files[0].error : 'Ошибка загрузки (непонятная)';
-                errorDialog(error);
-            } else
-                $.shop.getJSON(
-                    "?plugin=syrattach&module=attachments&action=list",
-                    {product_id: $.product_syrattachments.product_id},
-                    function (r) {
-                        $.shop.trace('Syrattach new file listing', r);
-                        $.product_syrattachments.options.attachments = r.data.attachments;
-                        $.product_syrattachments.attachments_list.html(tmpl('template-syrattach-attachments', {
-                            attachments: $.product_syrattachments.options.attachments,
-                            formatFileSize: $.product_syrattachments._formatFileSize,
-                            placeholder: $.product_syrattachments.options.placeholder
-                        }));
-                        $.product_syrattachments.counter.text(r.data.count);
-                    }
-                );
+                const error = '<b>' + data.files[0].name + '</b>: ' + (typeof data.result.files[0].error === 'string' ? data.result.files[0].error : 'Ошибка загрузки (непонятная)');
+                errors.push(error);
+            }
         }
     });
 })(jQuery);
