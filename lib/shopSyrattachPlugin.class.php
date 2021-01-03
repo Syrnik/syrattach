@@ -26,16 +26,20 @@ class shopSyrattachPlugin extends shopPlugin
     /**
      * Hook 'backend_product'
      *
-     * @param array $product
+     * @param array|shopProduct $product
      * @return array
+     * @throws SmartyException
+     * @throws waException
      */
-    public function backendProduct($product)
+    public function backendProduct($product): array
     {
         $template = $this->path . '/templates/backend_product.html';
         $view = waSystem::getInstance()->getView();
         $count = $this->Attachments->countByField('product_id', $product['id']);
+        $shop_version = wa('shop')->getVersion();
+        $hints_allowed = (bool)version_compare($shop_version, '7.5', '>=');
 
-        $view->assign(compact('count', 'product'));
+        $view->assign(compact('count', 'product', 'hints_allowed'));
         $html = $view->fetch($template);
 
         return array('edit_section_li' => $html);
