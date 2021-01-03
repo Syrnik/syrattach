@@ -183,7 +183,7 @@
         }
     };
 
-    var syrattachupload = $("#s-plugin-syrattach-fileupload");
+    const syrattachupload = $("#s-plugin-syrattach-fileupload");
 
     function errorDialog(text) {
         $(`<div class="s-plugin-syrattach-dialog__error"><form><div class="dialog-content"><header><h2>${$_('Errors')}</h2></header><section><p>${text}</p></section></div><div class="dialog-buttons"><button class="cancel button">Закрыть</button></div></form></div>`)
@@ -213,6 +213,7 @@
         },
         stop(event) {
             $.shop.trace('File upload stop() called', event);
+            $.product_syrattachments.progressbar.element.parent().hide();
             if(errors.length) {
                 errorDialog('<ul>'+errors.map(e=>`<li>${e}</li>`).join('')+'</ul>');
                 errors.splice(0);
@@ -232,9 +233,12 @@
                 }
             );
         },
+        progressall(evt, data) {
+            $.shop.trace('progressAll', data);
+            $.product_syrattachments.progressbar.update(parseInt(data.loaded / data.total * 100, 10));
+        },
         done(e, data) {
             $.shop.trace('File upload done() called', data);
-            $.product_syrattachments.progressbar.element.parent().hide();
             if (data && data.result && data.result.files && data.result.files[0] && data.result.files[0].error) {
                 const error = '<b>' + data.files[0].name + '</b>: ' + (typeof data.result.files[0].error === 'string' ? data.result.files[0].error : 'Ошибка загрузки (непонятная)');
                 errors.push(error);
