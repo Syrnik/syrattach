@@ -42,7 +42,7 @@ class shopSyrattachPluginAttachmentsAction extends waViewAction
         $this->view->assign([
             'attachments'   => $attachments,
             'count'         => count($attachments),
-            'max_file_size' => (new shopSyrattachPluginHelper())->determineMaxUploadSize(),
+            'max_file_size' => (int)waRequest::getUploadMaxFilesize(),
             'product'       => $product
         ]);
     }
