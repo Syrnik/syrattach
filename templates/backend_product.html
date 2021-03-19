@@ -4,6 +4,12 @@
         <span class="hint">{if $count}{$count}{/if}</span>
         <span class="s-product-edit-tab-status"></span>
     </a>
+    {if $hints_allowed}
+        <span class="shop-tooltip">
+            <i class="icon10 info"></i>
+            <span>[`Файлы, кроме изображений, которые могут быть полезны покупателю: инструкции, сертификаты и т.д.`]</span>
+        </span>
+    {/if}
 </li>
 <script type="text/javascript">
     $(function(){

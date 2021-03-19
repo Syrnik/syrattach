@@ -26,16 +26,20 @@ class shopSyrattachPlugin extends shopPlugin
     /**
      * Hook 'backend_product'
      *
-     * @param array $product
+     * @param array|shopProduct $product
      * @return array
+     * @throws SmartyException
+     * @throws waException
      */
-    public function backendProduct($product)
+    public function backendProduct($product): array
     {
         $template = $this->path . '/templates/backend_product.html';
         $view = waSystem::getInstance()->getView();
         $count = $this->Attachments->countByField('product_id', $product['id']);
+        $shop_version = wa('shop')->getVersion();
+        $hints_allowed = (bool)version_compare($shop_version, '7.5', '>=');
 
-        $view->assign(compact('count', 'product'));
+        $view->assign(compact('count', 'product', 'hints_allowed'));
         $html = $view->fetch($template);
 
         return array('edit_section_li' => $html);
@@ -92,7 +96,7 @@ class shopSyrattachPlugin extends shopPlugin
         }
 
         $data_path = wa()->getDataPath('syrattach', true, 'site', false);
-        $files = (array)$params['data']['syrattach_plugin'];
+        if (!($files = (array)ifset($params, 'data', 'syrattach_plugin', 'file', []))) return;
 
         foreach ($files as $file) {
             if ((strpos($file, '/') !== false) || (strpos($file, '\\') !== false)) {
@@ -128,6 +132,12 @@ class shopSyrattachPlugin extends shopPlugin
         return shopProduct::getPath($product_id, self::SYRATTACH_ATTACHMENTS_FOLDER, true);
     }
 
+    /**
+     * @param $attachment
+     * @param bool $absolute
+     * @return string
+     * @throws waException
+     */
     public static function getFileUrl($attachment, $absolute = false)
     {
         $path = shopProduct::getFolder($attachment['product_id']) .
@@ -151,12 +161,17 @@ class shopSyrattachPlugin extends shopPlugin
      */
     public static function templateControl($param, $settings)
     {
-        $control_template_path = 'plugins/syrattach/templates/settings/template_control.html';
-        $control_template = waSystem::getInstance()->getAppPath($control_template_path, 'shop');
-        $view = waSystem::getInstance()->getView();
-        $template_path = 'plugins/syrattach/templates/frontend_product.html';
-        $original_template = waSystem::getInstance()->getAppPath($template_path, 'shop');
-        $modified_template = waSystem::getInstance()->getDataPath($template_path, false, 'shop', false);
+        try {
+            $control_template_path = 'plugins/syrattach/templates/settings/template_control.html';
+            $control_template = waSystem::getInstance()->getAppPath($control_template_path, 'shop');
+            $view = waSystem::getInstance()->getView();
+            $template_path = 'plugins/syrattach/templates/frontend_product.html';
+            $original_template = waSystem::getInstance()->getAppPath($template_path, 'shop');
+            $modified_template = waSystem::getInstance()->getDataPath($template_path, false, 'shop', false);
+        } catch (waException $exception) {
+            waLog::log($exception->getMessage(), self::LOG);
+            return '';
+        }
 
         if (file_exists($modified_template)) {
             $template = file_get_contents($modified_template);
@@ -204,8 +219,13 @@ class shopSyrattachPlugin extends shopPlugin
             ->order('`sort` ASC')
             ->fetchAll();
 
-        foreach ($files as &$file) {
-            $file['url'] = shopSyrattachPlugin::getFileUrl($file + array('product_id' => $product_id));
+        try {
+            foreach ($files as &$file) {
+                $file['url'] = shopSyrattachPlugin::getFileUrl($file + array('product_id' => $product_id));
+            }
+        } catch (waException $exception) {
+            waLog::log($exception->getMessage(), self::LOG);
+            return array();
         }
 
         return $files;
@@ -250,7 +270,7 @@ class shopSyrattachPlugin extends shopPlugin
      * Handler for frontend_product hook
      *
      * @param shopProduct $product
-     * @return string
+     * @return array
      */
     public function frontendProduct($product)
     {

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * File Upload controller
  *
@@ -8,6 +7,10 @@
  * @version 1.0.0
  * @copyright (c) 2014, Serge Rodovnichenko
  * @license http://www.webasyst.com/terms/#eula Webasyst
+ */
+
+/**
+ * Class shopSyrattachPluginAttachmentsUploadController
  */
 class shopSyrattachPluginAttachmentsUploadController extends shopUploadController
 {
