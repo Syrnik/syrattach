@@ -51,24 +51,23 @@ class shopSyrattachPlugin extends shopPlugin
      * List of columns in the CSV file
      *
      * @return array
+     * @throws waException
      */
-    public function productCustomFields()
+    public function productCustomFields(): array
     {
-        return array(
-            'product' => array('file' => _wp('Attached File'))
-        );
+        return ['product' => ['file' => _wp('Attached File')]];
     }
 
     /**
      * Handler for 'product_delete' hook
      *
      * We don't care about attached files because they will be deleted by
-     * Shopscript with other public files such as images that belongs to
+     * Shop-Script with other public files such as images that belongs to
      * products
      *
      * @param array $product_ids
      */
-    public function productDelete($product_ids)
+    public function productDelete(array $product_ids)
     {
         $this->Attachments->deleteByField('product_id', $product_ids['ids']);
     }
@@ -127,7 +126,11 @@ class shopSyrattachPlugin extends shopPlugin
         }
     }
 
-    public static function getDirectory($product_id)
+    /**
+     * @param $product_id
+     * @return string
+     */
+    public static function getDirectory($product_id): string
     {
         return shopProduct::getPath($product_id, self::SYRATTACH_ATTACHMENTS_FOLDER, true);
     }
@@ -138,7 +141,7 @@ class shopSyrattachPlugin extends shopPlugin
      * @return string
      * @throws waException
      */
-    public static function getFileUrl($attachment, $absolute = false)
+    public static function getFileUrl($attachment, bool $absolute = false): string
     {
         $path = shopProduct::getFolder($attachment['product_id']) .
             "/" .
@@ -158,8 +161,10 @@ class shopSyrattachPlugin extends shopPlugin
      * @param string $param
      * @param array $settings
      * @return string
+     * @throws SmartyException
+     * @throws waException
      */
-    public static function templateControl($param, $settings)
+    public static function templateControl(string $param, array $settings): string
     {
         try {
             $control_template_path = 'plugins/syrattach/templates/settings/template_control.html';
@@ -204,7 +209,7 @@ class shopSyrattachPlugin extends shopPlugin
      * @param int $product_id
      * @return array
      */
-    public static function getList($product_id)
+    public static function getList($product_id): array
     {
         $product_id = intval($product_id);
         if (!$product_id) {
@@ -239,6 +244,8 @@ class shopSyrattachPlugin extends shopPlugin
      * @param int $product_id
      * @param bool $force_on_empty If TRUE render template even the list of files is empty
      * @return string
+     * @throws SmartyException
+     * @throws waException
      */
     public static function render($product_id, $force_on_empty = false)
     {
@@ -271,8 +278,10 @@ class shopSyrattachPlugin extends shopPlugin
      *
      * @param shopProduct $product
      * @return array
+     * @throws SmartyException
+     * @throws waException
      */
-    public function frontendProduct($product)
+    public function frontendProduct($product): array
     {
         $placement = $this->getSettings('frontend_product_hook');
 
