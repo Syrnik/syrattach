@@ -24,6 +24,66 @@ class shopSyrattachPlugin extends shopPlugin
     }
 
     /**
+     * @param $product_id
+     * @return string
+     */
+    public static function getDirectory($product_id): string
+    {
+        return shopProduct::getPath($product_id, self::SYRATTACH_ATTACHMENTS_FOLDER, true);
+    }
+
+    /**
+     * Template editor
+     *
+     * Renders the template with custom form control
+     *
+     * @param string $param
+     * @param array $settings
+     * @return string
+     * @throws SmartyException
+     * @throws waException
+     */
+    public static function templateControl(string $param, array $settings): string
+    {
+        try {
+            $control_template_path = 'plugins/syrattach/templates/settings/template_control.html';
+            $control_template = waSystem::getInstance()->getAppPath($control_template_path, 'shop');
+            $view = waSystem::getInstance()->getView();
+            $template_path = 'plugins/syrattach/templates/frontend_product.html';
+            $original_template = waSystem::getInstance()->getAppPath($template_path, 'shop');
+            $modified_template = waSystem::getInstance()->getDataPath($template_path, false, 'shop', false);
+        } catch (waException $exception) {
+            waLog::log($exception->getMessage(), self::LOG);
+            return '';
+        }
+
+        if (file_exists($modified_template)) {
+            $template = file_get_contents($modified_template);
+            $template_modified = true;
+        } else {
+            $template = file_get_contents($original_template);
+            $template_modified = false;
+        }
+
+        $view->assign(compact('settings', 'template', 'template_modified'));
+
+        return $view->fetch($control_template);
+    }
+
+    /**
+     * @param array $route
+     * @return array|mixed|string[]
+     * @throws waException
+     */
+    public function routing($route = array())
+    {
+        if (wa()->getEnv() === 'backend') {
+            return ['products/<id>/syrattach/?' => 'backend/attachments'];
+        }
+        return parent::routing($route);
+    }
+
+    /**
      * Hook 'backend_product'
      *
      * @param array|shopProduct $product
@@ -127,68 +187,59 @@ class shopSyrattachPlugin extends shopPlugin
     }
 
     /**
-     * @param $product_id
-     * @return string
-     */
-    public static function getDirectory($product_id): string
-    {
-        return shopProduct::getPath($product_id, self::SYRATTACH_ATTACHMENTS_FOLDER, true);
-    }
-
-    /**
-     * @param $attachment
-     * @param bool $absolute
-     * @return string
+     * Handler for frontend_product hook
+     *
+     * @param shopProduct $product
+     * @return array
+     * @throws SmartyException
      * @throws waException
      */
-    public static function getFileUrl($attachment, bool $absolute = false): string
+    public function frontendProduct($product): array
     {
-        $path = shopProduct::getFolder($attachment['product_id']) .
-            "/" .
-            "{$attachment['product_id']}" .
-            "/" .
-            self::SYRATTACH_ATTACHMENTS_FOLDER .
-            "/{$attachment['name']}";
+        $placement = $this->getSettings('frontend_product_hook');
 
-        return waSystem::getInstance()->getDataUrl($path, true, 'shop', $absolute);
+        if (!in_array($placement, array('block', 'block_aux'))) {
+            return array();
+        }
+
+        return array($placement => self::render($product->id));
     }
 
     /**
-     * Template editor
+     * Helper method.
      *
-     * Renders the template with custom form control
+     * Returns the rendered template with list of files
      *
-     * @param string $param
-     * @param array $settings
+     * @param int $product_id
+     * @param bool $force_on_empty If TRUE render template even the list of files is empty
      * @return string
      * @throws SmartyException
      * @throws waException
      */
-    public static function templateControl(string $param, array $settings): string
+    public static function render($product_id, $force_on_empty = false)
     {
-        try {
-            $control_template_path = 'plugins/syrattach/templates/settings/template_control.html';
-            $control_template = waSystem::getInstance()->getAppPath($control_template_path, 'shop');
-            $view = waSystem::getInstance()->getView();
+        $attachments = self::getList($product_id);
+
+        $result = "";
+
+        if ($attachments || $force_on_empty) {
+            $view = wa()->getView();
             $template_path = 'plugins/syrattach/templates/frontend_product.html';
-            $original_template = waSystem::getInstance()->getAppPath($template_path, 'shop');
-            $modified_template = waSystem::getInstance()->getDataPath($template_path, false, 'shop', false);
-        } catch (waException $exception) {
-            waLog::log($exception->getMessage(), self::LOG);
-            return '';
+            $original_template = wa()->getAppPath($template_path, 'shop');
+            $modified_template = wa()->getDataPath($template_path, false, 'shop', false);
+
+            if (file_exists($modified_template)) {
+                $template = $modified_template;
+            } else {
+                $template = $original_template;
+            }
+
+            $view->assign(compact('attachments'));
+
+            $result = $view->fetch($template);
         }
 
-        if (file_exists($modified_template)) {
-            $template = file_get_contents($modified_template);
-            $template_modified = true;
-        } else {
-            $template = file_get_contents($original_template);
-            $template_modified = false;
-        }
-
-        $view->assign(compact('settings', 'template', 'template_modified'));
-
-        return $view->fetch($control_template);
+        return $result;
     }
 
     /**
@@ -237,59 +288,21 @@ class shopSyrattachPlugin extends shopPlugin
     }
 
     /**
-     * Helper method.
-     *
-     * Returns the rendered template with list of files
-     *
-     * @param int $product_id
-     * @param bool $force_on_empty If TRUE render template even the list of files is empty
+     * @param $attachment
+     * @param bool $absolute
      * @return string
-     * @throws SmartyException
      * @throws waException
      */
-    public static function render($product_id, $force_on_empty = false)
+    public static function getFileUrl($attachment, bool $absolute = false): string
     {
-        $attachments = self::getList($product_id);
+        $path = shopProduct::getFolder($attachment['product_id']) .
+            "/" .
+            "{$attachment['product_id']}" .
+            "/" .
+            self::SYRATTACH_ATTACHMENTS_FOLDER .
+            "/{$attachment['name']}";
 
-        $result = "";
-
-        if ($attachments || $force_on_empty) {
-            $view = wa()->getView();
-            $template_path = 'plugins/syrattach/templates/frontend_product.html';
-            $original_template = wa()->getAppPath($template_path, 'shop');
-            $modified_template = wa()->getDataPath($template_path, false, 'shop', false);
-
-            if (file_exists($modified_template)) {
-                $template = $modified_template;
-            } else {
-                $template = $original_template;
-            }
-
-            $view->assign(compact('attachments'));
-
-            $result = $view->fetch($template);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Handler for frontend_product hook
-     *
-     * @param shopProduct $product
-     * @return array
-     * @throws SmartyException
-     * @throws waException
-     */
-    public function frontendProduct($product): array
-    {
-        $placement = $this->getSettings('frontend_product_hook');
-
-        if (!in_array($placement, array('block', 'block_aux'))) {
-            return array();
-        }
-
-        return array($placement => self::render($product->id));
+        return waSystem::getInstance()->getDataUrl($path, true, 'shop', $absolute);
     }
 
 }
