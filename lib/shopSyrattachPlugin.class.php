@@ -1,11 +1,13 @@
 <?php
-
 /**
  * @package Syrattach
- * @author Serge Rodovnichenko <sergerod@gmail.com>
- * @version 1.0.0
- * @copyright (c) 2014, Serge Rodovnichenko
+ * @author Serge Rodovnichenko <serge@syrnik.com>
+ * @copyright (c) 2014-2021, Serge Rodovnichenko
  * @license http://www.webasyst.com/terms/#eula Webasyst
+ */
+
+/**
+ * Main plugin class
  */
 class shopSyrattachPlugin extends shopPlugin
 {
