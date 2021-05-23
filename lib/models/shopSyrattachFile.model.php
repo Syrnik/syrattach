@@ -1,11 +1,13 @@
 <?php
-
 /**
  * @package Syrattach/model
- * @author Serge Rodovnichenko <sergerod@gmail.com>
- * @version 1.0.0
- * @copyright (c) 2014, Serge Rodovnichenko
+ * @author Serge Rodovnichenko <serge@syrnik.com>
+ * @copyright (c) 2014-2021, Serge Rodovnichenko
  * @license http://www.webasyst.com/terms/#eula Webasyst
+ */
+
+/**
+ * Class shopSyrattachFileModel
  */
 class shopSyrattachFileModel extends waModel
 {
@@ -19,12 +21,13 @@ class shopSyrattachFileModel extends waModel
      *
      * @param int $product_id
      * @param waRequestFile $file
+     * @param bool $copy
      * @return array
      * @throws waException
      */
-    public function add($product_id, $file, $copy = false)
+    public function add(int $product_id, waRequestFile $file, bool $copy = false): array
     {
-        if (!intval($product_id)) {
+        if (!$product_id) {
             throw new waException(_wp("Product ID missing while file metadata saving"));
         }
 
@@ -58,11 +61,65 @@ class shopSyrattachFileModel extends waModel
 
     /**
      *
+     * @param $dir string
+     * @throws waException
+     */
+    private function checkDirectory(string $dir)
+    {
+        if ((file_exists($dir) && !is_writable($dir)) || (!file_exists($dir) && !waFiles::create($dir, true))) {
+            throw new waException("Error saving file. Check write permissions.");
+        }
+    }
+
+    /**
+     *
+     * @param waRequestFile $file
+     * @param $path
+     * @return string
+     * @internal param int $product_id
+     */
+    private function getUniqueFileName(waRequestFile $file, $path): string
+    {
+        if (!file_exists($path . '/' . $file->name)) return $file->name;
+
+        $i = 1;
+        $pathinfo = pathinfo($file->name);
+        do {
+            $name = sprintf('%s_%d', $pathinfo['filename'], $i++);
+            $filename = $name . "." . $pathinfo['extension'];
+        } while (file_exists($path . DIRECTORY_SEPARATOR . $filename) && is_file($path . DIRECTORY_SEPARATOR . $filename));
+
+        return $filename;
+    }
+
+    /**
+     *
+     * @param int $product_id
+     * @return int
+     * @throws waException
+     */
+    private function getSortValue(int $product_id): int
+    {
+
+        $info = $this->select('MAX(`sort`)+1 AS `max`, COUNT(1) AS `cnt`')
+            ->where($this->getWhereByField('product_id', $product_id))
+            ->fetch();
+
+        if ($info['cnt']) {
+            return $info['max'];
+        }
+
+        return 0;
+    }
+
+    /**
+     *
      * @param int|string $product_id
      * @param bool $file_urls
      * @return array
+     * @throws waException
      */
-    public function getByProductId($product_id, $file_urls = false)
+    public function getByProductId($product_id, bool $file_urls = false): array
     {
         $attachments = $this->select("*")->
         where("product_id=i:product_id", array('product_id' => $product_id))->
@@ -86,7 +143,7 @@ class shopSyrattachFileModel extends waModel
      * @throws Exception
      * @throws waException
      */
-    public function delete($id, $delete_file = true)
+    public function delete($id, bool $delete_file = true)
     {
         $attachment = $this->getById($id);
 
@@ -116,59 +173,6 @@ class shopSyrattachFileModel extends waModel
                 sprintf_wp("SyrAttach Plugin cannot delete file %s. Message: %s", $file, $e->getMessage()),
                 shopSyrattachPlugin::LOG
             );
-        }
-    }
-
-    /**
-     *
-     * @param int $product_id
-     * @return int
-     */
-    private function getSortValue($product_id)
-    {
-
-        $info = $this->select('MAX(`sort`)+1 AS `max`, COUNT(1) AS `cnt`')
-            ->where($this->getWhereByField('product_id', $product_id))
-            ->fetch();
-
-        if ($info['cnt']) {
-            return $info['max'];
-        }
-
-        return 0;
-    }
-
-    /**
-     *
-     * @param waRequestFile $file
-     * @param $path
-     * @return string
-     * @internal param int $product_id
-     */
-    private function getUniqueFileName($file, $path)
-    {
-        if (!file_exists($path . '/' . $file->name)) return $file->name;
-
-        $i = 1;
-        $pathinfo = pathinfo($file->name);
-        do {
-            $name = sprintf('%s_%d', $pathinfo['filename'], $i++);
-            $filename = $name . "." . $pathinfo['extension'];
-        } while (file_exists($path . DIRECTORY_SEPARATOR . $filename) && is_file($path . DIRECTORY_SEPARATOR . $filename));
-
-        return $filename;
-    }
-
-    /**
-     *
-     * @param $dir string
-     * @throws waException
-     */
-    private function checkDirectory($dir)
-    {
-
-        if ((file_exists($dir) && !is_writable($dir)) || (!file_exists($dir) && !waFiles::create($dir, true))) {
-            throw new waException("Error saving file. Check write permissions.");
         }
     }
 }
