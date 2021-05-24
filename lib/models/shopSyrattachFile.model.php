@@ -126,10 +126,12 @@ class shopSyrattachFileModel extends waModel
         order("sort ASC")->
         fetchAll();
 
-        if ($file_urls) {
-            foreach ($attachments as $key => $value) {
-                $attachments[$key]['url'] = shopSyrattachPlugin::getFileUrl($value);
-            }
+        foreach ($attachments as $key => $attachment) {
+            $attachments[$key]['id'] = (int)$attachment['id'];
+            $attachments[$key]['sort'] = (int)$attachment['sort'];
+            $attachments[$key]['size'] = (int)$attachment['size'];
+            $attachments[$key]['product_id'] = (int)$attachment['product_id'];
+            if ($file_urls) $attachments[$key]['url'] = shopSyrattachPlugin::getFileUrl($attachment);
         }
 
         return $attachments;
