@@ -71,7 +71,8 @@
     const UploadingFile = {
         props: {
             productId: Number,
-            file: Object
+            file: Object,
+            maxSize: Number
         },
         data() {
             return {
@@ -111,6 +112,12 @@
                     type: 'POST'
                 })
             };
+
+            if(this.maxSize && this.file.size >= this.maxSize) {
+                this.errors = [localize('Size of %name% exceeds maximum upload size limit').replace('%name%', this.file.name)];
+                return;
+            }
+
             this.uploading = true;
             uploadFile(this.file)
                 .done(r => {

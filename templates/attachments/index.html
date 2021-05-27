@@ -73,6 +73,7 @@
                             :key="file.id"
                             :file="file"
                             :product-id="productId"
+                            :max-size="{$max_upload_size|intval}"
                             @upload-complete="uploadComplete($event)"
                             @cancel="removeFileFromListById($event)"
                             ></uploading-file>
@@ -161,7 +162,9 @@
                     ' MB': '{_wp(' MB')}',
                     ' KB': '{_wp(' KB')}',
                     ' bytes': '{_wp(' bytes')}',
-                    ' of ': '{_wp(' of ')}'
+                    ' of ': '{_wp(' of ')}',
+                    'Size of %name% exceeds maximum upload size limit': '{_wp('Size of %name% exceeds maximum upload size limit')}',
+                    "Upload error": '{_wp("Upload error")}'
                 }
             });
         }
