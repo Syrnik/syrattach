@@ -45,27 +45,37 @@
               margin-bottom 0.5rem
 
 
-    .s-syrattach-upload-files
-      margin 1.5rem 0
-      display table
+  .s-syrattach-upload-files
+    margin 1.5rem 0
+    display table
 
-    .s-syrattach-uploading-file
-      display table-row
+  .s-syrattach-uploading-file
+    display table-row
 
-    .s-syrattach-uploading-file__main, .s-syrattach-uploading-file__actions
-      display table-cell
+    &__error
+      background-color rgba(255,49,21,0.06)
 
-    .s-syrattach-uploading-file__main
-      width 100%
+  .s-syrattach-uploading-file__main, .s-syrattach-uploading-file__actions
+    display table-cell
 
-    .s-syrattach-uploading-file__actions
-      min-width 1em
-      vertical-align middle
-      padding 1rem
+  .s-syrattach-uploading-file__main
+    width 100%
+
+  .s-syrattach-uploading-file__actions
+    min-width 1em
+    vertical-align middle
+    padding 1rem
+
+  .s-syrattach-uploading-file__error-text
+    margin 0.5rem 0
+    color var(--red)
+
+  .s-syrattach-dismiss
+    color var(--red)
 
   .s-syrattach-filesize-hint
     font-size 0.75rem
-    color --var(--text-color-hint)
+    color var(--text-color-hint)
 
   .s-drop-area
     position relative

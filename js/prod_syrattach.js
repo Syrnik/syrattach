@@ -77,7 +77,8 @@
             return {
                 uploading: false,
                 uploaded: null,
-                total_size: null
+                total_size: null,
+                errors: null
             }
         },
         filters: {localize, filesize},
@@ -88,9 +89,6 @@
                 formData.append('files', file);
 
                 const vm = this;
-
-                //return $.Deferred();
-
 
                 return $.ajax({
                     xhr() {
@@ -123,6 +121,8 @@
                     }
                 })
                 .fail(r => {
+                    this.uploading = false;
+                    this.errors = [localize('Server error: ') + (r.status ?? '')+' '+(r.statusText ?? '')];
                     return false;
                 }).always(() => this.uploading = false)
         }
@@ -137,6 +137,7 @@
             }
         },
         components: {UploadingFile},
+        filters: {filesize},
         methods: {
             uploadFiles(event, type) {
                 let files = [];
@@ -153,11 +154,14 @@
                     this.uploads.push(files[i]);
                 }
             },
-            uploadComplete(event) {
-                const idx = this.uploads.findIndex(f => f.id === event.id);
+            removeFileFromListById(id) {
+                const idx = this.uploads.findIndex(f => f.id === id);
                 if (idx > -1) this.uploads.splice(idx, 1);
+            },
+            uploadComplete(event) {
+                this.removeFileFromListById(event.id);
                 this.$emit('add-file', event.file);
-            }
+            },
         }
     };
 

@@ -40,28 +40,38 @@
 .s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-wrapper .s-column-file-description .s-column-file-description__editor .s-syrattach-editable-field {
   margin-bottom: 0.5rem;
 }
-.s-product-attachments-section .s-attachments-wrapper .s-syrattach-upload-files {
+.s-product-attachments-section .s-syrattach-upload-files {
   margin: 1.5rem 0;
   display: table;
 }
-.s-product-attachments-section .s-attachments-wrapper .s-syrattach-uploading-file {
+.s-product-attachments-section .s-syrattach-uploading-file {
   display: table-row;
 }
-.s-product-attachments-section .s-attachments-wrapper .s-syrattach-uploading-file__main,
-.s-product-attachments-section .s-attachments-wrapper .s-syrattach-uploading-file__actions {
+.s-product-attachments-section .s-syrattach-uploading-file__error {
+  background-color: rgba(255,49,21,0.06);
+}
+.s-product-attachments-section .s-syrattach-uploading-file__main,
+.s-product-attachments-section .s-syrattach-uploading-file__actions {
   display: table-cell;
 }
-.s-product-attachments-section .s-attachments-wrapper .s-syrattach-uploading-file__main {
+.s-product-attachments-section .s-syrattach-uploading-file__main {
   width: 100%;
 }
-.s-product-attachments-section .s-attachments-wrapper .s-syrattach-uploading-file__actions {
+.s-product-attachments-section .s-syrattach-uploading-file__actions {
   min-width: 1em;
   vertical-align: middle;
   padding: 1rem;
 }
+.s-product-attachments-section .s-syrattach-uploading-file__error-text {
+  margin: 0.5rem 0;
+  color: var(--red);
+}
+.s-product-attachments-section .s-syrattach-dismiss {
+  color: var(--red);
+}
 .s-product-attachments-section .s-syrattach-filesize-hint {
   font-size: 0.75rem;
-  color: --var(--text-color-hint);
+  color: var(--text-color-hint);
 }
 .s-product-attachments-section .s-drop-area {
   position: relative;

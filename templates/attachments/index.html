@@ -3,12 +3,10 @@
         <!-- plugin hook: 'backend_prod_content.top' -->
         {* @event backend_prod_content.%plugin_id%.top *}
         {if !empty($backend_prod_content_event)}{foreach $backend_prod_content_event as $_}{ifset($_.top)}{/foreach}{/if}
-        <div class="s-section-header">
-            <h3>{_wp('Attached files')}</h3>
-        </div>{literal}
-        <div class="s-section-body">
+        {literal}<div class="s-section-body">
             {/literal}<upload-section :product-id="{$product.id|intval}" @add-file="files.push($event)"></upload-section>{literal}
             <div class="s-attachments-wrapper">
+                {/literal}<h3 style="margin-top: 1.5rem">{_wp('Attached files')}</h3>{literal}
                 <div class="s-attachments-list" v-if="files.length">
                     <div class="s-attachments-wrapper" v-for="file in files" :key="file.id" :data-id="file.id">
                         <div class="s-column s-column-file wide">
@@ -64,7 +62,7 @@
              @dragover.prevent="is_over=true"
              @drop.prevent="uploadFiles($event, 'drop')"
         >{/literal}
-            <div class="s-text">{_wp('Upload or drag & drop files here')}</div>
+            <div class="s-text">{_wp('Upload or drag & drop files here')}<br>{_wp("Max. file size for upload:")} {literal}{{ {/literal}{$max_upload_size}{literal}|filesize }}{/literal}</div>
             <input class="s-field" type="file" multiple
                    title="{_wp("Drag & drop files here or click this area to upload files.")|escape}"
                    @change.prevent="uploadFiles($event, 'input')">
@@ -76,6 +74,7 @@
                             :file="file"
                             :product-id="productId"
                             @upload-complete="uploadComplete($event)"
+                            @cancel="removeFileFromListById($event)"
                             ></uploading-file>
         </div>
     </div>
@@ -83,7 +82,7 @@
 {$_component_templates["upload-section"]=$_component_upload_section|trim}
 
 {capture assign='_components_uploading_file'}
-    <div class="s-syrattach-uploading-file">
+    <div class="s-syrattach-uploading-file" {literal}:class="{'s-syrattach-uploading-file__error':!!errors}"{/literal}>
         <div class="s-syrattach-uploading-file__main">
             <div class="s-syrattach-uploading-file__name">
                 {literal}{{ file.name }}{/literal}
@@ -93,8 +92,15 @@
                 <progress v-if="total_size === null"></progress>
                 {literal}<template v-else><progress :max="total_size" :value="uploaded"></progress> <span class="s-syrattach-filesize-hint">{{ total_size|filesize }}{{ ' of '|localize }}{{ uploaded|filesize }}</span> </template>{/literal}
             </div>
+            <div class="s-syrattach-uploading-file__error-text" v-if="errors && errors.length" key="error_div">{literal}
+                {{ Array.isArray(errors) ? errors[0] : errors }}
+            {/literal}</div>
         </div>
-        <div class="s-syrattach-uploading-file__actions"></div>
+        <div class="s-syrattach-uploading-file__actions">
+            {literal}<button href="#" class="s-syrattach-dismiss wa-button wa-small transparent-red"
+                             v-if="!!errors"
+                             @click.prevent="$emit('cancel', file.id)"><i class="fas fa-times"></i> {/literal}{_wp('Cancel')}{literal}</button><template v-else>&nbsp;</template>{/literal}
+        </div>
     </div>
 {/capture}
 {$_component_templates["uploading-file"]=$_components_uploading_file|trim}
@@ -151,11 +157,11 @@
                 files: {$attachments|json_encode:256},
                 component_templates: {$_component_templates|json_encode:256},
                 l10n: {
-                    ' GB': {_wp(' GB')},
-                    ' MB': {_wp(' MB')},
-                    ' KB': {_wp' KB')},
-                    ' bytes': {_wp(' bytes')},
-                    ' of ': {_wp(' of ')}
+                    ' GB': '{_wp(' GB')}',
+                    ' MB': '{_wp(' MB')}',
+                    ' KB': '{_wp(' KB')}',
+                    ' bytes': '{_wp(' bytes')}',
+                    ' of ': '{_wp(' of ')}'
                 }
             });
         }
