@@ -1,5 +1,38 @@
 -(function ($) {
 
+    const l10n = {
+        ' GB': ' GB',
+        ' MB': ' MB',
+        ' KB': ' KB',
+        ' bytes': ' bytes',
+        ' of ': ' of '
+    };
+
+    function localize(str) {
+        return l10n[str] ?? str;
+    }
+
+    function filesize(bytes) {
+        if (typeof bytes === 'string') {
+            bytes = parseInt(bytes);
+        }
+
+        if (typeof bytes !== 'number') {
+            return '';
+        }
+        if (bytes >= 1000000000) {
+            return (bytes / 1000000000).toFixed(2) + localize(' GB');
+        }
+        if (bytes >= 1000000) {
+            return (bytes / 1000000).toFixed(2) + localize(' MB');
+        }
+
+        if (bytes > 1000)
+            return (bytes / 1000).toFixed(2) + localize(' KB');
+
+        return bytes + (' bytes' ?? ' bytes');
+    }
+
     const DescriptionEditor = {
         props: {value: String, fileId: Number},
         data() {
@@ -47,6 +80,7 @@
                 total_size: null
             }
         },
+        filters: {localize, filesize},
         mounted() {
             const uploadFile = file => {
                 const formData = new FormData();
@@ -54,6 +88,9 @@
                 formData.append('files', file);
 
                 const vm = this;
+
+                //return $.Deferred();
+
 
                 return $.ajax({
                     xhr() {
@@ -123,34 +160,6 @@
             }
         }
     };
-
-    const l10n = {
-        ' GB': ' GB',
-        ' MB': ' MB',
-        ' KB': ' KB',
-        ' bytes': ' bytes'
-    };
-
-    function filesize(bytes) {
-        if (typeof bytes === 'string') {
-            bytes = parseInt(bytes);
-        }
-
-        if (typeof bytes !== 'number') {
-            return '';
-        }
-        if (bytes >= 1000000000) {
-            return (bytes / 1000000000).toFixed(2) + (l10n[' GB'] ?? ' GB');
-        }
-        if (bytes >= 1000000) {
-            return (bytes / 1000000).toFixed(2) + (' MB' ?? ' MB');
-        }
-
-        if (bytes > 1000)
-            return (bytes / 1000).toFixed(2) + (' KB' ?? ' KB');
-
-        return bytes + (' bytes' ?? ' bytes');
-    }
 
     function Section(options) {
         this.$wrapper = options['$wrapper'];

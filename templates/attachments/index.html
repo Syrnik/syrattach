@@ -4,7 +4,7 @@
         {* @event backend_prod_content.%plugin_id%.top *}
         {if !empty($backend_prod_content_event)}{foreach $backend_prod_content_event as $_}{ifset($_.top)}{/foreach}{/if}
         <div class="s-section-header">
-            <h4>{_wp('Attached files')}</h4>
+            <h3>{_wp('Attached files')}</h3>
         </div>{literal}
         <div class="s-section-body">
             {/literal}<upload-section :product-id="{$product.id|intval}" @add-file="files.push($event)"></upload-section>{literal}
@@ -14,7 +14,7 @@
                         <div class="s-column s-column-file wide">
                             <div class="s-column-file-name">
                                 <a :href="file.url" target="_blank"><b>{{ file.name }}</b></a>
-                                <span class="gray" style="font-size: 0.75rem">({{ file.size|filesize }})</span>
+                                <span class="s-syrattach-filesize-hint">({{ file.size|filesize }})</span>
                             </div>
                             <description-field :file-id="file.id" v-model="file.description"></description-field>
                         </div>
@@ -70,6 +70,7 @@
                    @change.prevent="uploadFiles($event, 'input')">
         </div>
         <div class="s-syrattach-upload-files" v-show="uploads.length">
+            <h4 style="margin-top: 1rem">{_wp('Loading files')}</h4>
             <uploading-file v-for="file in uploads"
                             :key="file.id"
                             :file="file"
@@ -90,7 +91,7 @@
             <div class="s-syrattach-uploading-file__progress" v-if="uploading">
                 <i class="fas fa-spinner fa-spin"></i>
                 <progress v-if="total_size === null"></progress>
-                <progress v-else :max="total_size" :value="uploaded"></progress>
+                {literal}<template v-else><progress :max="total_size" :value="uploaded"></progress> <span class="s-syrattach-filesize-hint">{{ total_size|filesize }}{{ ' of '|localize }}{{ uploaded|filesize }}</span> </template>{/literal}
             </div>
         </div>
         <div class="s-syrattach-uploading-file__actions"></div>
@@ -154,6 +155,7 @@
                     ' MB': ' МБ',
                     ' KB': ' КБ',
                     ' bytes': ' байт',
+                    ' of ': ' из '
                 }
             });
         }
