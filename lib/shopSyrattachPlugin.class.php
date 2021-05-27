@@ -131,7 +131,7 @@ class shopSyrattachPlugin extends shopPlugin
         ];
     }
 
-    public function handlerBackendProdLayout()
+    public function handlerBackendProdLayout(): array
     {
         return ['bottom' => '<script>$(\'#wa-app\').on(\'wa_loaded\', ()=>{$.wa_shop_products.router.routes["/products/\\\\d+/attachments/"]={id:"products", content_selector: ".s-product-page .js-page-content"}});</script>'];
     }

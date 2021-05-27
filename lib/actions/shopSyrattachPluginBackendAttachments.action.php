@@ -18,9 +18,10 @@ class shopSyrattachPluginBackendAttachmentsAction extends waViewAction
     {
         $id = waRequest::param('id', 0, waRequest::TYPE_INT);
         $product = new shopProduct($id);
+
         $this->view->assign('product', $product);
         $this->view->assign('plugin_version', wa('shop')->getPlugin('syrattach')->getVersion());
-        $this->view->assign('attachments', array_values((new shopSyrattachFileModel())->getByProductId($id, true)));
+        $this->view->assign('attachments', $id ? array_values((new shopSyrattachFileModel())->getByProductId($id, true)) : []);
         $this->view->assign('max_upload_size', (int)waRequest::getUploadMaxFilesize());
 
         $this->setLayout(new shopBackendProductsEditSectionLayout([
