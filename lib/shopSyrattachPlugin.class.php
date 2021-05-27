@@ -80,7 +80,7 @@ class shopSyrattachPlugin extends shopPlugin
     public function routing($route = array())
     {
         if (wa()->getEnv() === 'backend') {
-            return ['products/<id>/syrattach/?' => 'backend/attachments'];
+            return ['products/<id>/attachments/?' => 'backend/attachments'];
         }
         return parent::routing($route);
     }
@@ -105,6 +105,28 @@ class shopSyrattachPlugin extends shopPlugin
         $html = $view->fetch($template);
 
         return array('edit_section_li' => $html);
+    }
+
+    /**
+     * @param $params
+     * @return array
+     * @throws waException
+     */
+    public function handlerBackendProd(&$params): array
+    {
+        $wa_app_url = wa()->getAppUrl('shop', true);
+        $id = (int)$params['product']->getId();
+
+        if (!$id) $id = 'new';
+
+        return [
+            'sidebar_item' => "<li><a href='{$wa_app_url}products/$id/attachments/'><span>" . _wp('Attached files') . "</span></a></li>"
+        ];
+    }
+
+    public function handlerBackendProdLayout()
+    {
+        return ['bottom' => '<script>$(\'#wa-app\').on(\'wa_loaded\', ()=>{$.wa_shop_products.router.routes["/products/\\\\d+/attachments/"]={id:"products", content_selector: ".s-product-page .js-page-content"}});</script>'];
     }
 
     /**
