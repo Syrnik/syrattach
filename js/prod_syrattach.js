@@ -116,8 +116,10 @@
                 .done(r => {
                     if (r.files && r.files.length && r.files[0].id) {
                         this.$emit('upload-complete', {id: this.file.id, file: r.files[0]})
+                    } else if(r.files && r.files.length && r.files[0].error) {
+                        this.errors=[localize("Upload error" + ( r.files[0].error.length ? ": " + r.files[0].error : ""))];
                     } else if (r.status && r.status === 'fail') {
-
+                        this.errors=[localize("Upload error" + ( r.error && r.error.length ? ": " + r.error : ""))];
                     }
                 })
                 .fail(r => {
