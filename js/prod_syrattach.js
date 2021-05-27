@@ -124,9 +124,38 @@
         }
     };
 
+    const l10n = {
+        ' GB': ' GB',
+        ' MB': ' MB',
+        ' KB': ' KB',
+        ' bytes': ' bytes'
+    };
+
+    function filesize(bytes) {
+        if (typeof bytes === 'string') {
+            bytes = parseInt(bytes);
+        }
+
+        if (typeof bytes !== 'number') {
+            return '';
+        }
+        if (bytes >= 1000000000) {
+            return (bytes / 1000000000).toFixed(2) + (l10n[' GB'] ?? ' GB');
+        }
+        if (bytes >= 1000000) {
+            return (bytes / 1000000).toFixed(2) + (' MB' ?? ' MB');
+        }
+
+        if (bytes > 1000)
+            return (bytes / 1000).toFixed(2) + (' KB' ?? ' KB');
+
+        return bytes + (' bytes' ?? ' bytes');
+    }
+
     function Section(options) {
         this.$wrapper = options['$wrapper'];
         this.files = options.files;
+        if (options.l10n && (typeof options.l10n === 'object')) Object.assign(l10n, options.l10n);
         this.component_templates = options.component_templates;
         this.initVue();
     }
@@ -151,6 +180,7 @@
             mounted() {
                 that.$wrapper.trigger("section_mounted", ["attachments", that]);
             },
+            filters: {filesize},
             methods: {
                 confirmDelete(id) {
                     const removeFileFromListById = id => {

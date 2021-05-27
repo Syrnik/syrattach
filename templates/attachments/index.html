@@ -12,7 +12,10 @@
                 <div class="s-attachments-list" v-if="files.length">
                     <div class="s-attachments-wrapper" v-for="file in files" :key="file.id" :data-id="file.id">
                         <div class="s-column s-column-file wide">
-                            <div class="s-column-file-name"><a :href="file.url" target="_blank"><b>{{ file.name }}</b></a></div>
+                            <div class="s-column-file-name">
+                                <a :href="file.url" target="_blank"><b>{{ file.name }}</b></a>
+                                <span class="gray" style="font-size: 0.75rem">({{ file.size|filesize }})</span>
+                            </div>
                             <description-field :file-id="file.id" v-model="file.description"></description-field>
                         </div>
                         <div class="s-column s-column-actions nowrap">
@@ -130,7 +133,7 @@
             {
                 id: "syrattach-shop-plugin-js",
                 type: "js",
-                uri: "{$wa_app_static_url}plugins/syrattach/js/prod_syrattach.{if $wa->debug()}min.{/if}js?v={$plugin_version}"
+                uri: "{$wa_app_static_url}plugins/syrattach/js/prod_syrattach.{if !$wa->debug()}min.{/if}js?v={$plugin_version}"
             },
             {
                 id: "syrattach-shop-plugin-css",
@@ -145,7 +148,13 @@
             $.wa_shop_products.init.initProductAttachmentsSection({
                 '$wrapper': $("#js-product-attachments-section-wrapper"),
                 files: {$attachments|json_encode:256},
-                component_templates: {$_component_templates|json_encode:256}
+                component_templates: {$_component_templates|json_encode:256},
+                l10n: {
+                    ' GB': ' ГБ',
+                    ' MB': ' МБ',
+                    ' KB': ' КБ',
+                    ' bytes': ' байт',
+                }
             });
         }
     })(jQuery);
