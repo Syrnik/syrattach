@@ -262,6 +262,16 @@
                         }
                     });
                 }
+            },
+            watch: {
+                files() {
+                    const $menu_item = $("#s-syrattach-plugin-menuitem");
+                    const $counter = $menu_item.find('.count');
+                    if(this.files.length) {
+                        if($counter.length) $counter.text(this.files.length);
+                        else $(`<span class="count">${this.files.length}</span>`).appendTo($menu_item.find('a'));
+                    } else if($counter.length) $counter.remove();
+                }
             }
         });
     }

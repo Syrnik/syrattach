@@ -117,10 +117,17 @@ class shopSyrattachPlugin extends shopPlugin
         $wa_app_url = wa()->getAppUrl('shop', true);
         $id = (int)$params['product']->getId();
 
-        if (!$id) $id = 'new';
+        if (!$id) {
+            $id = 'new';
+            $total = 0;
+        }else{
+            $total = (new shopSyrattachFileModel())->countByField('product_id', $id);
+        }
 
         return [
-            'sidebar_item' => "<li><a href='{$wa_app_url}products/$id/attachments/'><span>" . _wp('Attached files') . "</span></a></li>"
+            'sidebar_item' => "<li id=\"s-syrattach-plugin-menuitem\"><a href='{$wa_app_url}products/$id/attachments/'><span>" .
+                _wp('Attached files') .
+                "</span>".($total ? "<span class=\"count\">$total</span>":"")."</a></li>"
         ];
     }
 
