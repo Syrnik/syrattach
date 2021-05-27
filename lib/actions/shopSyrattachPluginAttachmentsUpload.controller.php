@@ -3,9 +3,9 @@
  * File Upload controller
  *
  * @package Syrattach/controller
- * @author Serge Rodovnichenko <sergerod@gmail.com>
+ * @author Serge Rodovnichenko <serge@syrnik.com>
  * @version 1.0.0
- * @copyright (c) 2014, Serge Rodovnichenko
+ * @copyright (c) 2014-2021, Serge Rodovnichenko
  * @license http://www.webasyst.com/terms/#eula Webasyst
  */
 
@@ -33,13 +33,10 @@ class shopSyrattachPluginAttachmentsUploadController extends shopUploadControlle
      * @return array
      * @throws waException
      */
-    protected function save(waRequestFile $file)
+    protected function save(waRequestFile $file): array
     {
-        $product_id = waRequest::post('syrattach_product_id', NULL, waRequest::TYPE_INT);
-        $config = $this->getConfig();
-
+        $product_id = waRequest::post('syrattach_product_id', null, waRequest::TYPE_INT);
         $this->checkProductRights($product_id);
-
         $data = $this->SyrattachFile->add($product_id, $file);
 
         return array(
@@ -59,7 +56,7 @@ class shopSyrattachPluginAttachmentsUploadController extends shopUploadControlle
      * @param int $product_id
      * @throws waException
      */
-    private function checkProductRights($product_id)
+    private function checkProductRights(int $product_id)
     {
         if (!$this->Product->checkRights($product_id)) {
             throw new waException(_wp('Access denied'));

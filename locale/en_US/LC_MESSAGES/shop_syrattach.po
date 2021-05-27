@@ -147,11 +147,53 @@ msgstr ""
 msgid "Errors"
 msgstr ""
 
-msgid "Файлы, кроме изображений, которые могут быть полезны покупателю: инструкции, сертификаты и т.д."
-msgstr "Files, except images, which may be useful for customers: instructions, certificates and so on."
-
 msgid "Product ID required"
 msgstr ""
 
 msgid "Try to delete '%s'"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Upload or drag & drop files here"
+msgstr ""
+
+msgid "Loading files"
+msgstr ""
+
+msgid "File deletion confirmation"
+msgstr ""
+
+msgid "Do you really want to delete this file?"
+msgstr ""
+
+msgid " GB"
+msgstr ""
+
+msgid " MB"
+msgstr ""
+
+msgid " KB"
+msgstr ""
+
+msgid " bytes"
+msgstr ""
+
+msgid " of "
+msgstr ""
+
+msgid "Size of %name% exceeds maximum upload size limit"
+msgstr ""
+
+msgid "You can't upload files to a new product. First, save the product."
+msgstr ""
+
+msgid "Drag & drop files here or click this area to upload files."
+msgstr ""
+
+msgid "Upload error"
+msgstr ""
+
+msgid "Files other than images that may be useful to the buyer: instructions, certificates, etc."
 msgstr ""

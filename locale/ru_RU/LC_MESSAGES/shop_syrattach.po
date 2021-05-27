@@ -148,11 +148,53 @@ msgstr "Файл с именем '%s' не существует или недо�
 msgid "Errors"
 msgstr "Ошибки"
 
-msgid "Файлы, кроме изображений, которые могут быть полезны покупателю: инструкции, сертификаты и т.д."
-msgstr ""
-
 msgid "Product ID required"
 msgstr "Требуется id товара"
 
 msgid "Try to delete '%s'"
 msgstr "Попытка удалить '%s'"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Upload or drag & drop files here"
+msgstr "Загрузите или перетащите файлы сюда"
+
+msgid "Loading files"
+msgstr "Загружаемые файлы"
+
+msgid "File deletion confirmation"
+msgstr "Подтверждение удаления"
+
+msgid "Do you really want to delete this file?"
+msgstr "Вы действительно хотите удалить этот файл?"
+
+msgid " GB"
+msgstr " ГБ"
+
+msgid " MB"
+msgstr " МБ"
+
+msgid " KB"
+msgstr " КБ"
+
+msgid " bytes"
+msgstr " байт"
+
+msgid " of "
+msgstr " из "
+
+msgid "Size of %name% exceeds maximum upload size limit"
+msgstr "Размер файла %name% превышает максимально допустимый размер для загрузки"
+
+msgid "You can't upload files to a new product. First, save the product."
+msgstr "К новому товару невозможно загрузить файлы. Сначала сохраните товар."
+
+msgid "Drag & drop files here or click this area to upload files."
+msgstr "Перетащите файлы сюда или кликните на этой области для загрузки файлов."
+
+msgid "Upload error"
+msgstr "Ошибка загрузки"
+
+msgid "Files other than images that may be useful to the buyer: instructions, certificates, etc."
+msgstr "Файлы, кроме изображений, которые могут быть полезны покупателю: инструкции, сертификаты и т.д."
