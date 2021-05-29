@@ -168,21 +168,6 @@ msgstr ""
 msgid "Do you really want to delete this file?"
 msgstr ""
 
-msgid " GB"
-msgstr ""
-
-msgid " MB"
-msgstr ""
-
-msgid " KB"
-msgstr ""
-
-msgid " bytes"
-msgstr ""
-
-msgid " of "
-msgstr ""
-
 msgid "Size of %name% exceeds maximum upload size limit"
 msgstr ""
 
@@ -196,4 +181,55 @@ msgid "Upload error"
 msgstr ""
 
 msgid "Files other than images that may be useful to the buyer: instructions, certificates, etc."
+msgstr ""
+
+msgid "GB"
+msgstr ""
+
+msgid "MB"
+msgstr ""
+
+msgid "KB"
+msgstr ""
+
+msgid "bytes"
+msgstr ""
+
+msgid "of"
+msgstr ""
+
+msgid "Default template"
+msgstr ""
+
+msgid "show"
+msgstr ""
+
+msgid "Now this code is used instead of the default template. Transfer its code to the design theme template then"
+msgstr ""
+
+msgid "delete it from here"
+msgstr ""
+
+msgid "JFYI. Variables available within the template:"
+msgstr ""
+
+msgid "Error deleting modified template"
+msgstr ""
+
+msgid "Do you really want to delete your custom template?"
+msgstr ""
+
+msgid "Storefront without template"
+msgstr ""
+
+msgid "If the design theme used in the storefront does not have a template, the plugin can show the default template or switch self off"
+msgstr ""
+
+msgid "Show default template"
+msgstr ""
+
+msgid "Template saved from previous version of plugin"
+msgstr ""
+
+msgid "Switch off"
 msgstr ""

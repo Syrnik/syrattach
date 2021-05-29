@@ -169,21 +169,6 @@ msgstr "Подтверждение удаления"
 msgid "Do you really want to delete this file?"
 msgstr "Вы действительно хотите удалить этот файл?"
 
-msgid " GB"
-msgstr " ГБ"
-
-msgid " MB"
-msgstr " МБ"
-
-msgid " KB"
-msgstr " КБ"
-
-msgid " bytes"
-msgstr " байт"
-
-msgid " of "
-msgstr " из "
-
 msgid "Size of %name% exceeds maximum upload size limit"
 msgstr "Размер файла %name% превышает максимально допустимый размер для загрузки"
 
@@ -198,3 +183,54 @@ msgstr "Ошибка загрузки"
 
 msgid "Files other than images that may be useful to the buyer: instructions, certificates, etc."
 msgstr "Файлы, кроме изображений, которые могут быть полезны покупателю: инструкции, сертификаты и т.д."
+
+msgid "GB"
+msgstr "ГБ"
+
+msgid "MB"
+msgstr "МБ"
+
+msgid "KB"
+msgstr "КБ"
+
+msgid "bytes"
+msgstr "байт"
+
+msgid "of"
+msgstr "из"
+
+msgid "Default template"
+msgstr "Шаблон по-умолчанию"
+
+msgid "show"
+msgstr "показать"
+
+msgid "Now this code is used instead of the default template. Transfer its code to the design theme template then"
+msgstr "Теперь этот шаблон используется вместо шаблона по-умолчанию. Перенесите этот код в шаблон темы дизайна, а затем"
+
+msgid "delete it from here"
+msgstr "удалите этот код здесь"
+
+msgid "JFYI. Variables available within the template:"
+msgstr "Для справки. Переменные, доступные в шаблоне:"
+
+msgid "Error deleting modified template"
+msgstr "Ошибка удаления пользовательского шаблона"
+
+msgid "Do you really want to delete your custom template?"
+msgstr "Вы действительно хотите удалить шаблон?"
+
+msgid "Storefront without template"
+msgstr "Витрина без шаблона"
+
+msgid "If the design theme used in the storefront does not have a template, the plugin can show the default template or switch self off"
+msgstr "Если в теме дизайна, использованной на витрине, нет шаблона для плагина, то плагин может либо показать шаблон по-умолчанию, либо отключиться для этой витрины"
+
+msgid "Show default template"
+msgstr "Показать шаблон по умолчанию"
+
+msgid "Template saved from previous version of plugin"
+msgstr "Шаблон, сохранённый в прошлой версии"
+
+msgid "Switch off"
+msgstr "Отключиться"

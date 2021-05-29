@@ -24,7 +24,7 @@ return array(
         'value'        => 'default',
         'options'      => [
             ['value' => 'default', 'title' => _wp('Show default template')],
-            ['value' => 'off', 'title' => 'Switch off']
+            ['value' => 'off', 'title' => _wp('Switch off')]
         ]
     ],
     'template'              => array(
