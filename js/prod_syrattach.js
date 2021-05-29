@@ -21,16 +21,16 @@
             return '';
         }
         if (bytes >= 1000000000) {
-            return (bytes / 1000000000).toFixed(2) + localize('GB');
+            return `${(bytes / 1000000000).toFixed(2)} ${localize('GB')}`;
         }
         if (bytes >= 1000000) {
-            return (bytes / 1000000).toFixed(2) + localize('MB');
+            return `${(bytes / 1000000).toFixed(2)} ${localize('MB')}`;
         }
 
         if (bytes > 1000)
-            return (bytes / 1000).toFixed(2) + localize('KB');
+            return `${(bytes / 1000).toFixed(2)} ${localize('KB')}`;
 
-        return bytes + localize('bytes');
+        return `${bytes} ${localize('bytes')}`;
     }
 
     const DescriptionEditor = {
