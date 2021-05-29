@@ -100,7 +100,7 @@
             <div class="s-syrattach-uploading-file__progress" v-if="uploading">
                 <i class="fas fa-spinner fa-spin"></i>
                 <progress v-if="total_size === null"></progress>
-                {literal}<template v-else><progress :max="total_size" :value="uploaded"></progress> <span class="s-syrattach-filesize-hint">{{ total_size|filesize }}{{ ' of '|localize }}{{ uploaded|filesize }}</span> </template>{/literal}
+                {literal}<template v-else><progress :max="total_size" :value="uploaded"></progress> <span class="s-syrattach-filesize-hint">{{ total_size|filesize }} {{ 'of'|localize }} {{ uploaded|filesize }}</span> </template>{/literal}
             </div>
             <div class="s-syrattach-uploading-file__error-text" v-if="errors && errors.length" key="error_div">{literal}
                 {{ Array.isArray(errors) ? errors[0] : errors }}
