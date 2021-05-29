@@ -1,53 +1,73 @@
-<div style="text-align: right;padding: 0.3em 0">
-    <a href="javascript:void(0);" class="inline-link" id="{$settings.id}-restore-template"><i class="icon16 delete"></i> {_wp('Restore original template')}</a>
+<div class="s-syrattach-settings-template s-syrattach-settings-original-template">
+    <p>Код шаблона по умолчанию <a href="javascript:void(0)" class="inline-link s-syrattach-template-switcher"
+                                   data-template="original"><b><i>показать</i></b></a></p>
+    <div class="s-syrattach-settings-original-template__content" style="display: none">
+        <pre>{$original_template|escape}
+        </pre>
+    </div>
 </div>
-<div class="s-editor-core-wrapper">
-    <textarea id="{$settings.id}" name="syrattach_template">{$template}</textarea>
-</div>
-<div style="padding: 0.5em;margin: 0.5em 0; border:1px solid #e9e9e9; line-height: 120%">
-    {_wp('Variables available within the template:')}<br>
-    <code style="padding: 2px 4px;font-size: 90%; background-color: #f9f2f4;color:#c7254e"><b>$attachments</b></code> — {_wp('A list of file data. Each file item is an array with keys:')}
-    <ul style="list-style-type: none">
-        <li><code style="padding: 2px 4px;font-size: 90%; background-color: #f9f2f4;color:#c7254e">id</code> — {_wp('Attachment ID#')}</li>
-        <li><code style="padding: 2px 4px;font-size: 90%; background-color: #f9f2f4;color:#c7254e">name</code> — {_wp('File name')}</li>
-        <li><code style="padding: 2px 4px;font-size: 90%; background-color: #f9f2f4;color:#c7254e">ext</code> — {_wp('File extension')}</li>
-        <li><code style="padding: 2px 4px;font-size: 90%; background-color: #f9f2f4;color:#c7254e">description</code> — {_wp('File description')}</li>
-        <li><code style="padding: 2px 4px;font-size: 90%; background-color: #f9f2f4;color:#c7254e">size</code> — {_wp('File size in bytes')}</li>
-        <li><code style="padding: 2px 4px;font-size: 90%; background-color: #f9f2f4;color:#c7254e">url</code> — {_wp('File URL')}</li>
+{$modified_template = $original_template}
+{if $modified_template}
+    <div class="s-syrattach-settings-template s-syrattach-settings-modified-template">
+        <p>Код шаблона, сохранённого вами в прошлой версии плагина
+            <a href="javascript:void(0)" class="inline-link s-syrattach-template-switcher"
+               data-template="modified"><b><i>показать</i></b></a>.
+            Сейчас этот код используется вместо шаблона по-умолчанию. Перенесите этот код в шаблон темы дизайна и <a
+                    href="javascript:void(0)" class="inline-link"><b><i>удалите его отсюда</i></b></a>.
+        </p>
+        <div class="s-syrattach-settings-modified-template__content" style="display: none">
+        <pre>{$modified_template|escape}
+        </pre>
+        </div>
+    </div>
+{/if}
+<div class="s-syrattach-settings-template__help">
+    <p>{_wp('JFYI. Variables available within the template:')}</p>
+    <code ><b>$attachments</b></code> — {_wp('A list of file data. Each file item is an array with keys:')}
+    <ul>
+        <li><code>id</code> — {_wp('Attachment ID#')}</li>
+        <li><code>name</code> — {_wp('File name')}</li>
+        <li><code>ext</code> — {_wp('File extension')}</li>
+        <li><code>description</code> — {_wp('File description')}</li>
+        <li><code>size</code> — {_wp('File size in bytes')}</li>
+        <li><code>url</code> — {_wp('File URL')}</li>
     </ul>
-    
 </div>
-<script type="text/javascript">
-    $(function(){
-        var c = CodeMirror.fromTextArea(document.getElementById('{$settings.id}'),{
-            mode: "text/html",
-            tabMode: "indent",
-            height: "dynamic",
-            lineWrapping: true
-        });
-        $("#{$settings.id}").change(function(){
-            c.setValue($(this).val());
-        });
-        
-        {if !$template_modified}
-            $("#{$settings.id}-restore-template").hide();
-        {/if}
-        
-        $("#{$settings.id}").closest("#plugins-settings-form").submit(function(){
-            $("#{$settings.id}-restore-template").show();
-        });
-        
-        $("#{$settings.id}-restore-template").click(function(){
-            if(confirm("{_wp("Do you really want to reset the template to the original one? All changes you're made will lost!")|escape:javascript}") === true) {
-                $.get("?plugin=syrattach&module=settings&action=originaltemplate", function(r){
-                    if(r.status == 'ok'){
-                        $("#{$settings.id}").val(r.data.template);
-                        c.setValue($("#{$settings.id}").val());
-                        $("#{$settings.id}-restore-template").hide();
-                    }
-                });
-            }
-            return false;
-        });
-    });
-</script>
+<script>{literal}
+    (function ($) {
+        $('a.s-syrattach-template-switcher')
+            .off('.syrnik')
+            .on('click.syrnik', function (evt) {
+                evt.preventDefault();
+                const template_type = $(this).data('template');
+                console.log(`s-syrattach-settings-${template_type}-template__content`);
+                const template = $(`.s-syrattach-settings-${template_type}-template__content`);
+                if (template.is(':visible')) template.slideUp();
+                else template.slideDown();
+                return false;
+            })
+    })(jQuery)
+{/literal}</script>
+<style>
+    .s-syrattach-settings-modified-template__content > pre,
+    .s-syrattach-settings-original-template__content > pre {
+        background-color: #333;
+        color: lightgreen;
+        padding: 1rem;
+    }
+
+    .s-syrattach-settings-template__help li {
+        list-style-type: none;
+    }
+
+    .s-syrattach-settings-template__help code {
+        padding: 2px 4px;
+        font-size: 90%;
+        background-color: #f9f2f4;
+        color: #c7254e
+    }
+    .s-syrattach-settings-template__help li code {
+        display: inline-block;
+        width: 6em;
+    }
+</style>

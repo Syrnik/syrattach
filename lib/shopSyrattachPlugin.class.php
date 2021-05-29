@@ -42,8 +42,6 @@ class shopSyrattachPlugin extends shopPlugin
      * @param string $param
      * @param array $settings
      * @return string
-     * @throws SmartyException
-     * @throws waException
      */
     public static function templateControl(string $param, array $settings): string
     {
@@ -53,23 +51,29 @@ class shopSyrattachPlugin extends shopPlugin
             $view = waSystem::getInstance()->getView();
             $template_path = 'plugins/syrattach/templates/frontend_product.html';
             $original_template = waSystem::getInstance()->getAppPath($template_path, 'shop');
-            $modified_template = waSystem::getInstance()->getDataPath($template_path, false, 'shop', false);
+            $modified_template_path = waSystem::getInstance()->getDataPath($template_path, false, 'shop', false);
         } catch (waException $exception) {
             waLog::log($exception->getMessage(), self::LOG);
             return '';
         }
 
-        if (file_exists($modified_template)) {
-            $template = file_get_contents($modified_template);
+        $original_template = file_get_contents($original_template);
+        $modified_template = null;
+        $template_modified = false;
+
+        if (file_exists($modified_template_path)) {
+            $modified_template = file_get_contents($modified_template_path);
             $template_modified = true;
-        } else {
-            $template = file_get_contents($original_template);
-            $template_modified = false;
         }
 
-        $view->assign(compact('settings', 'template', 'template_modified'));
+        $view->assign(compact('settings', 'modified_template', 'original_template', 'template_modified'));
 
-        return $view->fetch($control_template);
+        try {
+            return $view->fetch($control_template);
+        } catch (Exception $e) {
+            waLog::log($e->getMessage(), self::LOG);
+            return '';
+        }
     }
 
     /**
@@ -120,14 +124,14 @@ class shopSyrattachPlugin extends shopPlugin
         if (!$id) {
             $id = 'new';
             $total = 0;
-        }else{
+        } else {
             $total = (new shopSyrattachFileModel())->countByField('product_id', $id);
         }
 
         return [
             'sidebar_item' => "<li id=\"s-syrattach-plugin-menuitem\"><a href='{$wa_app_url}products/$id/attachments/'><span>" .
                 _wp('Attached files') .
-                "</span>".($total ? "<span class=\"count\">$total</span>":"")."</a></li>"
+                "</span>" . ($total ? "<span class=\"count\">$total</span>" : "") . "</a></li>"
         ];
     }
 
