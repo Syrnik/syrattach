@@ -251,37 +251,21 @@ class shopSyrattachPlugin extends shopPlugin
      * @param int|string $product_id
      * @param bool|int $force_on_empty If TRUE render template even the list of files is empty
      * @return string
-     * @throws SmartyException
-     * @throws waException
-     * @deprecated since 2.0.0 Оставлено для обратной совместимости и совместимости с фрейм <1.14 и shop <8.17
+     * @deprecated since 2.0.0 Оставлено для обратной совместимости и совместимости с shop <8.17
      */
     public static function render($product_id, $force_on_empty = false): string
     {
         $product_id = (int)$product_id;
         $force_on_empty = (bool)$force_on_empty;
 
-        $attachments = self::getList($product_id);
-
-        $result = "";
-
-        if ($attachments || $force_on_empty) {
-            $view = wa()->getView();
-            $template_path = 'plugins/syrattach/templates/frontend_product.html';
-            $original_template = wa()->getAppPath($template_path, 'shop');
-            $modified_template = wa()->getDataPath($template_path, false, 'shop', false);
-
-            if (file_exists($modified_template)) {
-                $template = $modified_template;
-            } else {
-                $template = $original_template;
-            }
-
-            $view->assign(compact('attachments'));
-
-            $result = $view->fetch($template);
+        try {
+            $plugin = wa('shop')->getPlugin('syrattach');
+        } catch (waException $e) {
+            return "";
         }
 
-        return $result;
+        return (new shopSyrattachPluginViewHelper($plugin, 'syrattach'))
+            ->render($product_id,$force_on_empty);
     }
 
     /**
