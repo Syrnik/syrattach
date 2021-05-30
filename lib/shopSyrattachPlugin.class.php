@@ -250,10 +250,10 @@ class shopSyrattachPlugin extends shopPlugin
      *
      * @param int|string $product_id
      * @param bool|int $force_on_empty If TRUE render template even the list of files is empty
-     * @deprecated since 2.0.0 Оставлено для обратной совместимости и совместимости с фрейм <1.14 и shop <8.17
      * @return string
      * @throws SmartyException
      * @throws waException
+     * @deprecated since 2.0.0 Оставлено для обратной совместимости и совместимости с фрейм <1.14 и shop <8.17
      */
     public static function render($product_id, $force_on_empty = false): string
     {
@@ -300,34 +300,19 @@ class shopSyrattachPlugin extends shopPlugin
      * )
      *
      * @param int|string $product_id
-     * @deprecated since 2.0.0 Оставлено для обратной совместимости и совместимости с фрейм <1.14 и shop <8.17
      * @return array
+     * @deprecated since 2.0.0 Оставлено для обратной совместимости и совместимости с shop <8.17
      */
     public static function getList($product_id): array
     {
-        $product_id = intval($product_id);
-        if (!$product_id) {
-            return array();
-        }
-
-        $Attachment = new shopSyrattachFileModel();
-
-        $files = $Attachment
-            ->select("`id`,`name`, `ext`, `description`, `size`")
-            ->where('product_id=i:id', array('id' => $product_id))
-            ->order('`sort` ASC')
-            ->fetchAll();
-
         try {
-            foreach ($files as &$file) {
-                $file['url'] = shopSyrattachPlugin::getFileUrl($file + array('product_id' => $product_id));
-            }
-        } catch (waException $exception) {
-            waLog::log($exception->getMessage(), self::LOG);
-            return array();
+            $plugin = wa('shop')->getPlugin('syrattach');
+        } catch (waException $e) {
+            return [];
         }
 
-        return $files;
+        return (new shopSyrattachPluginViewHelper($plugin, 'syrattach'))
+            ->getList($product_id);
     }
 
     /**
@@ -347,5 +332,4 @@ class shopSyrattachPlugin extends shopPlugin
 
         return waSystem::getInstance()->getDataUrl($path, true, 'shop', $absolute);
     }
-
 }
