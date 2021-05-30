@@ -35,6 +35,6 @@ class shopSyrattachPluginBackendAttachmentsAction extends waViewAction
      */
     protected function getTemplate(): string
     {
-        return $this->getPluginRoot() . 'templates/attachments/index.html';
+        return $this->getPluginRoot() . 'templates/actions/attachments/index.html';
     }
 }

@@ -100,7 +100,7 @@
             <div class="s-syrattach-uploading-file__progress" v-if="uploading">
                 <i class="fas fa-spinner fa-spin"></i>
                 <progress v-if="total_size === null"></progress>
-                {literal}<template v-else><progress :max="total_size" :value="uploaded"></progress> <span class="s-syrattach-filesize-hint">{{ total_size|filesize }}{{ ' of '|localize }}{{ uploaded|filesize }}</span> </template>{/literal}
+                {literal}<template v-else><progress :max="total_size" :value="uploaded"></progress> <span class="s-syrattach-filesize-hint">{{ total_size|filesize }} {{ 'of'|localize }} {{ uploaded|filesize }}</span> </template>{/literal}
             </div>
             <div class="s-syrattach-uploading-file__error-text" v-if="errors && errors.length" key="error_div">{literal}
                 {{ Array.isArray(errors) ? errors[0] : errors }}
@@ -167,11 +167,11 @@
                 files: {$attachments|json_encode:256},
                 component_templates: {$_component_templates|json_encode:256},
                 l10n: {
-                    ' GB': '{_wp(' GB')}',
-                    ' MB': '{_wp(' MB')}',
-                    ' KB': '{_wp(' KB')}',
-                    ' bytes': '{_wp(' bytes')}',
-                    ' of ': '{_wp(' of ')}',
+                    'GB': '{_wp('GB')}',
+                    'MB': '{_wp('MB')}',
+                    'KB': '{_wp('KB')}',
+                    'bytes': '{_wp('bytes')}',
+                    'of': '{_wp('of')}',
                     'Size of %name% exceeds maximum upload size limit': '{_wp('Size of %name% exceeds maximum upload size limit')}',
                     "Upload error": '{_wp("Upload error")}'
                 }
