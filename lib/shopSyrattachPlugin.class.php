@@ -229,18 +229,14 @@ class shopSyrattachPlugin extends shopPlugin
      *
      * @param shopProduct $product
      * @return array
-     * @throws SmartyException
-     * @throws waException
      */
     public function frontendProduct(shopProduct $product): array
     {
         $placement = $this->getSettings('frontend_product_hook');
+        if (($placement !== 'block') && ($placement !== 'block_aux'))
+            return [];
 
-        if (!in_array($placement, array('block', 'block_aux'))) {
-            return array();
-        }
-
-        return array($placement => self::render($product->id));
+        return [$placement => (new shopSyrattachPluginViewHelper($this, 'syrattach'))->render($product->id)];
     }
 
     /**
@@ -265,7 +261,7 @@ class shopSyrattachPlugin extends shopPlugin
         }
 
         return (new shopSyrattachPluginViewHelper($plugin, 'syrattach'))
-            ->render($product_id,$force_on_empty);
+            ->render($product_id, $force_on_empty);
     }
 
     /**
