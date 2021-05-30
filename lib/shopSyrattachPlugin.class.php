@@ -135,6 +135,9 @@ class shopSyrattachPlugin extends shopPlugin
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public function handlerBackendProdLayout(): array
     {
         return ['bottom' => '<script>$(\'#wa-app\').on(\'wa_loaded\', ()=>{$.wa_shop_products.router.routes["/products/\\\\d+/attachments/"]={id:"products", content_selector: ".s-product-page .js-page-content"}});</script>'];
@@ -171,7 +174,7 @@ class shopSyrattachPlugin extends shopPlugin
      * Handler for 'product_save' hook
      * Copy files from directory on CSV import
      *
-     * @param array $params
+     * @param array|mixed $params
      * @throws waException
      */
     public function productSave($params)
@@ -229,7 +232,7 @@ class shopSyrattachPlugin extends shopPlugin
      * @throws SmartyException
      * @throws waException
      */
-    public function frontendProduct($product): array
+    public function frontendProduct(shopProduct $product): array
     {
         $placement = $this->getSettings('frontend_product_hook');
 
@@ -245,14 +248,18 @@ class shopSyrattachPlugin extends shopPlugin
      *
      * Returns the rendered template with list of files
      *
-     * @param int $product_id
-     * @param bool $force_on_empty If TRUE render template even the list of files is empty
+     * @param int|string $product_id
+     * @param bool|int $force_on_empty If TRUE render template even the list of files is empty
+     * @deprecated since 2.0.0 Оставлено для обратной совместимости и совместимости с фрейм <1.14 и shop <8.17
      * @return string
      * @throws SmartyException
      * @throws waException
      */
-    public static function render($product_id, $force_on_empty = false)
+    public static function render($product_id, $force_on_empty = false): string
     {
+        $product_id = (int)$product_id;
+        $force_on_empty = (bool)$force_on_empty;
+
         $attachments = self::getList($product_id);
 
         $result = "";
@@ -292,7 +299,8 @@ class shopSyrattachPlugin extends shopPlugin
      *     )
      * )
      *
-     * @param int $product_id
+     * @param int|string $product_id
+     * @deprecated since 2.0.0 Оставлено для обратной совместимости и совместимости с фрейм <1.14 и shop <8.17
      * @return array
      */
     public static function getList($product_id): array
