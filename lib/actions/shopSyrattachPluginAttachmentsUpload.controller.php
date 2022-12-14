@@ -4,10 +4,11 @@
  *
  * @package Syrattach/controller
  * @author Serge Rodovnichenko <serge@syrnik.com>
- * @version 1.0.0
  * @copyright (c) 2014-2021, Serge Rodovnichenko
  * @license http://www.webasyst.com/terms/#eula Webasyst
  */
+
+declare(strict_types=1);
 
 /**
  * Class shopSyrattachPluginAttachmentsUploadController
@@ -36,17 +37,17 @@ class shopSyrattachPluginAttachmentsUploadController extends shopUploadControlle
     protected function save(waRequestFile $file): array
     {
         $product_id = waRequest::post('syrattach_product_id', null, waRequest::TYPE_INT);
+        if (!$product_id) throw new waException("Не указан идентификатор товара");
         $this->checkProductRights($product_id);
         $data = $this->SyrattachFile->add($product_id, $file);
 
-        return array(
+        return [
             'id'          => $data['id'],
             'name'        => $data['name'],
             'type'        => $file->type,
             'size'        => $file->size,
             'description' => ''
-        );
-
+        ];
     }
 
     /**

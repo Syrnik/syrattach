@@ -2,6 +2,9 @@
   border: 2px dashed #ccc;
   margin-bottom: 20px;
 }
+.s-plugin-syrattach-upload-dropzone.highlighted {
+  background-color: #fea;
+}
 
 #s-plugin-syrattach-product-files-list {
   padding-left: 0;

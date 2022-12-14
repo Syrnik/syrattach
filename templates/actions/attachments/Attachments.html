@@ -7,7 +7,6 @@
     <span class="gray">{_w('or drag them here to start upload')}</span>
     {_wp("Max. file size for upload:")}
     {$max_file_size|wa_format_file_size}
-    {$wa->csrf()}
     <input type="hidden" name="syrattach_product_id" value="{$product.id}">
     <span id="s-plugin-syrattach-upload-progress" style="display:none">
         <div class="progressbar small yellow" style="width:150px;display:inline-block; margin:0;vertical-align:middle">
