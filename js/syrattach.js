@@ -61,6 +61,7 @@
         const formData = new FormData();
         formData.append('syrattach_product_id', that.product_id);
         for (const fileData of files) formData.append('files[]', fileData);
+
         $.ajax({
           type: 'POST',
           url: '?plugin=syrattach&module=attachments&action=upload',
@@ -72,15 +73,27 @@
             const myXHR = $.ajaxSettings.xhr();
             if (myXHR.upload) {
               myXHR.addEventListener('progress', e => {
-                console.log(e);
                 if (e.lengthComputable) {
                   // $progress.attr({value: e.loaded, max: e.total});
                 }
               });
+
             }
             return myXHR;
+          },
+          fail(e) {
+            return false;
+          },
+          success(r) {
+            if (r && r.files && Array.isArray(r.files)) {
+              if (!that.options.attachments || !Array.isArray(that.options.attachments))
+                that.options.attachments = [];
+              r.files.forEach(a => that.options.attachments.push(a));
+              that.initAttachmentsList(that.options);
+            }
           }
         })
+
       }
 
       ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => dropzone.addEventListener(eventName, preventDefaults, false));

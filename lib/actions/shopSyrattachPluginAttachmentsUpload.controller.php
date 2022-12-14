@@ -41,13 +41,7 @@ class shopSyrattachPluginAttachmentsUploadController extends shopUploadControlle
         $this->checkProductRights($product_id);
         $data = $this->SyrattachFile->add($product_id, $file);
 
-        return [
-            'id'          => $data['id'],
-            'name'        => $data['name'],
-            'type'        => $file->type,
-            'size'        => $file->size,
-            'description' => ''
-        ];
+        return $data;
     }
 
     /**

@@ -2,9 +2,8 @@
 /**
  * Description of shopSyrattachPluginAttachments
  *
- * @package Syrattach/controller
- * @author Serge Rodovnichenko <sergerod@gmail.com>
- * @copyright (c) 2014-2021, Serge Rodovnichenko
+ * @author Serge Rodovnichenko <serge@syrnik.com>
+ * @copyright (c) 2014-2022, Serge Rodovnichenko
  * @license http://www.webasyst.com/terms/#eula Webasyst
  */
 
@@ -12,14 +11,12 @@ declare(strict_types=1);
 
 /**
  * Class shopSyrattachPluginAttachmentsActions
+ * @Controller attachments
  */
 class shopSyrattachPluginAttachmentsActions extends waJsonActions
 {
     /** @var string */
     protected $template_folder = 'templates/Attachments';
-
-    /** @var shopProductModel */
-    private $Product;
 
     /** @var shopSyrattachFileModel */
     private $Attachment;
@@ -43,7 +40,7 @@ class shopSyrattachPluginAttachmentsActions extends waJsonActions
 
     /**
      * Список всех аттачей
-     *
+     * @ControllerAction list
      * @throws waException
      */
     public function listAction()
@@ -91,7 +88,6 @@ class shopSyrattachPluginAttachmentsActions extends waJsonActions
     protected function preExecute()
     {
         parent::preExecute();
-        $this->Product = new shopProductModel();
         $this->Attachment = new shopSyrattachFileModel();
     }
 }

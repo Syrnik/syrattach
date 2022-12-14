@@ -1,10 +1,11 @@
 <?php
 /**
- * @package Syrattach/model
  * @author Serge Rodovnichenko <serge@syrnik.com>
- * @copyright (c) 2014-2021, Serge Rodovnichenko
+ * @copyright (c) 2014-2022, Serge Rodovnichenko
  * @license http://www.webasyst.com/terms/#eula Webasyst
  */
+
+declare(strict_types=1);
 
 /**
  * Class shopSyrattachFileModel
@@ -36,9 +37,9 @@ class shopSyrattachFileModel extends waModel
         $this->checkDirectory($target_dir);
 
         $data = array(
-            'product_id'      => intval($product_id),
+            'product_id'      => $product_id,
             'name'            => $this->getUniqueFileName($file, $target_dir),
-            'sort'            => $this->getSortValue(intval($product_id)),
+            'sort'            => $this->getSortValue($product_id),
             'upload_datetime' => date("Y-m-d H:i:s"),
             'size'            => $file->size,
             'ext'             => $file->extension
@@ -55,6 +56,8 @@ class shopSyrattachFileModel extends waModel
         } else {
             $file->copyTo($target_dir, $data['name']);
         }
+
+        $data['url'] = shopSyrattachPlugin::getFileUrl($data);
 
         return $data;
     }
@@ -106,7 +109,7 @@ class shopSyrattachFileModel extends waModel
             ->fetch();
 
         if ($info['cnt']) {
-            return $info['max'];
+            return (int)$info['max'];
         }
 
         return 0;
@@ -121,10 +124,10 @@ class shopSyrattachFileModel extends waModel
      */
     public function getByProductId($product_id, bool $file_urls = false): array
     {
-        $attachments = $this->select("*")->
-        where("product_id=i:product_id", array('product_id' => $product_id))->
-        order("sort ASC")->
-        fetchAll();
+        $attachments = $this->select("*")
+            ->where("product_id=i:product_id", array('product_id' => $product_id))
+            ->order("sort ASC")
+            ->fetchAll();
 
         foreach ($attachments as $key => $attachment) {
             $attachments[$key]['id'] = (int)$attachment['id'];
