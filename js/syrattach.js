@@ -27,6 +27,8 @@
      */
     options: {},
 
+    errors: [],
+
     init(options) {
 
       $.shop.trace('$.product_syrattachments.init', 'Init');
@@ -88,10 +90,20 @@
             if (r && r.files && Array.isArray(r.files)) {
               if (!that.options.attachments || !Array.isArray(that.options.attachments))
                 that.options.attachments = [];
-              r.files.forEach(a => that.options.attachments.push(a));
+              r.files.forEach(a => {
+                if (a.error)
+                  that.errors.push((a.name ? a.name + ': ' : '') + a.error);
+                else
+                  that.options.attachments.push(a);
+
+              });
+              //todo displayErrors
               that.initAttachmentsList(that.options);
             }
           }
+        }).always(() => {
+          $.product_syrattachments.counter.text(that.options.attachments.length || ' ');
+          document.querySelector('#s-plugin-syrattach-fileupload input[type=file]').value = null;
         })
 
       }
@@ -105,6 +117,9 @@
         uploadFiles(files);
       }, false);
 
+      dropzone.querySelector('input[type=file]').onchange = function () {
+        uploadFiles(this.files)
+      };
 
       // $.product.editTabSyrattachmentsBlur = function (path) {
       //     $("#s-plugin-syrattach-fileupload").fileupload('destroy');
@@ -159,13 +174,12 @@
             if (data.status === 'ok') {
               list_item.slideUp(500, function () {
                 list_item.remove();
-                let cnt = parseInt($.product_syrattachments.counter.text());
-                cnt--;
-                if (cnt > 0) {
-                  $.product_syrattachments.counter.text(cnt);
-                } else {
-                  $.product_syrattachments.counter.text(' ');
-                }
+                // noinspection EqualityComparisonWithCoercionJS
+                const idx = $.product_syrattachments.options.attachments.findIndex(a => a.id == id);
+                if (idx >= 0)
+                  $.product_syrattachments.options.attachments.splice(idx, 1);
+                const cnt = $.product_syrattachments.options.attachments.length;
+                $.product_syrattachments.counter.text(cnt ? cnt : ' ');
               });
             }
           }, 'json');

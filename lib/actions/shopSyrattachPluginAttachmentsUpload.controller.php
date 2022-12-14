@@ -39,9 +39,7 @@ class shopSyrattachPluginAttachmentsUploadController extends shopUploadControlle
         $product_id = waRequest::post('syrattach_product_id', null, waRequest::TYPE_INT);
         if (!$product_id) throw new waException("Не указан идентификатор товара");
         $this->checkProductRights($product_id);
-        $data = $this->SyrattachFile->add($product_id, $file);
-
-        return $data;
+        return $this->SyrattachFile->add($product_id, $file);
     }
 
     /**
