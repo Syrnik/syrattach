@@ -151,17 +151,15 @@
             uploadFiles(event, type) {
                 let files = [];
                 this.is_over = false;
-                if ((event instanceof DragEvent) || (type === 'drop'))
-                    files = event.dataTransfer.files;
-                else if ((event instanceof Event) || (type) === 'input') {
-                    files = event.target.files;
-                    event.target.value = "";
-                }
+                if (event instanceof DragEvent || type === 'drop') files = event.dataTransfer.files;
+                else if (event instanceof Event || type === 'input') files = event.target.files;
 
                 for (let i = 0; i < files.length; i++) {
                     files[i].id = Math.random();
                     this.uploads.push(files[i]);
                 }
+
+                event.target.value = null;
             },
             removeFileFromListById(id) {
                 const idx = this.uploads.findIndex(f => f.id === id);
