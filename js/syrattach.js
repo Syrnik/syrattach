@@ -12,13 +12,21 @@
 
     progressbar: {
       element: null,
-      update: function (value) {
-        if (this.element.prop("tagName") === 'PROGRESS') {
-          this.element.val(value);
-          this.element.text(value.toString() + '%');
-        } else {
-          $(".progressbar-inner", element).css("width", value.toString() + '%');
-        }
+      update(value, max) {
+        if (!value && value !== 0) this.element.removeAttribute('value');
+        else this.element.setAttribute('value', value)
+        if (!max) this.element.removeAttribute('max');
+        else this.element.setAttribute('max', max);
+      },
+      show() {
+        this.update();
+        $(this.element).show();
+        return this;
+      },
+      hide() {
+        $(this.element).hide();
+        this.update();
+        return this;
       }
     },
 
@@ -64,6 +72,7 @@
         formData.append('syrattach_product_id', that.product_id);
         for (const fileData of files) formData.append('files[]', fileData);
 
+        that.progressbar.show();
         $.ajax({
           type: 'POST',
           url: '?plugin=syrattach&module=attachments&action=upload',
@@ -74,8 +83,10 @@
           xhr() {
             const myXHR = $.ajaxSettings.xhr();
             if (myXHR.upload) {
-              myXHR.addEventListener('progress', e => {
+              myXHR.upload.addEventListener('progress', e => {
                 if (e.lengthComputable) {
+                  that.progressbar.update(e.loaded, e.total)
+                  console.log(e);
                   // $progress.attr({value: e.loaded, max: e.total});
                 }
               });
@@ -104,6 +115,7 @@
         }).always(() => {
           $.product_syrattachments.counter.text(that.options.attachments.length || ' ');
           document.querySelector('#s-plugin-syrattach-fileupload input[type=file]').value = null;
+          that.progressbar.hide();
         })
 
       }
@@ -151,15 +163,7 @@
     },
 
     initProgressBar() {
-      // Modern browser
-      if (document.createElement('progress').max !== undefined) {
-        $("#s-plugin-syrattach-upload-progress .progressbar").replaceWith('<progress>0%</progress>');
-        this.progressbar.element = $("#s-plugin-syrattach-upload-progress progress");
-        this.progressbar.element.attr("max", 100);
-      } else {
-        this.progressbar.element = $("#s-plugin-syrattach-upload-progress .progressbar");
-      }
-      this.progressbar.update(0);
+      this.progressbar.element = document.getElementById('s-plugin-syrattach-upload-progress');
     },
 
     initAttachDeleteAction() {
@@ -255,55 +259,4 @@
       })
   }
 
-  const errors = [];
-
-  /*
-      syrattachupload.fileupload({
-          formData: $("#s-plugin-syrattach-fileupload input[type=hidden]").serializeArray(),
-          dropZone: $(".s-plugin-syrattach-upload-dropzone"),
-          maxFileSize: $.product_syrattachments.options.maxFileSize,
-          disableValidation: false,
-          start: function (event, data) {
-              $.shop.trace('File upload starts', data);
-              $.product_syrattachments.progressbar.update(0);
-              $.product_syrattachments.progressbar.element.parent().show();
-          },
-          fail: function (e, data) {
-              $.shop.trace('Fail called', data);
-          },
-          stop(event) {
-              $.shop.trace('File upload stop() called', event);
-              $.product_syrattachments.progressbar.element.parent().hide();
-              if(errors.length) {
-                  errorDialog('<ul>'+errors.map(e=>`<li>${e}</li>`).join('')+'</ul>');
-                  errors.splice(0);
-              }
-              $.shop.getJSON(
-                  "?plugin=syrattach&module=attachments&action=list",
-                  {product_id: $.product_syrattachments.product_id},
-                  function (r) {
-                      $.shop.trace('Syrattach new file listing', r);
-                      $.product_syrattachments.options.attachments = r.data.attachments;
-                      $.product_syrattachments.attachments_list.html(tmpl('template-syrattach-attachments', {
-                          attachments: $.product_syrattachments.options.attachments,
-                          formatFileSize: $.product_syrattachments._formatFileSize,
-                          placeholder: $.product_syrattachments.options.placeholder
-                      }));
-                      $.product_syrattachments.counter.text(r.data.count);
-                  }
-              );
-          },
-          progressall(evt, data) {
-              $.shop.trace('progressAll', data);
-              $.product_syrattachments.progressbar.update(parseInt(data.loaded / data.total * 100, 10));
-          },
-          done(e, data) {
-              $.shop.trace('File upload done() called', data);
-              if (data && data.result && data.result.files && data.result.files[0] && data.result.files[0].error) {
-                  const error = '<b>' + data.files[0].name + '</b>: ' + (typeof data.result.files[0].error === 'string' ? data.result.files[0].error : 'Ошибка загрузки (непонятная)');
-                  errors.push(error);
-              }
-          }
-      });
-  */
 })(jQuery);

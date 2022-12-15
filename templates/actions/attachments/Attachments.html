@@ -8,14 +8,7 @@
     {_wp("Max. file size for upload:")}
     {$max_file_size|wa_format_file_size}
     <input type="hidden" name="syrattach_product_id" value="{$product.id}">
-    <span id="s-plugin-syrattach-upload-progress" style="display:none">
-        <div class="progressbar small yellow" style="width:150px;display:inline-block; margin:0;vertical-align:middle">
-            <div class="progressbar-outer">
-                <div class="progressbar-inner" id="s-plugin-syrattach-upload-progressbar-id" style="width:0">
-                </div>
-            </div>
-        </div>
-    </span>
+    <progress id="s-plugin-syrattach-upload-progress" style="display:none"></progress>
 </div>
 
 <ul id="s-plugin-syrattach-product-files-list">
