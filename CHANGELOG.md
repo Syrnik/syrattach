@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for drag-and-drop uploads in old product editor
 - Automatic file addition to list after upload
 - GitHub Actions workflows for automated release and PHP compatibility checks
+- README.md (Russian) and README_en.md (English) documentation with cross-links (#34.6)
+- LICENSE and LICENSE_ru files with Webasyst EULA (#34.6)
+- CHANGELOG.md following Keep a Changelog standard (#34.6)
 
 ### Changed
 - Improved JavaScript and CSS loading mechanism
