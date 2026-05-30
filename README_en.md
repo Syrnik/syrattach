@@ -1,66 +1,44 @@
-# Syrattach — Attached Files for Shop Products
+# Attached Files for Shop Products — Shop-Script plugin
 
-**[Русская версия](README.md)**
+[Русская версия](README.md)
 
-A Shop-Script Webasyst plugin that adds functionality for uploading and managing files attached to products.
+The plugin lets you attach any number of files with descriptions to each product. The file list is displayed to customers on the product page.
+
+Typical use cases: user manuals and guides, drivers and firmware, certificates and datasheets, supplementary product materials.
 
 ## Features
 
-- ✅ File uploads for products in admin panel (new and legacy editors)
-- ✅ Drag-and-drop support for convenient uploads
-- ✅ File selection via dialog
-- ✅ Visual progress bar during upload
-- ✅ Manage list of uploaded files
-- ✅ Display files on storefront
-- ✅ Compatible with Webasyst Premium
-- ✅ Customizable display templates
+**File management in admin panel**
+
+- Upload files via drag-and-drop or standard file dialog
+- Progress bar during upload
+- Custom description for each file
+- Supports both new and legacy product editors
+- Position index per file (controls display order)
+
+**Storefront display**
+
+- File block is rendered via one of the hooks: `frontend_product.block` or `frontend_product.block_aux`
+- Alternatively, insert into any template location using the built-in helper
+- Display template is editable in plugin settings; the `$attachments` variable with file list is available inside
+
+**CSV import**
+
+- Files can be attached to products during CSV import
+- Upload the files to `wa-data/public/site/syrattach` beforehand and reference them by filename in the CSV
 
 ## Requirements
 
-- Webasyst Framework 2.x
-- Shop-Script 12.x or higher
-- PHP 7.4 and above
+- PHP 7.2 or higher
+- Webasyst Framework 2.0
+- Shop-Script (any current version)
 
-## Installation
+## Links
 
-1. Download the plugin from [Webasyst Marketplace](https://www.webasyst.ru/store/plugin/shop/syrattach/)
-2. In admin panel go to **Shop → Plugins**
-3. Click upload button and select the plugin archive
-4. Activate the plugin
-
-## Usage
-
-### Admin Panel
-
-1. Open product editor
-2. In the **Files** section, select files to upload:
-   - Drag and drop files
-   - Or click the field to browse
-3. Wait for upload to complete
-4. Files will automatically be added to product list
-5. Save the product
-
-### Storefront
-
-Uploaded files are displayed on product page according to selected design template.
-
-## Version
-
-Current version: **2.1.0**
-
-## Changelog
-
-Full list of changes available in [CHANGELOG.md](CHANGELOG.md)
-
-## License
-
-Webasyst End User License Agreement. See [LICENSE](LICENSE) for details.
+- [Plugin page on Webasyst Market](https://www.webasyst.ru/store/plugin/shop/syrattach/)
+- [Changelog](CHANGELOG.md)
+- [License](LICENSE)
 
 ## Developer
 
-**Sergey Rodovnichenko** (Syrnik)  
-serge@syrnik.com
-
----
-
-More information: https://www.webasyst.ru/store/plugin/shop/syrattach/
+Sergey Rodovnichenko — serge@syrnik.com
