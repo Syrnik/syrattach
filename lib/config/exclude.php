@@ -3,6 +3,8 @@ return array(
     'README.md',
     'CHANGELOG.md',
     'CONTRIBUTING.md',
+    'LICENSE',
+    'LICENSE_ru',
     'contributors.txt',
     'img/screenshot_*',
     'img/screenshot-*',
