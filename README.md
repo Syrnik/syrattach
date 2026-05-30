@@ -29,9 +29,9 @@
 
 ## Требования
 
-- PHP 7.2 или выше
-- Webasyst Framework 2.0
-- Shop-Script (любая актуальная версия)
+- PHP 7.4 или выше
+- Webasyst Framework 3.0
+- Shop-Script 10.0 или выше
 
 ## Ссылки
 

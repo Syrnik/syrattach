@@ -29,9 +29,9 @@ Typical use cases: user manuals and guides, drivers and firmware, certificates a
 
 ## Requirements
 
-- PHP 7.2 or higher
-- Webasyst Framework 2.0
-- Shop-Script (any current version)
+- PHP 7.4 or higher
+- Webasyst Framework 3.0
+- Shop-Script 10.0 or higher
 
 ## Links
 

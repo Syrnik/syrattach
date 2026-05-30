@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CHANGELOG.md following Keep a Changelog standard (#34.6)
 
 ### Changed
+- Minimum requirements updated: PHP 7.4+, Webasyst Framework 3.0, Shop-Script 10.0+
 - Improved JavaScript and CSS loading mechanism
 - Refactored file upload handling for old product editor (#34.3)
 - Enhanced Premium version compatibility

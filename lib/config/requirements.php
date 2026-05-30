@@ -5,7 +5,7 @@
  * @license Webasyst
  */
 return [
-    'php'           => ['version' => '>=7.2.0', 'strict' => true],
-    'app.installer' => ['version' => '2.0.0', 'strict' => true],
-    'app.shop'      => ['version' => '8.16.0', 'strict' => false]
+    'php'           => ['version' => '>=7.4.0', 'strict' => true],
+    'app.installer' => ['version' => '3.0.0', 'strict' => true],
+    'app.shop'      => ['version' => '10.0.0', 'strict' => false]
 ];
