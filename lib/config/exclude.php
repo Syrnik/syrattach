@@ -39,4 +39,8 @@ return array(
     'lib/vendors/bin',
     'lib/vendors/jms/metadata/tests/Metadata/Tests',
     'compress-app-plugin.php',
+    'tsconfig.json',
+    'vite.config.ts',
+    'package-lock.json',
+    'package.json',
 );
