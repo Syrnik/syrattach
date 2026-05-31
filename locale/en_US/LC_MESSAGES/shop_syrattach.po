@@ -207,6 +207,18 @@ msgstr ""
 msgid "Now this code is used instead of the default template. Transfer its code to the design theme template then"
 msgstr ""
 
+msgid "Recommended: add a file named"
+msgstr ""
+
+msgid "to your active design theme. The plugin will automatically use it instead of the built-in template."
+msgstr ""
+
+msgid "Transfer its code to"
+msgstr ""
+
+msgid "in your design theme, then"
+msgstr ""
+
 msgid "delete it from here"
 msgstr ""
 
@@ -223,6 +235,9 @@ msgid "Storefront without template"
 msgstr ""
 
 msgid "If the design theme used in the storefront does not have a template, the plugin can show the default template or switch self off"
+msgstr ""
+
+msgid "Applies when the design theme used in the storefront does not contain <code>plugin.syrattach.attachments.html</code>"
 msgstr ""
 
 msgid "Show default template"

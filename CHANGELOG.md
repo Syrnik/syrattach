@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README.md (Russian) and README_en.md (English) with full feature descriptions and cross-links (#34.6)
 - LICENSE and LICENSE_ru files with Webasyst EULA (#34.6)
 - CHANGELOG.md following Keep a Changelog standard (#34.6)
+- Design theme template support: placing `plugin.syrattach.attachments.html` in the active design theme now automatically overrides the built-in frontend template (#34.7)
+- Settings UI redesigned: prominent recommendation to use the theme template file, collapsible built-in template viewer, deprecated custom template highlighted as legacy (#34.7)
 - Migrated product editor frontend to Vue 3 + TypeScript + Vite (#34.8)
 - Manual drag-and-drop reordering of attached files in the product editor (#34.5)
 - "Attach existing file" button opens a side drawer with filename search — one file can be linked to multiple products without re-uploading (#34.9)
@@ -43,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `shopSyrattachFileModel::add()` accepts `entity_type` parameter (default `'product'`); upload controller also accepts `entity_type`/`entity_id` POST fields alongside the legacy `syrattach_product_id`.
 - API responses use link `id` as the primary identifier instead of file `id` — transparent to existing JS.
 - `productDelete` hook now removes only links (and orphaned new-style files); old-style files in the product directory continue to be cleaned up by Shop-Script.
+- Removed dead-code `SettingsOriginaltemplate` controller and template-saving logic from `SettingsSave` controller (#34.7)
 
 ## [2.0.0] - 2023-06-09
 

@@ -53,3 +53,8 @@ try {
 } catch (Exception $e) {
     waLog::log('SyrAttach 3.0.0 migration failed: ' . $e->getMessage(), $log);
 }
+
+$dead_file = $this->path . '/lib/actions/settings/shopSyrattachPluginSettingsOriginaltemplate.controller.php';
+if (file_exists($dead_file)) {
+    waFiles::delete($dead_file);
+}

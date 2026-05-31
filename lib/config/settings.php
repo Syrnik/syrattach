@@ -19,7 +19,7 @@ return array(
     ),
     'no_template'           => [
         'title'        => _wp('Storefront without template'),
-        'description'  => _wp('If the design theme used in the storefront does not have a template, the plugin can show the default template or switch self off'),
+        'description'  => _wp('Applies when the design theme used in the storefront does not contain <code>plugin.syrattach.attachments.html</code>'),
         'control_type' => waHtmlControl::RADIOGROUP,
         'value'        => 'default',
         'options'      => [

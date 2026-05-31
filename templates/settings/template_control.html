@@ -1,28 +1,10 @@
-<div class="s-syrattach-settings-template s-syrattach-settings-original-template">
-    <p>[`Default template`]: <a href="javascript:void(0)" class="inline-link s-syrattach-template-switcher"
-                                   data-template="original"><b><i>[`show`]</i></b></a></p>
-    <div class="s-syrattach-settings-original-template__content" style="display: none">
-        <pre>{$original_template|escape}
-        </pre>
-    </div>
-</div>
-{* $modified_template = $original_template *}
-{if $modified_template}
-    <div class="s-syrattach-settings-template s-syrattach-settings-modified-template">
-        <p>[`Template saved from previous version of plugin`]:
-            <a href="javascript:void(0)" class="inline-link s-syrattach-template-switcher"
-               data-template="modified"><b><i>[`show`]</i></b></a>.
-            [`Now this code is used instead of the default template. Transfer its code to the design theme template then`] <a
-                    href="javascript:void(0)" class="inline-link s-syrattach-modified-delete"><b><i>[`delete it from here`]</i></b></a>
-        </p>
-        <div class="s-syrattach-settings-modified-template__content" style="display: none">
-        <pre>{$modified_template|escape}
-        </pre>
-        </div>
-    </div>
-{/if}
-<div class="s-syrattach-settings-template__help">
-    <p>{_wp('JFYI. Variables available within the template:')}</p>
+<div class="s-syrattach-settings-tip">
+    <p>
+        [`Recommended: add a file named`]
+        <code>plugin.syrattach.attachments.html</code>
+        [`to your active design theme. The plugin will automatically use it instead of the built-in template.`]
+    </p>
+    <p>[`JFYI. Variables available within the template:`]</p>
     <code><b>$attachments</b></code> — {_wp('A list of file data. Each file item is an array with keys:')}
     <ul>
         <li><code>id</code> — {_wp('Attachment ID#')}</li>
@@ -33,6 +15,34 @@
         <li><code>url</code> — {_wp('File URL')}</li>
     </ul>
 </div>
+
+{if $modified_template}
+    <div class="s-syrattach-settings-template s-syrattach-settings-modified-template">
+        <p>
+            ⚠ [`Template saved from previous version of plugin`].
+            [`Transfer its code to`] <code>plugin.syrattach.attachments.html</code>
+            [`in your design theme, then`]
+            <a href="javascript:void(0)" class="inline-link s-syrattach-modified-delete"><b><i>[`delete it from here`]</i></b></a>.
+        </p>
+        <p>
+            <a href="javascript:void(0)" class="inline-link s-syrattach-template-switcher"
+               data-template="modified"><b><i>[`show`]</i></b></a>
+        </p>
+        <div class="s-syrattach-settings-modified-template__content" style="display: none">
+            <pre>{$modified_template|escape}</pre>
+        </div>
+    </div>
+{/if}
+
+<div class="s-syrattach-settings-template s-syrattach-settings-original-template">
+    <p>[`Default template`]: <a href="javascript:void(0)" class="inline-link s-syrattach-template-switcher"
+                                   data-template="original"><b><i>[`show`]</i></b></a></p>
+    <div class="s-syrattach-settings-original-template__content" style="display: none">
+        <pre>{$original_template|escape}
+        </pre>
+    </div>
+</div>
+
 <div class="s-syrattach-settings-template__error" style="display: none"></div>
 <script>
     (function ($) {
@@ -89,25 +99,43 @@
     })(jQuery)
 </script>
 <style>
+    .s-syrattach-settings-tip {
+        padding: 0.75rem 1rem;
+        background-color: #e8f4fd;
+        border-left: 4px solid #4a90d9;
+        margin-bottom: 1rem;
+    }
+    .s-syrattach-settings-tip p:first-child {
+        margin-top: 0;
+    }
+    .s-syrattach-settings-tip ul {
+        margin-bottom: 0;
+    }
+    .s-syrattach-settings-modified-template {
+        padding: 0.75rem 1rem;
+        background-color: #fff8e1;
+        border-left: 4px solid #f5a623;
+        margin-bottom: 1rem;
+    }
+    .s-syrattach-settings-modified-template p:first-child {
+        margin-top: 0;
+    }
     .s-syrattach-settings-modified-template__content > pre,
     .s-syrattach-settings-original-template__content > pre {
         background-color: #333;
         color: lightgreen;
         padding: 1rem;
     }
-
-    .s-syrattach-settings-template__help li {
+    .s-syrattach-settings-tip li {
         list-style-type: none;
     }
-
-    .s-syrattach-settings-template__help code {
+    .s-syrattach-settings-tip code {
         padding: 2px 4px;
         font-size: 90%;
         background-color: #f9f2f4;
-        color: #c7254e
+        color: #c7254e;
     }
-
-    .s-syrattach-settings-template__help li code {
+    .s-syrattach-settings-tip li code {
         display: inline-block;
         width: 6em;
     }

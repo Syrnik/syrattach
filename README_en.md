@@ -21,7 +21,9 @@ Typical use cases: user manuals and guides, drivers and firmware, certificates a
 
 - File block is rendered via one of the hooks: `frontend_product.block` or `frontend_product.block_aux`
 - Alternatively, insert into any template location using the built-in helper
-- Display template is editable in plugin settings; the `$attachments` variable with file list is available inside
+- **Design theme template (recommended):** create a file named `plugin.syrattach.attachments.html` in your active design theme folder — the plugin will automatically find and use it
+- If the theme file is absent, the built-in default template is used
+- The template has access to the `$attachments` variable — an array of files with fields: `id`, `name`, `ext`, `description`, `size`, `url`
 
 **CSV import**
 
