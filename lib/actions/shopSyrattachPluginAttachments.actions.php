@@ -96,6 +96,66 @@ class shopSyrattachPluginAttachmentsActions extends waJsonActions
     }
 
     /**
+     * Search files not yet linked to entity.
+     * GET query, entity_type, entity_id
+     *
+     * @throws waException
+     */
+    public function searchAction(): void
+    {
+        $query       = waRequest::get('query', '', waRequest::TYPE_STRING_TRIM);
+        $entity_type = waRequest::get('entity_type', 'product', waRequest::TYPE_STRING_TRIM);
+        $entity_id   = waRequest::get('entity_id', 0, waRequest::TYPE_INT);
+
+        if (!$entity_id) {
+            $this->errors[] = [_wp('Invalid parameters')];
+            return;
+        }
+
+        $this->response['files'] = $this->Attachment->search($query, $entity_type, $entity_id);
+    }
+
+    /**
+     * Link an existing file to entity.
+     * POST file_id, entity_type, entity_id
+     *
+     * @throws waException
+     */
+    public function linkAction(): void
+    {
+        $file_id     = waRequest::post('file_id', 0, waRequest::TYPE_INT);
+        $entity_type = waRequest::post('entity_type', 'product', waRequest::TYPE_STRING_TRIM);
+        $entity_id   = waRequest::post('entity_id', 0, waRequest::TYPE_INT);
+
+        if (!$file_id || !$entity_id) {
+            $this->errors[] = [_wp('Invalid parameters')];
+            return;
+        }
+
+        $file = $this->Attachment->getById($file_id);
+        if (!$file) {
+            $this->errors[] = [_wp('File not found')];
+            return;
+        }
+
+        $link_model = new shopSyrattachLinkModel();
+        $link_id    = $link_model->link($file_id, $entity_type, $entity_id);
+        $link       = $link_model->getById($link_id);
+
+        $this->response = [
+            'id'          => (int)$link_id,
+            'file_id'     => (int)$file_id,
+            'name'        => $file['name'],
+            'ext'         => $file['ext'],
+            'size'        => (int)$file['size'],
+            'sort'        => (int)($link['sort'] ?? 0),
+            'description' => $link['description'] ?? '',
+            'product_id'  => $file['product_id'],
+            'url'         => shopSyrattachPlugin::getFileUrl($file),
+        ];
+    }
+
+    /**
      * Save a new sort order for entity's attachments.
      * POST entity_type, entity_id, order[] — link_ids in desired display order.
      *

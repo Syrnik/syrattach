@@ -121,6 +121,58 @@ class shopSyrattachFileModel extends waModel
     }
 
     /**
+     * Search files not yet linked to the given entity.
+     * Empty query returns the most recently uploaded files.
+     * Each row includes `linked_products` — product names this file is already attached to.
+     *
+     * @return array{file_id:int,name:string,ext:string,size:int,product_id:int|null,linked_products:string[]}[]
+     * @throws waException
+     */
+    public function search(string $query, string $entity_type, int $entity_id, int $limit = 30): array
+    {
+        $params = [
+            'type'  => $entity_type,
+            'eid'   => $entity_id,
+            'limit' => $limit,
+        ];
+
+        $where_name = '';
+        if ($query !== '') {
+            $where_name    = 'AND f.`name` LIKE s:like';
+            $params['like'] = '%' . addcslashes($query, '%_\\') . '%';
+        }
+
+        $sql = "SELECT f.`id` AS file_id, f.`name`, f.`ext`, f.`size`, f.`product_id`,
+                       GROUP_CONCAT(p.`name` ORDER BY p.`name` SEPARATOR '||') AS linked_names
+                FROM `{$this->table}` f
+                LEFT JOIN `shop_syrattach_links` l2
+                       ON l2.`file_id` = f.`id` AND l2.`entity_type` = 'product'
+                LEFT JOIN `shop_product` p ON p.`id` = l2.`entity_id`
+                WHERE f.`id` NOT IN (
+                    SELECT `file_id` FROM `shop_syrattach_links`
+                    WHERE `entity_type` = s:type AND `entity_id` = i:eid
+                )
+                {$where_name}
+                GROUP BY f.`id`
+                ORDER BY f.`upload_datetime` DESC
+                LIMIT i:limit";
+
+        $rows = $this->query($sql, $params)->fetchAll();
+
+        foreach ($rows as &$row) {
+            $row['file_id']        = (int)$row['file_id'];
+            $row['size']           = (int)$row['size'];
+            $row['linked_products'] = $row['linked_names']
+                ? array_values(array_filter(explode('||', $row['linked_names'])))
+                : [];
+            unset($row['linked_names']);
+        }
+        unset($row);
+
+        return $rows;
+    }
+
+    /**
      * @deprecated use getByEntity('product', $product_id)
      * @throws waException
      */

@@ -7,7 +7,12 @@
         <div v-else class="s-section-body">
             <UploadSection :product-id="productId" @add-file="onFileAdded" />
             <div class="s-attachments-wrapper">
-                <h3 style="margin-top: 1.5rem">{{ t('Attached files') }}</h3>
+                <div class="s-attachments-toolbar">
+                    <h3>{{ t('Attached files') }}</h3>
+                    <button class="button outlined small" type="button" @click="openAttachDrawer">
+                        <i class="fas fa-link custom-mr-8"></i>{{ t('Attach existing file') }}
+                    </button>
+                </div>
                 <div class="s-attachments-list" v-if="files.length" ref="listEl">
                     <div class="s-attachments-row" v-for="file in files" :key="file.id" :data-id="file.id">
                         <div class="s-drag-handle" :title="t('Drag to reorder')">
@@ -38,7 +43,7 @@ import Sortable from 'sortablejs';
 import UploadSection from './UploadSection.vue';
 import DescriptionField from './DescriptionField.vue';
 import { useL10n } from '../composables/useL10n';
-import type { AttachmentFile } from '../types';
+import type { AttachmentFile, SearchFile } from '../types';
 
 const props = defineProps<{
     initialFiles: AttachmentFile[];
@@ -47,9 +52,9 @@ const props = defineProps<{
 
 const { t, filesize } = useL10n();
 const files = ref<AttachmentFile[]>(props.initialFiles);
+const drawerOpen = ref(false);
 const listEl = ref<HTMLElement | null>(null);
 
-// watch instead of onMounted — handles v-if: ref is null when list is hidden
 let sortableInstance: Sortable | null = null;
 watch(listEl, (el) => {
     if (el && !sortableInstance) {
@@ -101,9 +106,135 @@ function confirmDelete(id: number) {
     });
 }
 
+// ── Attach existing file drawer ─────────────────────────────────────────────
+
+function openAttachDrawer() {
+    if (drawerOpen.value) return;
+    drawerOpen.value = true;
+
+    ($ as any).waDrawer({
+        html: buildDrawerHtml(),
+        direction: 'right',
+        width: '500px',
+        onOpen($drawer: JQuery) {
+            initDrawerSearch($drawer, (file: AttachmentFile) => {
+                files.value.push(file);
+                $drawer.find(`[data-file-id="${file.file_id}"]`).fadeOut(200, function() {
+                    $(this).remove();
+                });
+            });
+        },
+        onClose() {
+            drawerOpen.value = false;
+        },
+    });
+}
+
+function buildDrawerHtml(): string {
+    return `<div class="drawer" style="display:block">
+        <div class="drawer-background"></div>
+        <div class="drawer-body">
+            <a href="#" class="drawer-close js-close-drawer"><i class="fas fa-times"></i></a>
+            <div class="drawer-block">
+                <header class="drawer-header"><h1>${esc(t('Attach existing file'))}</h1></header>
+                <div class="drawer-content" style="overflow-x: hidden">
+                    <div class="fields">
+                        <div class="field">
+                            <div class="value">
+                                <input type="text" class="js-attach-search full-width" placeholder="${esc(t('Search by filename...'))}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="js-attach-results"></div>
+                </div>
+                <footer class="drawer-footer">
+                    <button class="js-close-drawer button light-gray">${esc(t('Close'))}</button>
+                </footer>
+            </div>
+        </div>
+    </div>`;
+}
+
+function initDrawerSearch($drawer: JQuery, onAttach: (file: AttachmentFile) => void): void {
+    const $input   = $drawer.find('.js-attach-search');
+    const $results = $drawer.find('.js-attach-results');
+
+    let timer: ReturnType<typeof setTimeout>;
+    $input.on('input', function () {
+        clearTimeout(timer);
+        const q = String($(this).val() ?? '');
+        timer = setTimeout(() => loadResults(q), 300);
+    });
+
+    loadResults('');
+
+    function loadResults(query: string): void {
+        $results.html(`<p class="hint" style="padding:0.5rem 0">...</p>`);
+        $.ajax({
+            url: '?plugin=syrattach&module=attachments&action=search',
+            data: { query, entity_type: 'product', entity_id: props.productId },
+            cache: true,
+        }).done((r: { status?: string; data?: { files: SearchFile[] } }) => {
+            if (r?.status !== 'ok') {
+                $results.html(`<p class="hint" style="color:var(--red)">${esc(t('Upload error'))}</p>`);
+                return;
+            }
+            renderResults(r.data?.files ?? []);
+        });
+    }
+
+    function renderResults(list: SearchFile[]): void {
+        if (!list.length) {
+            $results.html(`<p class="hint" style="padding:0.5rem 0">${esc(t('No files found'))}</p>`);
+            return;
+        }
+
+        const rows = list.map(f => {
+            const linked = f.linked_products.length
+                ? `<span class="hint"> — ${esc(f.linked_products.join(', '))}</span>`
+                : '';
+            return `<div class="s-attach-result" data-file-id="${f.file_id}">
+                <div class="s-attach-result__info">
+                    <b>${esc(f.name)}</b>
+                    <span class="s-syrattach-filesize-hint">(${filesize(f.size)})</span>
+                    ${linked}
+                </div>
+                <button class="button small outlined js-do-attach" data-file-id="${f.file_id}">${esc(t('Attach'))}</button>
+            </div>`;
+        }).join('');
+        $results.html(rows);
+
+        $results.find('.js-do-attach').on('click', function () {
+            const $btn    = $(this);
+            const file_id = parseInt(String($btn.data('file-id')), 10);
+            $btn.prop('disabled', true).text('…');
+
+            $.post('?plugin=syrattach&module=attachments&action=link', {
+                file_id,
+                entity_type: 'product',
+                entity_id: props.productId,
+            }).done((r: { status?: string; data?: AttachmentFile }) => {
+                if (r?.status === 'ok' && r.data) {
+                    onAttach(r.data);
+                } else {
+                    $btn.prop('disabled', false).text(t('Attach'));
+                }
+            }).fail(() => {
+                $btn.prop('disabled', false).text(t('Attach'));
+            });
+        });
+    }
+}
+
+function esc(s: string): string {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+// ── Sidebar counter ─────────────────────────────────────────────────────────
+
 watch(files, (newFiles) => {
     const $menuItem = $('#s-syrattach-plugin-menuitem');
-    const $counter = $menuItem.find('.count');
+    const $counter  = $menuItem.find('.count');
     if (newFiles.length) {
         if ($counter.length) $counter.text(newFiles.length);
         else $(`<span class="count">${newFiles.length}</span>`).appendTo($menuItem.find('a'));

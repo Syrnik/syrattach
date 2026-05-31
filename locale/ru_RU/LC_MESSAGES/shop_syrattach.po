@@ -243,3 +243,18 @@ msgstr "Неверные параметры"
 
 msgid "Unknown entity"
 msgstr "Неизвестная сущность"
+
+msgid "Attach existing file"
+msgstr "Прикрепить существующий файл"
+
+msgid "Search by filename..."
+msgstr "Поиск по имени файла..."
+
+msgid "Attach"
+msgstr "Прикрепить"
+
+msgid "No files found"
+msgstr "Файлы не найдены"
+
+msgid "File not found"
+msgstr "Файл не найден"

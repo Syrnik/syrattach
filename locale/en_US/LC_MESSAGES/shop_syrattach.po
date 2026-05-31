@@ -242,3 +242,18 @@ msgstr ""
 
 msgid "Unknown entity"
 msgstr ""
+
+msgid "Attach existing file"
+msgstr ""
+
+msgid "Search by filename..."
+msgstr ""
+
+msgid "Attach"
+msgstr ""
+
+msgid "No files found"
+msgstr ""
+
+msgid "File not found"
+msgstr ""

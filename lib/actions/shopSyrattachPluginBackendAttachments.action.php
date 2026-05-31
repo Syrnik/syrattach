@@ -44,6 +44,11 @@ class shopSyrattachPluginBackendAttachmentsAction extends waViewAction
             'Size of %name% exceeds maximum upload size limit'            => _wp('Size of %name% exceeds maximum upload size limit'),
             'Upload error'                                                => _wp('Upload error'),
             'Drag to reorder'                                             => _wp('Drag to reorder'),
+            'Attach existing file'                                        => _wp('Attach existing file'),
+            'Search by filename...'                                       => _wp('Search by filename...'),
+            'Attach'                                                      => _wp('Attach'),
+            'No files found'                                              => _wp('No files found'),
+            'File not found'                                              => _wp('File not found'),
         ]);
 
         $this->setLayout(new shopBackendProductsEditSectionLayout([

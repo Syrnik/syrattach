@@ -10642,7 +10642,7 @@ Expected function or array of functions, received type ${typeof value}.`
     class: "s-section-body"
   };
   const _hoisted_5 = { class: "s-attachments-wrapper" };
-  const _hoisted_6 = { style: { "margin-top": "1.5rem" } };
+  const _hoisted_6 = { class: "s-attachments-toolbar" };
   const _hoisted_7 = ["data-id"];
   const _hoisted_8 = ["title"];
   const _hoisted_9 = { class: "s-column s-column-file wide" };
@@ -10661,6 +10661,7 @@ Expected function or array of functions, received type ${typeof value}.`
       const props = __props;
       const { t, filesize } = useL10n();
       const files = /* @__PURE__ */ ref(props.initialFiles);
+      const drawerOpen = /* @__PURE__ */ ref(false);
       const listEl = /* @__PURE__ */ ref(null);
       let sortableInstance = null;
       watch(listEl, (el) => {
@@ -10708,6 +10709,115 @@ Expected function or array of functions, received type ${typeof value}.`
           }
         });
       }
+      function openAttachDrawer() {
+        if (drawerOpen.value) return;
+        drawerOpen.value = true;
+        $.waDrawer({
+          html: buildDrawerHtml(),
+          direction: "right",
+          width: "500px",
+          onOpen($drawer) {
+            initDrawerSearch($drawer, (file) => {
+              files.value.push(file);
+              $drawer.find(`[data-file-id="${file.file_id}"]`).fadeOut(200, function() {
+                $(this).remove();
+              });
+            });
+          },
+          onClose() {
+            drawerOpen.value = false;
+          }
+        });
+      }
+      function buildDrawerHtml() {
+        return `<div class="drawer" style="display:block">
+        <div class="drawer-background"></div>
+        <div class="drawer-body">
+            <a href="#" class="drawer-close js-close-drawer"><i class="fas fa-times"></i></a>
+            <div class="drawer-block">
+                <header class="drawer-header"><h1>${esc(t("Attach existing file"))}</h1></header>
+                <div class="drawer-content" style="overflow-x: hidden">
+                    <div class="fields">
+                        <div class="field">
+                            <div class="value">
+                                <input type="text" class="js-attach-search full-width" placeholder="${esc(t("Search by filename..."))}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="js-attach-results"></div>
+                </div>
+                <footer class="drawer-footer">
+                    <button class="js-close-drawer button light-gray">${esc(t("Close"))}</button>
+                </footer>
+            </div>
+        </div>
+    </div>`;
+      }
+      function initDrawerSearch($drawer, onAttach) {
+        const $input = $drawer.find(".js-attach-search");
+        const $results = $drawer.find(".js-attach-results");
+        let timer;
+        $input.on("input", function() {
+          clearTimeout(timer);
+          const q = String($(this).val() ?? "");
+          timer = setTimeout(() => loadResults(q), 300);
+        });
+        loadResults("");
+        function loadResults(query) {
+          $results.html(`<p class="hint" style="padding:0.5rem 0">...</p>`);
+          $.ajax({
+            url: "?plugin=syrattach&module=attachments&action=search",
+            data: { query, entity_type: "product", entity_id: props.productId },
+            cache: true
+          }).done((r) => {
+            var _a;
+            if ((r == null ? void 0 : r.status) !== "ok") {
+              $results.html(`<p class="hint" style="color:var(--red)">${esc(t("Upload error"))}</p>`);
+              return;
+            }
+            renderResults(((_a = r.data) == null ? void 0 : _a.files) ?? []);
+          });
+        }
+        function renderResults(list) {
+          if (!list.length) {
+            $results.html(`<p class="hint" style="padding:0.5rem 0">${esc(t("No files found"))}</p>`);
+            return;
+          }
+          const rows = list.map((f) => {
+            const linked = f.linked_products.length ? `<span class="hint"> — ${esc(f.linked_products.join(", "))}</span>` : "";
+            return `<div class="s-attach-result" data-file-id="${f.file_id}">
+                <div class="s-attach-result__info">
+                    <b>${esc(f.name)}</b>
+                    <span class="s-syrattach-filesize-hint">(${filesize(f.size)})</span>
+                    ${linked}
+                </div>
+                <button class="button small outlined js-do-attach" data-file-id="${f.file_id}">${esc(t("Attach"))}</button>
+            </div>`;
+          }).join("");
+          $results.html(rows);
+          $results.find(".js-do-attach").on("click", function() {
+            const $btn = $(this);
+            const file_id = parseInt(String($btn.data("file-id")), 10);
+            $btn.prop("disabled", true).text("…");
+            $.post("?plugin=syrattach&module=attachments&action=link", {
+              file_id,
+              entity_type: "product",
+              entity_id: props.productId
+            }).done((r) => {
+              if ((r == null ? void 0 : r.status) === "ok" && r.data) {
+                onAttach(r.data);
+              } else {
+                $btn.prop("disabled", false).text(t("Attach"));
+              }
+            }).fail(() => {
+              $btn.prop("disabled", false).text(t("Attach"));
+            });
+          });
+        }
+      }
+      function esc(s) {
+        return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      }
       watch(files, (newFiles) => {
         const $menuItem = $("#s-syrattach-plugin-menuitem");
         const $counter = $menuItem.find(".count");
@@ -10729,7 +10839,17 @@ Expected function or array of functions, received type ${typeof value}.`
               onAddFile: onFileAdded
             }, null, 8, ["product-id"]),
             createBaseVNode("div", _hoisted_5, [
-              createBaseVNode("h3", _hoisted_6, toDisplayString(unref(t)("Attached files")), 1),
+              createBaseVNode("div", _hoisted_6, [
+                createBaseVNode("h3", null, toDisplayString(unref(t)("Attached files")), 1),
+                createBaseVNode("button", {
+                  class: "button outlined small",
+                  type: "button",
+                  onClick: openAttachDrawer
+                }, [
+                  _cache[0] || (_cache[0] = createBaseVNode("i", { class: "fas fa-link custom-mr-8" }, null, -1)),
+                  createTextVNode(toDisplayString(unref(t)("Attach existing file")), 1)
+                ])
+              ]),
               files.value.length ? (openBlock(), createElementBlock("div", {
                 key: 0,
                 class: "s-attachments-list",
@@ -10745,7 +10865,7 @@ Expected function or array of functions, received type ${typeof value}.`
                     createBaseVNode("div", {
                       class: "s-drag-handle",
                       title: unref(t)("Drag to reorder")
-                    }, [..._cache[0] || (_cache[0] = [
+                    }, [..._cache[1] || (_cache[1] = [
                       createBaseVNode("i", { class: "fas fa-grip-vertical" }, null, -1)
                     ])], 8, _hoisted_8),
                     createBaseVNode("div", _hoisted_9, [
@@ -10770,7 +10890,7 @@ Expected function or array of functions, received type ${typeof value}.`
                         type: "button",
                         onClick: withModifiers(($event) => confirmDelete(file.id), ["prevent"])
                       }, [
-                        _cache[1] || (_cache[1] = createBaseVNode("i", { class: "fas fa-trash-alt custom-mr-8" }, null, -1)),
+                        _cache[2] || (_cache[2] = createBaseVNode("i", { class: "fas fa-trash-alt custom-mr-8" }, null, -1)),
                         createTextVNode(toDisplayString(unref(t)("Delete")), 1)
                       ], 8, _hoisted_14)
                     ])
