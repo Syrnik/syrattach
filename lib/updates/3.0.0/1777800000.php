@@ -36,9 +36,6 @@ try {
         $model->createSchema(['shop_syrattach_links' => $schema['shop_syrattach_links']]);
     }
 
-    // 1. Make product_id nullable so new-style records can use NULL
-    $model->exec("ALTER TABLE `shop_syrattach_files` MODIFY `product_id` INT(11) NULL DEFAULT NULL");
-
     // 3. Populate links from existing file records (INSERT IGNORE respects the UNIQUE key)
     $model->exec(
         "
