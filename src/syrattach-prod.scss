@@ -5,29 +5,32 @@
 
   .s-attachments-wrapper {
     .s-attachments-list {
-      display: table;
+      display: flex;
+      flex-direction: column;
       width: 100%;
       margin-top: 1rem;
 
-      .s-attachments-wrapper {
-        display: table-row;
+      .s-attachments-row {
+        display: flex;
+        align-items: center;
 
         &:nth-child(odd) {
           background: var(--background-color-zebra-row-odd);
         }
 
         > * {
-          display: table-cell;
           padding: 0.25rem 0.5rem;
         }
 
         .s-column-file {
-          width: 100%;
+          flex: 1;
+          min-width: 0;
         }
 
         .s-column-actions {
           text-align: right;
-          vertical-align: middle;
+          display: flex;
+          align-items: center;
         }
 
         .s-column-file-name {
@@ -52,6 +55,26 @@
               margin-bottom: 0.5rem;
             }
           }
+        }
+      }
+
+      .s-drag-handle {
+        flex-shrink: 0;
+        width: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: grab;
+        color: #bbb;
+        user-select: none;
+        padding: 0.5rem 0.25rem;
+
+        &:hover {
+          color: #666;
+        }
+
+        &:active {
+          cursor: grabbing;
         }
       }
     }

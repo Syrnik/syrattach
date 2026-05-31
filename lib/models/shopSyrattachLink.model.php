@@ -63,6 +63,23 @@ class shopSyrattachLinkModel extends waModel
     }
 
     /**
+     * Update sort values for a list of link_ids in the given order.
+     * Each id gets sort = its index in the array.
+     * Only touches links belonging to the given entity (safe against foreign ids).
+     *
+     * @param int[]  $ids  link_ids in desired display order
+     */
+    public function updateSort(int $entity_id, string $entity_type, array $ids): void
+    {
+        foreach ($ids as $sort => $link_id) {
+            $this->exec(
+                'UPDATE `shop_syrattach_links` SET `sort` = i:s WHERE `id` = i:id AND `entity_type` = s:t AND `entity_id` = i:e',
+                ['s' => $sort, 'id' => $link_id, 't' => $entity_type, 'e' => $entity_id]
+            );
+        }
+    }
+
+    /**
      * Create a link between file and entity.
      * Ignores duplicate (file already linked to same entity).
      *

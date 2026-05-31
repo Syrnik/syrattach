@@ -234,3 +234,12 @@ msgstr "Шаблон, сохранённый в прошлой версии"
 
 msgid "Switch off"
 msgstr "Отключиться"
+
+msgid "Drag to reorder"
+msgstr "Перетащите для изменения порядка"
+
+msgid "Invalid parameters"
+msgstr "Неверные параметры"
+
+msgid "Unknown entity"
+msgstr "Неизвестная сущность"

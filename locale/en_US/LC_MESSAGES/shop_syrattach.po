@@ -233,3 +233,12 @@ msgstr ""
 
 msgid "Switch off"
 msgstr ""
+
+msgid "Drag to reorder"
+msgstr ""
+
+msgid "Invalid parameters"
+msgstr ""
+
+msgid "Unknown entity"
+msgstr ""

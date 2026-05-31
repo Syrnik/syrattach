@@ -95,6 +95,27 @@ class shopSyrattachPluginAttachmentsActions extends waJsonActions
         }
     }
 
+    /**
+     * Save a new sort order for entity's attachments.
+     * POST entity_type, entity_id, order[] — link_ids in desired display order.
+     *
+     * @throws waException
+     */
+    public function sortAction(): void
+    {
+        $entity_type = waRequest::post('entity_type', 'product', waRequest::TYPE_STRING_TRIM);
+        $entity_id   = waRequest::post('entity_id', 0, waRequest::TYPE_INT);
+        $order       = waRequest::post('order', [], waRequest::TYPE_ARRAY);
+
+        if (!$entity_id || !$order) {
+            $this->errors[] = [_wp('Invalid parameters')];
+            return;
+        }
+
+        (new shopSyrattachLinkModel())->updateSort($entity_id, $entity_type, array_map('intval', $order));
+        $this->response = 'OK';
+    }
+
     protected function preExecute(): void
     {
         parent::preExecute();

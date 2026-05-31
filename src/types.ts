@@ -4,6 +4,7 @@ export interface AttachmentFile {
     url: string;
     size: number | string;
     description: string;
+    sort?: number;
 }
 
 export interface UploadItem {

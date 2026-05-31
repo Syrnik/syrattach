@@ -43,6 +43,7 @@ class shopSyrattachPluginBackendAttachmentsAction extends waViewAction
             "You can't upload files to a new product. First, save the product." => _wp("You can't upload files to a new product. First, save the product."),
             'Size of %name% exceeds maximum upload size limit'            => _wp('Size of %name% exceeds maximum upload size limit'),
             'Upload error'                                                => _wp('Upload error'),
+            'Drag to reorder'                                             => _wp('Drag to reorder'),
         ]);
 
         $this->setLayout(new shopBackendProductsEditSectionLayout([

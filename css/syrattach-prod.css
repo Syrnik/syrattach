@@ -1,1 +1,95 @@
-.s-product-attachments-section>.s-section-header:not(:empty){margin-bottom:1.5rem}.s-product-attachments-section .s-attachments-wrapper .s-attachments-list{display:table;width:100%;margin-top:1rem}.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-wrapper{display:table-row}.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-wrapper:nth-child(odd){background:var(--background-color-zebra-row-odd)}.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-wrapper>*{display:table-cell;padding:.25rem .5rem}.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-wrapper .s-column-file{width:100%}.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-wrapper .s-column-actions{text-align:right;vertical-align:middle}.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-wrapper .s-column-file-name{margin:.5rem 0 .75rem}.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-wrapper .s-column-file-description{margin:.5rem 0;font-size:.875rem}.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-wrapper .s-column-file-description .s-column-file-description__content{padding:.25rem}.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-wrapper .s-column-file-description .s-column-file-description__content:hover{cursor:text;background-color:var(--highlighted-yellow)}.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-wrapper .s-column-file-description .s-column-file-description__editor .s-syrattach-editable-field{margin-bottom:.5rem}.s-product-attachments-section .s-syrattach-upload-files{margin:1.5rem 0;display:table}.s-product-attachments-section .s-syrattach-uploading-file{display:table-row}.s-product-attachments-section .s-syrattach-uploading-file__error{background-color:#ff31150f}.s-product-attachments-section .s-syrattach-uploading-file__main,.s-product-attachments-section .s-syrattach-uploading-file__actions{display:table-cell}.s-product-attachments-section .s-syrattach-uploading-file__main{width:100%}.s-product-attachments-section .s-syrattach-uploading-file__actions{min-width:1em;vertical-align:middle;padding:1rem}.s-product-attachments-section .s-syrattach-uploading-file__error-text{margin:.5rem 0;color:var(--red)}.s-product-attachments-section .s-syrattach-dismiss{color:var(--red)}.s-product-attachments-section .s-syrattach-filesize-hint{font-size:.75rem;color:var(--text-color-hint)}
+.s-product-attachments-section > .s-section-header:not(:empty) {
+  margin-bottom: 1.5rem;
+}
+.s-product-attachments-section .s-attachments-wrapper .s-attachments-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1rem;
+}
+.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-row {
+  display: flex;
+  align-items: center;
+}
+.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-row:nth-child(odd) {
+  background: var(--background-color-zebra-row-odd);
+}
+.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-row > * {
+  padding: 0.25rem 0.5rem;
+}
+.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-row .s-column-file {
+  flex: 1;
+  min-width: 0;
+}
+.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-row .s-column-actions {
+  text-align: right;
+  display: flex;
+  align-items: center;
+}
+.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-row .s-column-file-name {
+  margin: 0.5rem 0 0.75rem;
+}
+.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-row .s-column-file-description {
+  margin: 0.5rem 0;
+  font-size: 0.875rem;
+}
+.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-row .s-column-file-description .s-column-file-description__content {
+  padding: 0.25rem;
+}
+.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-row .s-column-file-description .s-column-file-description__content:hover {
+  cursor: text;
+  background-color: var(--highlighted-yellow);
+}
+.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-attachments-row .s-column-file-description .s-column-file-description__editor .s-syrattach-editable-field {
+  margin-bottom: 0.5rem;
+}
+.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-drag-handle {
+  flex-shrink: 0;
+  width: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  color: #bbb;
+  user-select: none;
+  padding: 0.5rem 0.25rem;
+}
+.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-drag-handle:hover {
+  color: #666;
+}
+.s-product-attachments-section .s-attachments-wrapper .s-attachments-list .s-drag-handle:active {
+  cursor: grabbing;
+}
+.s-product-attachments-section .s-syrattach-upload-files {
+  margin: 1.5rem 0;
+  display: table;
+}
+.s-product-attachments-section .s-syrattach-uploading-file {
+  display: table-row;
+}
+.s-product-attachments-section .s-syrattach-uploading-file__error {
+  background-color: rgba(255, 49, 21, 0.06);
+}
+.s-product-attachments-section .s-syrattach-uploading-file__main,
+.s-product-attachments-section .s-syrattach-uploading-file__actions {
+  display: table-cell;
+}
+.s-product-attachments-section .s-syrattach-uploading-file__main {
+  width: 100%;
+}
+.s-product-attachments-section .s-syrattach-uploading-file__actions {
+  min-width: 1em;
+  vertical-align: middle;
+  padding: 1rem;
+}
+.s-product-attachments-section .s-syrattach-uploading-file__error-text {
+  margin: 0.5rem 0;
+  color: var(--red);
+}
+.s-product-attachments-section .s-syrattach-dismiss {
+  color: var(--red);
+}
+.s-product-attachments-section .s-syrattach-filesize-hint {
+  font-size: 0.75rem;
+  color: var(--text-color-hint);
+}
