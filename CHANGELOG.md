@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [3.0.0] - 2026-05-31
+## [3.0.0]
 
 ### Added
 - File upload support in new product editor (#34.4)
@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - LICENSE and LICENSE_ru files with Webasyst EULA (#34.6)
 - CHANGELOG.md following Keep a Changelog standard (#34.6)
 - Migrated product editor frontend to Vue 3 + TypeScript + Vite (#34.8)
+- Manual drag-and-drop reordering of attached files in the product editor (#34.5)
+- "Attach existing file" button opens a side drawer with filename search — one file can be linked to multiple products without re-uploading (#34.9)
 - `shopSyrattachLinkModel` — model for `shop_syrattach_links`.
 - `shopSyrattachFileModel::getByEntity(entity_type, entity_id)` — generic entity file list.
 - `shopSyrattachFileModel::deleteByEntity(entity_type, entity_id)` — batch detach for hook handlers.

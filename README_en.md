@@ -14,7 +14,8 @@ Typical use cases: user manuals and guides, drivers and firmware, certificates a
 - Progress bar during upload
 - Custom description for each file
 - Supports both new and legacy product editors
-- Position index per file (controls display order)
+- Manual drag-and-drop reordering of attached files
+- Attach an already-uploaded file to multiple products without re-uploading
 
 **Storefront display**
 
