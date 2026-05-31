@@ -8,7 +8,7 @@
 return array(
     'name'          => /*_wp*/('Attached Files'),
     'img'           => 'img/syrattach.png',
-    'version'       => '2.1.0',
+    'version'       => '3.0.0',
     'vendor'        => '670917',
     'shop_settings' => true,
     'handlers'      =>

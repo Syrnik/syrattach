@@ -1,183 +1,237 @@
 <?php
 /**
  * @author Serge Rodovnichenko <serge@syrnik.com>
- * @copyright (c) 2014-2022, Serge Rodovnichenko
+ * @copyright (c) 2014-2026, Serge Rodovnichenko
  * @license http://www.webasyst.com/terms/#eula Webasyst
  */
 
 declare(strict_types=1);
 
-/**
- * Class shopSyrattachFileModel
- */
 class shopSyrattachFileModel extends waModel
 {
     protected $table = 'shop_syrattach_files';
 
     /**
-     * Adds a new record to the database
-     * If a file with the same name and extension exists the new name will
-     * be given %name%_%counter%.%ext%, i,e if file.pdf exists, the
-     * newly uploaded file with the same name will be renamed to file_1.ext
+     * Upload a file and attach it to an entity.
      *
-     * @param int $product_id
-     * @param waRequestFile $file
-     * @param bool $copy
-     * @return array
+     * Files are stored in central storage keyed by file id, so one file record
+     * can later be linked to multiple entities without path conflicts.
+     *
+     * Returns a flat array suitable for JSON responses; `id` is the LINK id
+     * (used for subsequent delete/description operations).
+     *
      * @throws waException
      */
-    public function add(int $product_id, waRequestFile $file, bool $copy = false): array
+    public function add(int $entity_id, waRequestFile $file, string $entity_type = 'product', bool $copy = false): array
     {
-        if (!$product_id) {
-            throw new waException(_wp("Product ID missing while file metadata saving"));
+        if (!$entity_id) {
+            throw new waException(_wp("Entity ID missing while saving file"));
         }
 
-        $target_dir = shopSyrattachPlugin::getDirectory($product_id);
-
-        $this->checkDirectory($target_dir);
-
-        $data = array(
-            'product_id'      => $product_id,
-            'name'            => $this->getUniqueFileName($file, $target_dir),
-            'sort'            => $this->getSortValue($product_id),
-            'upload_datetime' => date("Y-m-d H:i:s"),
+        $file_data = [
+            'product_id'      => null,
+            'name'            => $file->name,
+            'ext'             => $file->extension,
+            'upload_datetime' => date('Y-m-d H:i:s'),
             'size'            => $file->size,
-            'ext'             => $file->extension
-        );
+        ];
 
-        $data['id'] = $this->insert($data);
-
-        if (!$data['id']) {
-            throw new waException(_w('Database error'));
+        $file_data['id'] = $this->insert($file_data);
+        if (!$file_data['id']) {
+            throw new waException(_wp('Database error'));
         }
 
-        if (!$copy) {
-            $file->moveTo($target_dir, $data['name']);
-        } else {
-            $file->copyTo($target_dir, $data['name']);
+        $target_dir = shopSyrattachPlugin::getDirectory(null, $file_data['id']);
+
+        try {
+            $this->ensureDirectory($target_dir);
+            if ($copy) {
+                $file->copyTo($target_dir, $file->name);
+            } else {
+                $file->moveTo($target_dir, $file->name);
+            }
+        } catch (waException $e) {
+            $this->deleteById($file_data['id']);
+            throw $e;
         }
 
-        $data['url'] = shopSyrattachPlugin::getFileUrl($data);
+        $link_model = new shopSyrattachLinkModel();
+        try {
+            $link_id = $link_model->insert([
+                'file_id'     => $file_data['id'],
+                'entity_type' => $entity_type,
+                'entity_id'   => $entity_id,
+                'sort'        => $link_model->getSortValue($entity_type, $entity_id),
+                'description' => '',
+            ]);
+            if (!$link_id) {
+                throw new waException(_wp('Database error creating file link'));
+            }
+        } catch (waException $e) {
+            $this->deleteById($file_data['id']);
+            waFiles::delete($target_dir);
+            throw $e;
+        }
 
-        return $data;
+        return [
+            'id'          => (int)$link_id,
+            'file_id'     => (int)$file_data['id'],
+            'name'        => $file_data['name'],
+            'ext'         => $file_data['ext'],
+            'size'        => (int)$file_data['size'],
+            'sort'        => 0,
+            'description' => '',
+            'product_id'  => null,
+            'url'         => shopSyrattachPlugin::getFileUrl($file_data + ['file_id' => $file_data['id']]),
+        ];
     }
 
     /**
+     * Files attached to entity, ordered by sort.
+     * Each row has `id` = link id (for delete/description operations).
      *
-     * @param $dir string
      * @throws waException
      */
-    private function checkDirectory(string $dir)
+    public function getByEntity(string $entity_type, int $entity_id, bool $with_urls = false): array
     {
-        if ((file_exists($dir) && !is_writable($dir)) || (!file_exists($dir) && !waFiles::create($dir, true))) {
-            throw new waException("Error saving file. Check write permissions.");
+        $sql = "SELECT l.`id`, l.`file_id`, l.`sort`, l.`description`,
+                       f.`name`, f.`ext`, f.`size`, f.`product_id`
+                FROM `shop_syrattach_links` l
+                JOIN `{$this->table}` f ON f.`id` = l.`file_id`
+                WHERE l.`entity_type` = s:type AND l.`entity_id` = i:eid
+                ORDER BY l.`sort` ASC";
+
+        $rows = $this->query($sql, [
+            'type' => $entity_type,
+            'eid'  => $entity_id,
+        ])->fetchAll();
+
+        foreach ($rows as &$row) {
+            $row['id']      = (int)$row['id'];
+            $row['file_id'] = (int)$row['file_id'];
+            $row['sort']    = (int)$row['sort'];
+            $row['size']    = (int)$row['size'];
+            if ($with_urls) {
+                $row['url'] = shopSyrattachPlugin::getFileUrl($row);
+            }
         }
+        unset($row);
+
+        return $rows;
     }
 
     /**
-     *
-     * @param waRequestFile $file
-     * @param $path
-     * @return string
-     * @internal param int $product_id
-     */
-    private function getUniqueFileName(waRequestFile $file, $path): string
-    {
-        if (!file_exists($path . '/' . $file->name)) return $file->name;
-
-        $i = 1;
-        $pathinfo = pathinfo($file->name);
-        do {
-            $name = sprintf('%s_%d', $pathinfo['filename'], $i++);
-            $filename = $name . "." . $pathinfo['extension'];
-        } while (file_exists($path . DIRECTORY_SEPARATOR . $filename) && is_file($path . DIRECTORY_SEPARATOR . $filename));
-
-        return $filename;
-    }
-
-    /**
-     *
-     * @param int $product_id
-     * @return int
-     * @throws waException
-     */
-    private function getSortValue(int $product_id): int
-    {
-
-        $info = $this->select('MAX(`sort`)+1 AS `max`, COUNT(1) AS `cnt`')
-            ->where($this->getWhereByField('product_id', $product_id))
-            ->fetch();
-
-        if ($info['cnt']) {
-            return (int)$info['max'];
-        }
-
-        return 0;
-    }
-
-    /**
-     *
-     * @param int|string $product_id
-     * @param bool $file_urls
-     * @return array
+     * @deprecated use getByEntity('product', $product_id)
      * @throws waException
      */
     public function getByProductId($product_id, bool $file_urls = false): array
     {
-        $attachments = $this->select("*")
-            ->where("product_id=i:product_id", array('product_id' => $product_id))
-            ->order("sort ASC")
-            ->fetchAll();
-
-        foreach ($attachments as $key => $attachment) {
-            $attachments[$key]['id'] = (int)$attachment['id'];
-            $attachments[$key]['sort'] = (int)$attachment['sort'];
-            $attachments[$key]['size'] = (int)$attachment['size'];
-            $attachments[$key]['product_id'] = (int)$attachment['product_id'];
-            if ($file_urls) $attachments[$key]['url'] = shopSyrattachPlugin::getFileUrl($attachment);
-        }
-
-        return $attachments;
+        return $this->getByEntity('product', (int)$product_id, $file_urls);
     }
 
     /**
-     * Deletes record and attached file
+     * Detach file from entity (delete link).
+     * If no links remain and the file is new-style (product_id IS NULL),
+     * also deletes the physical file and the file record.
      *
-     * @param int|string $id
-     * @param bool $delete_file
-     * @throws Exception
+     * @param int|string $link_id  ID from shop_syrattach_links
      * @throws waException
      */
-    public function delete($id, bool $delete_file = true)
+    public function delete($link_id, bool $delete_file = true): void
     {
-        $attachment = $this->getById($id);
+        $link_id    = (int)$link_id;
+        $link_model = new shopSyrattachLinkModel();
+        $link       = $link_model->getById($link_id);
 
-        if (!$attachment) {
-            throw new waException(sprintf_wp("Cannot find a record for attachment ID#%d", $id));
+        if (!$link) {
+            throw new waException(sprintf_wp("Cannot find a link record ID#%d", $link_id));
         }
 
-        $file = shopProduct::getPath(
-            $attachment['product_id'],
-            shopSyrattachPlugin::SYRATTACH_ATTACHMENTS_FOLDER . DIRECTORY_SEPARATOR . $attachment['name'],
-            true);
+        $file_id = (int)$link['file_id'];
+        $file    = $this->getById($file_id);
 
-        if (wa()->getConfig()->isDebug()) {
-            waLog::log(sprintf_wp("Try to delete '%s'", $file), shopSyrattachPlugin::LOG);
-        }
-
-        if (!$this->deleteById($id)) {
+        if (!$link_model->deleteById($link_id)) {
             throw new waException(_wp("Delete error"));
         }
 
+        if (!$delete_file) {
+            return;
+        }
+
+        if ($link_model->countByFile($file_id) > 0) {
+            return;
+        }
+
+        // No remaining links — remove file record
+        $this->deleteById($file_id);
+
+        if (!$file) {
+            return;
+        }
+
+        // Physical cleanup
         try {
-            if ($delete_file) {
-                waFiles::delete($file);
+            if ($file['product_id'] === null) {
+                // New-style: delete the whole per-file directory
+                waFiles::delete(shopSyrattachPlugin::getDirectory(null, $file_id));
+            } else {
+                // Old-style: delete the specific file (product dir cleanup owned by Shop)
+                waFiles::delete(shopSyrattachPlugin::getFilePath($file));
             }
         } catch (waException $e) {
             waLog::log(
-                sprintf_wp("SyrAttach Plugin cannot delete file %s. Message: %s", $file, $e->getMessage()),
+                sprintf_wp("SyrAttach cannot delete file for record %d: %s", $file_id, $e->getMessage()),
                 shopSyrattachPlugin::LOG
             );
+        }
+    }
+
+    /**
+     * Detach all files from entity and clean up orphaned new-style files.
+     * Used by the product_delete hook; for old-style files the product
+     * directory is cleaned up by Shop-Script automatically.
+     *
+     * @throws waException
+     */
+    public function deleteByEntity(string $entity_type, int $entity_id): void
+    {
+        $link_model = new shopSyrattachLinkModel();
+        $file_ids   = $link_model->getFileIdsForEntity($entity_type, $entity_id);
+
+        $link_model->deleteByEntity($entity_type, $entity_id);
+
+        foreach ($file_ids as $file_id) {
+            if ($link_model->countByFile($file_id) > 0) {
+                continue;
+            }
+
+            $file = $this->getById($file_id);
+            $this->deleteById($file_id);
+
+            // New-style files are not inside the product directory, so we delete them
+            if ($file && $file['product_id'] === null) {
+                try {
+                    waFiles::delete(shopSyrattachPlugin::getDirectory(null, $file_id));
+                } catch (waException $e) {
+                    waLog::log(
+                        sprintf_wp("SyrAttach cannot delete dir for file %d: %s", $file_id, $e->getMessage()),
+                        shopSyrattachPlugin::LOG
+                    );
+                }
+            }
+        }
+    }
+
+    /**
+     * @throws waException
+     */
+    private function ensureDirectory(string $dir): void
+    {
+        if (file_exists($dir) && !is_writable($dir)) {
+            throw new waException("Error saving file: directory not writable.");
+        }
+        if (!file_exists($dir) && !waFiles::create($dir, true)) {
+            throw new waException("Error saving file: cannot create directory.");
         }
     }
 }

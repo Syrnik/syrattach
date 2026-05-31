@@ -1,9 +1,7 @@
 <?php
 /**
- * Description of shopSyrattachPluginAttachments
- *
  * @author Serge Rodovnichenko <serge@syrnik.com>
- * @copyright (c) 2014-2022, Serge Rodovnichenko
+ * @copyright (c) 2014-2026, Serge Rodovnichenko
  * @license http://www.webasyst.com/terms/#eula Webasyst
  */
 
@@ -22,70 +20,82 @@ class shopSyrattachPluginAttachmentsActions extends waJsonActions
     private $Attachment;
 
     /**
+     * Delete a link (detach file from entity).
+     * POST id = shop_syrattach_links.id
+     *
      * @throws waException
      */
-    public function deleteAction()
+    public function deleteAction(): void
     {
-        $errors = array();
-        $response = _wp("Deleted");
         $id = waRequest::post('id', null, waRequest::TYPE_INT);
-
         try {
             $this->Attachment->delete($id, true);
-            $this->response = $response;
+            $this->response = _wp('Deleted');
         } catch (Exception $exc) {
             $this->errors[] = [$exc->getMessage()];
         }
     }
 
     /**
-     * Список всех аттачей
-     * @ControllerAction list
+     * List of files attached to entity.
+     * GET entity_type, entity_id  (or legacy product_id for products)
+     *
      * @throws waException
      */
-    public function listAction()
+    public function listAction(): void
     {
-        if (!($product_id = waRequest::get('product_id', 0, waRequest::TYPE_INT))) {
-            $this->errors[] = [_wp('Unknown product')];
+        $entity_type = waRequest::get('entity_type', 'product', waRequest::TYPE_STRING_TRIM);
+        $entity_id   = waRequest::get('entity_id', 0, waRequest::TYPE_INT);
+
+        // Backward compat: product_id used in old JS calls
+        if (!$entity_id && $entity_type === 'product') {
+            $entity_id = waRequest::get('product_id', 0, waRequest::TYPE_INT);
+        }
+
+        if (!$entity_id) {
+            $this->errors[] = [_wp('Unknown entity')];
             return;
         }
 
         try {
-            $this->response['attachments'] = $this->Attachment->getByProductId($product_id, true);
-            $this->response['count'] = count($this->response['attachments']);
+            $attachments                   = $this->Attachment->getByEntity($entity_type, $entity_id, true);
+            $this->response['attachments'] = $attachments;
+            $this->response['count']       = count($attachments);
         } catch (waException $ex) {
             $this->errors[] = [$ex->getMessage()];
         }
     }
 
     /**
-     * Сохранение описания вложения
+     * Save description for a link.
+     * POST id = shop_syrattach_links.id, data[description]
+     *
      * @throws waException
      */
-    public function descriptionsaveAction()
+    public function descriptionsaveAction(): void
     {
-        if (!($id = waRequest::post('id', 0, waRequest::TYPE_INT))) {
+        $id   = waRequest::post('id', 0, waRequest::TYPE_INT);
+        $data = waRequest::post('data', [], waRequest::TYPE_ARRAY);
+
+        if (!$id) {
             $this->errors[] = [_wp('Unknown attachment ID')];
             return;
         }
 
-        if (!($data = waRequest::post('data', array(), waRequest::TYPE_ARRAY)) || !is_array($data) || !isset($data['description'])) {
+        if (!is_array($data) || !isset($data['description'])) {
             $this->errors[] = [_wp('Description is not set')];
             return;
-        };
+        }
 
         try {
-            $this->Attachment->updateById($id, array('description' => $data['description']));
-            $this->response = "Saved";
+            (new shopSyrattachLinkModel())->updateById($id, ['description' => $data['description']]);
+            $this->response = 'Saved';
         } catch (waException $exc) {
             $this->errors[] = [$exc->getMessage()];
         }
     }
 
-    /**
-     * Initialize controller-wide variables
-     */
-    protected function preExecute()
+    protected function preExecute(): void
     {
         parent::preExecute();
         $this->Attachment = new shopSyrattachFileModel();

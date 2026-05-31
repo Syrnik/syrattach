@@ -2,43 +2,85 @@
 /**
  * @package Syrattach
  * @author Serge Rodovnichenko <serge@syrnik.com>
- * @copyright (c) 2014-2021, Serge Rodovnichenko
+ * @copyright (c) 2014-2026, Serge Rodovnichenko
  * @license http://www.webasyst.com/terms/#eula Webasyst
  */
 
-/**
- * Main plugin class
- */
 class shopSyrattachPlugin extends shopPlugin
 {
-
-    const SYRATTACH_ATTACHMENTS_FOLDER = "attachments";
-
+    const SYRATTACH_ATTACHMENTS_FOLDER = 'attachments';
     const LOG = 'shop/plugins/syrattach.log';
 
-    /** @var shopSyrattachFileModel */
-    private $Attachments;
-
-    public function __construct($info)
-    {
-        parent::__construct($info);
-        $this->Attachments = new shopSyrattachFileModel();
-    }
-
     /**
-     * @param $product_id
-     * @return string
+     * Directory where a file's physical data lives.
+     *
+     * Old-style (product_id set): inside the product's own directory.
+     * New-style (product_id null): central plugin storage keyed by file id.
      */
-    public static function getDirectory($product_id): string
+    public static function getDirectory(?int $product_id, int $file_id = 0): string
     {
-        return shopProduct::getPath($product_id, self::SYRATTACH_ATTACHMENTS_FOLDER, true);
+        if ($product_id !== null) {
+            return shopProduct::getPath($product_id, self::SYRATTACH_ATTACHMENTS_FOLDER, true);
+        }
+
+        return waSystem::getInstance()->getDataPath(
+            self::SYRATTACH_ATTACHMENTS_FOLDER . '/files/' . $file_id,
+            true,
+            'shop'
+        );
     }
 
     /**
-     * Template editor
+     * Absolute filesystem path to a file.
+     * Accepts a row from shop_syrattach_files (needs `product_id`, `name`)
+     * or a joined row (also has `file_id`).
+     */
+    public static function getFilePath(array $attachment): string
+    {
+        $product_id = $attachment['product_id'] ?? null;
+        $name       = $attachment['name'];
+
+        if ($product_id === null) {
+            $file_id = $attachment['file_id'] ?? $attachment['id'];
+            return waSystem::getInstance()->getDataPath(
+                self::SYRATTACH_ATTACHMENTS_FOLDER . '/files/' . $file_id . '/' . $name,
+                true,
+                'shop'
+            );
+        }
+
+        return shopProduct::getPath(
+            $product_id,
+            self::SYRATTACH_ATTACHMENTS_FOLDER . DIRECTORY_SEPARATOR . $name,
+            true
+        );
+    }
+
+    /**
+     * Public URL to a file.
+     * Dual-mode: old-style uses the product directory, new-style uses central storage.
      *
-     * Renders the template with custom form control
-     *
+     * @throws waException
+     */
+    public static function getFileUrl(array $attachment, bool $absolute = false): string
+    {
+        $product_id = $attachment['product_id'] ?? null;
+
+        if ($product_id === null) {
+            $file_id = $attachment['file_id'] ?? $attachment['id'];
+            $path    = self::SYRATTACH_ATTACHMENTS_FOLDER . '/files/' . $file_id . '/' . $attachment['name'];
+            return waSystem::getInstance()->getDataUrl($path, true, 'shop', $absolute);
+        }
+
+        $path = shopProduct::getFolder($product_id)
+            . '/' . $product_id . '/'
+            . self::SYRATTACH_ATTACHMENTS_FOLDER
+            . '/' . $attachment['name'];
+
+        return waSystem::getInstance()->getDataUrl($path, true, 'shop', $absolute);
+    }
+
+    /**
      * @param string $param
      * @param array $settings
      * @return string
@@ -47,19 +89,19 @@ class shopSyrattachPlugin extends shopPlugin
     {
         try {
             $control_template_path = 'plugins/syrattach/templates/settings/template_control.html';
-            $control_template = waSystem::getInstance()->getAppPath($control_template_path, 'shop');
-            $view = waSystem::getInstance()->getView();
-            $template_path = 'plugins/syrattach/templates/frontend_product.html';
-            $original_template = waSystem::getInstance()->getAppPath($template_path, 'shop');
+            $control_template      = waSystem::getInstance()->getAppPath($control_template_path, 'shop');
+            $view                  = waSystem::getInstance()->getView();
+            $template_path         = 'plugins/syrattach/templates/frontend_product.html';
+            $original_template     = waSystem::getInstance()->getAppPath($template_path, 'shop');
             $modified_template_path = waSystem::getInstance()->getDataPath($template_path, false, 'shop', false);
         } catch (waException $exception) {
             waLog::log($exception->getMessage(), self::LOG);
             return '';
         }
 
-        $original_template = file_get_contents($original_template);
-        $modified_template = null;
-        $template_modified = false;
+        $original_template  = file_get_contents($original_template);
+        $modified_template  = null;
+        $template_modified  = false;
 
         if (file_exists($modified_template_path)) {
             $modified_template = file_get_contents($modified_template_path);
@@ -78,7 +120,7 @@ class shopSyrattachPlugin extends shopPlugin
 
     /**
      * @param array $route
-     * @return array|mixed|string[]
+     * @return array
      * @throws waException
      */
     public function routing($route = array())
@@ -99,11 +141,14 @@ class shopSyrattachPlugin extends shopPlugin
      */
     public function backendProduct($product): array
     {
-        $template = $this->path . '/templates/backend_product.html';
-        $view = waSystem::getInstance()->getView();
-        $count = $this->Attachments->countByField('product_id', $product['id']);
-        $shop_version = wa('shop')->getVersion();
-        $hints_allowed = (bool)version_compare($shop_version, '7.5', '>=');
+        $template       = $this->path . '/templates/backend_product.html';
+        $view           = waSystem::getInstance()->getView();
+        $count          = (new shopSyrattachLinkModel())->countByField([
+            'entity_type' => 'product',
+            'entity_id'   => $product['id'],
+        ]);
+        $shop_version   = wa('shop')->getVersion();
+        $hints_allowed  = (bool)version_compare($shop_version, '7.5', '>=');
 
         $view->assign(compact('count', 'product', 'hints_allowed'));
         $html = $view->fetch($template);
@@ -119,13 +164,16 @@ class shopSyrattachPlugin extends shopPlugin
     public function handlerBackendProd(&$params): array
     {
         $wa_app_url = wa()->getAppUrl('shop', true);
-        $id = (int)$params['product']->getId();
+        $id         = (int)$params['product']->getId();
 
         if (!$id) {
-            $id = 'new';
+            $id    = 'new';
             $total = 0;
         } else {
-            $total = (new shopSyrattachFileModel())->countByField('product_id', $id);
+            $total = (new shopSyrattachLinkModel())->countByField([
+                'entity_type' => 'product',
+                'entity_id'   => $id,
+            ]);
         }
 
         return [
@@ -144,10 +192,6 @@ class shopSyrattachPlugin extends shopPlugin
     }
 
     /**
-     * Handler for 'product_custom_fields' hook
-     *
-     * List of columns in the CSV file
-     *
      * @return array
      * @throws waException
      */
@@ -157,44 +201,49 @@ class shopSyrattachPlugin extends shopPlugin
     }
 
     /**
-     * Handler for 'product_delete' hook
+     * Hook 'product_delete'
      *
-     * We don't care about attached files because they will be deleted by
-     * Shop-Script with other public files such as images that belongs to
-     * products
+     * Removes links and orphaned new-style files. Old-style files reside
+     * inside the product directory which Shop-Script deletes automatically.
      *
      * @param array $product_ids
+     * @throws waException
      */
-    public function productDelete(array $product_ids)
+    public function productDelete(array $product_ids): void
     {
-        $this->Attachments->deleteByField('product_id', $product_ids['ids']);
+        $ids   = (array)($product_ids['ids'] ?? []);
+        $model = new shopSyrattachFileModel();
+        foreach ($ids as $product_id) {
+            $model->deleteByEntity('product', (int)$product_id);
+        }
     }
 
     /**
-     * Handler for 'product_save' hook
-     * Copy files from directory on CSV import
+     * Hook 'product_save' — import files from CSV
      *
      * @param array|mixed $params
      * @throws waException
      */
-    public function productSave($params)
+    public function productSave($params): void
     {
-        // No data for plugin
         if (!array_key_exists('syrattach_plugin', $params['data'])) {
             return;
         }
 
-        // Нам ID товара нужен позарез
         if (empty($params['data']['id'])) {
             if (wa()->getConfig()->isDebug()) {
-                waLog::log(sprintf(_wp('No ID given for product "%s"'), ifset($params['data']['name'], '')) . self::LOG);
+                waLog::log(sprintf(_wp('No ID given for product "%s"'), ifset($params['data']['name'], '')), self::LOG);
             }
             return;
         }
 
         $data_path = wa()->getDataPath('syrattach', true, 'site', false);
-        if (!($files = (array)ifset($params, 'data', 'syrattach_plugin', 'file', []))) return;
+        $files     = (array)ifset($params, 'data', 'syrattach_plugin', 'file', []);
+        if (!$files) {
+            return;
+        }
 
+        $model = new shopSyrattachFileModel();
         foreach ($files as $file) {
             if ((strpos($file, '/') !== false) || (strpos($file, '\\') !== false)) {
                 waLog::log(sprintf(_wp('Wrong file name "%s" for product "%s". File not saved.'), $file, ifset($params['data']['name'])), self::LOG);
@@ -203,29 +252,27 @@ class shopSyrattachPlugin extends shopPlugin
 
             $full_path = $data_path . DIRECTORY_SEPARATOR . $file;
             if (!file_exists($full_path) || !is_file($full_path) || !is_readable($full_path)) {
-                waLog::log(sprintf(_wp('File named "%s" not exists or it is not a file or file is not readable. File not saved.'), $file), self::LOG);
+                waLog::log(sprintf(_wp('File named "%s" not exists or not readable. File not saved.'), $file), self::LOG);
                 continue;
             }
 
-            $this->Attachments->add(
+            $model->add(
                 $params['data']['id'],
-                new waRequestFile(
-                    array(
-                        'name'     => $file,
-                        'type'     => 'application/binary',
-                        'size'     => filesize($full_path),
-                        'tmp_name' => $full_path,
-                        'error'    => 0
-                    ),
-                    true
-                ),
+                new waRequestFile([
+                    'name'     => $file,
+                    'type'     => 'application/binary',
+                    'size'     => filesize($full_path),
+                    'tmp_name' => $full_path,
+                    'error'    => 0,
+                ], true),
+                'product',
                 true
             );
         }
     }
 
     /**
-     * Handler for frontend_product hook
+     * Hook 'frontend_product'
      *
      * @param shopProduct $product
      * @return array
@@ -233,31 +280,28 @@ class shopSyrattachPlugin extends shopPlugin
     public function frontendProduct(shopProduct $product): array
     {
         $placement = $this->getSettings('frontend_product_hook');
-        if (($placement !== 'block') && ($placement !== 'block_aux'))
+        if (($placement !== 'block') && ($placement !== 'block_aux')) {
             return [];
+        }
 
         return [$placement => (new shopSyrattachPluginViewHelper($this, 'syrattach'))->render($product->id)];
     }
 
     /**
-     * Helper method.
-     *
-     * Returns the rendered template with list of files
-     *
      * @param int|string $product_id
-     * @param bool|int $force_on_empty If TRUE render template even the list of files is empty
+     * @param bool|int $force_on_empty
      * @return string
-     * @deprecated since 2.0.0 Оставлено для обратной совместимости и совместимости с shop <8.17
+     * @deprecated since 2.0.0
      */
     public static function render($product_id, $force_on_empty = false): string
     {
-        $product_id = (int)$product_id;
+        $product_id     = (int)$product_id;
         $force_on_empty = (bool)$force_on_empty;
 
         try {
             $plugin = wa('shop')->getPlugin('syrattach');
         } catch (waException $e) {
-            return "";
+            return '';
         }
 
         return (new shopSyrattachPluginViewHelper($plugin, 'syrattach'))
@@ -265,23 +309,9 @@ class shopSyrattachPlugin extends shopPlugin
     }
 
     /**
-     * Helper method.
-     * Returns an array of attached files
-     *
-     * array(
-     *     array(
-     *        'id'
-     *        'name'
-     *        'ext'
-     *        'description',
-     *        'size',
-     *        'url'
-     *     )
-     * )
-     *
      * @param int|string $product_id
      * @return array
-     * @deprecated since 2.0.0 Оставлено для обратной совместимости и совместимости с shop <8.17
+     * @deprecated since 2.0.0
      */
     public static function getList($product_id): array
     {
@@ -293,23 +323,5 @@ class shopSyrattachPlugin extends shopPlugin
 
         return (new shopSyrattachPluginViewHelper($plugin, 'syrattach'))
             ->getList($product_id);
-    }
-
-    /**
-     * @param $attachment
-     * @param bool $absolute
-     * @return string
-     * @throws waException
-     */
-    public static function getFileUrl($attachment, bool $absolute = false): string
-    {
-        $path = shopProduct::getFolder($attachment['product_id']) .
-            "/" .
-            "{$attachment['product_id']}" .
-            "/" .
-            self::SYRATTACH_ATTACHMENTS_FOLDER .
-            "/{$attachment['name']}";
-
-        return waSystem::getInstance()->getDataUrl($path, true, 'shop', $absolute);
     }
 }

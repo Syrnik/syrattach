@@ -1,14 +1,11 @@
 <?php
 /**
  * @author Serge Rodovnichenko <serge@syrnik.com>
- * @copyright Serge Rodovnichenko, 2021
- * @license Webasyst
+ * @copyright (c) 2021-2026, Serge Rodovnichenko
+ * @license http://www.webasyst.com/terms/#eula Webasyst
  */
 declare(strict_types=1);
 
-/**
- * Class shopSyrattachPluginViewHelper
- */
 class shopSyrattachPluginViewHelper extends waPluginViewHelper
 {
     /**
@@ -19,13 +16,17 @@ class shopSyrattachPluginViewHelper extends waPluginViewHelper
      */
     public function render($product_id, $force_on_empty = false, ?string $no_template = null): string
     {
-        $product_id = (int)$product_id;
+        $product_id     = (int)$product_id;
         $force_on_empty = (bool)$force_on_empty;
 
         $attachments = $this->getList($product_id);
-        if (!$attachments && !$force_on_empty) return '';
+        if (!$attachments && !$force_on_empty) {
+            return '';
+        }
 
-        if (($template_file = $this->getTemplate($no_template)) === null) return '';
+        if (($template_file = $this->getTemplate($no_template)) === null) {
+            return '';
+        }
 
         try {
             $view = wa('shop')->getView();
@@ -40,10 +41,10 @@ class shopSyrattachPluginViewHelper extends waPluginViewHelper
             $result = $view->fetch($template_file);
         } catch (SmartyException $e) {
             waLog::log('Smarty exception on rendering attachments template: ' . $e->getMessage());
-            $result = "";
+            $result = '';
         } catch (waException $e) {
             waLog::log('Webasyst system exception on rendering attachments template: ' . $e->getMessage());
-            $result = "";
+            $result = '';
         }
         waSystem::popActivePlugin();
 
@@ -51,43 +52,24 @@ class shopSyrattachPluginViewHelper extends waPluginViewHelper
     }
 
     /**
-     * Helper method.
-     * Returns an array of attached files
-     *
-     * array(
-     *     array(
-     *        'id'
-     *        'name'
-     *        'ext'
-     *        'description',
-     *        'size',
-     *        'url'
-     *     )
-     * )
+     * Returns files attached to the product, with URLs.
+     * Each item: id (link id), file_id, name, ext, description, size, url.
      *
      * @param int|string $product_id
      * @return array
      */
     public function getList($product_id): array
     {
-        if (!($product_id = (int)$product_id)) return [];
-        if (!($files = (new shopSyrattachFileModel())
-            ->select("`id`,`name`, `ext`, `description`, `size`")
-            ->where('product_id=i:id', ['id' => $product_id])
-            ->order('`sort` ASC')
-            ->fetchAll())) return [];
+        if (!($product_id = (int)$product_id)) {
+            return [];
+        }
 
-        array_walk($files, function (&$file) use ($product_id) {
-            try {
-                $file['url'] = shopSyrattachPlugin::getFileUrl($file + ['product_id' => $product_id]);
-            } catch (waException $e) {
-                waLog::log("Exception when processing list of files: " . $e->getMessage());
-                $file = null;
-            }
-        });
-        $files = array_filter($files);
-
-        return array_values($files);
+        try {
+            return (new shopSyrattachFileModel())->getByEntity('product', $product_id, true);
+        } catch (waException $e) {
+            waLog::log('Exception getting attachment list: ' . $e->getMessage());
+            return [];
+        }
     }
 
     /**
@@ -96,14 +78,16 @@ class shopSyrattachPluginViewHelper extends waPluginViewHelper
      */
     protected function getTemplate(?string $no_template): ?string
     {
-        if ($no_template === null) $no_template = $this->plugin->getSettings('no_template');
+        if ($no_template === null) {
+            $no_template = $this->plugin->getSettings('no_template');
+        }
         $file = null;
 
         try {
             if (wa()->getEnv() === 'frontend' && ($theme = waRequest::getTheme())) {
                 $theme = new waTheme($theme);
                 if ($theme->getFile('plugin.syrattach.attachments.html')) {
-                    $file = $theme->getPath() . "/plugin.syrattach.attachments.html";
+                    $file = $theme->getPath() . '/plugin.syrattach.attachments.html';
                 }
             }
         } catch (waException $e) {
@@ -111,8 +95,9 @@ class shopSyrattachPluginViewHelper extends waPluginViewHelper
             $file = null;
         }
 
-        if ($file || ($no_template === 'off'))
+        if ($file || ($no_template === 'off')) {
             return $file;
+        }
 
         $template_path = 'plugins/syrattach/templates/frontend_product.html';
 
@@ -130,7 +115,9 @@ class shopSyrattachPluginViewHelper extends waPluginViewHelper
             $modified_template = null;
         }
 
-        if ($modified_template && file_exists($modified_template)) return $modified_template;
+        if ($modified_template && file_exists($modified_template)) {
+            return $modified_template;
+        }
 
         return $original_template;
     }

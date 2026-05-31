@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-05-31
+
 ### Added
 - File upload support in new product editor (#34.4)
 - Progress bar for file uploads
@@ -18,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - LICENSE and LICENSE_ru files with Webasyst EULA (#34.6)
 - CHANGELOG.md following Keep a Changelog standard (#34.6)
 - Migrated product editor frontend to Vue 3 + TypeScript + Vite (#34.8)
+- `shopSyrattachLinkModel` — model for `shop_syrattach_links`.
+- `shopSyrattachFileModel::getByEntity(entity_type, entity_id)` — generic entity file list.
+- `shopSyrattachFileModel::deleteByEntity(entity_type, entity_id)` — batch detach for hook handlers.
+- `shopSyrattachPlugin::getFilePath()` — filesystem path resolver (dual-mode: old/new storage).
 
 ### Changed
 - Minimum requirements updated: PHP 7.4+, Webasyst Framework 3.0, Shop-Script 10.0+ (strict)
@@ -27,6 +33,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reorganized source assets into proper directory structure
 - Added LICENSE files to exclude configuration for distribution
 - Delete confirmation now uses built-in $.wa.confirm() UI 2.0 dialog (#34.8)
+- **Refactored storage architecture**: file storage is now separated from entity attachments.
+  - New table `shop_syrattach_links` binds one file to multiple entities (products, orders, etc.) each with its own sort order and description.
+  - New-style uploaded files are stored in a central location (`attachments/files/{id}/`) instead of inside the product directory. Old files remain in-place — no migration of files on disk.
+  - `description` and `sort` are now stored per link (in `shop_syrattach_links`), not per file.
+- `shopSyrattachFileModel::delete()` now removes the entity link; the physical file is deleted only when no links remain.
+- `shopSyrattachFileModel::add()` accepts `entity_type` parameter (default `'product'`); upload controller also accepts `entity_type`/`entity_id` POST fields alongside the legacy `syrattach_product_id`.
+- API responses use link `id` as the primary identifier instead of file `id` — transparent to existing JS.
+- `productDelete` hook now removes only links (and orphaned new-style files); old-style files in the product directory continue to be cleaned up by Shop-Script.
 
 ## [2.0.0] - 2023-06-09
 
