@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `shopSyrattachFileModel::getByEntity(entity_type, entity_id)` — generic entity file list.
 - `shopSyrattachFileModel::deleteByEntity(entity_type, entity_id)` — batch detach for hook handlers.
 - `shopSyrattachPlugin::getFilePath()` — filesystem path resolver (dual-mode: old/new storage).
+- Developer reference section in README
 
 ### Changed
 - Minimum requirements updated: PHP 7.4+, Webasyst Framework 3.0, Shop-Script 10.0+ (strict)
@@ -46,6 +47,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - API responses use link `id` as the primary identifier instead of file `id` — transparent to existing JS.
 - `productDelete` hook now removes only links (and orphaned new-style files); old-style files in the product directory continue to be cleaned up by Shop-Script.
 - Removed dead-code `SettingsOriginaltemplate` controller and template-saving logic from `SettingsSave` controller (#34.7)
+- InnoDB is now the default storage engine for plugin tables
+- Migration now uses Webasyst Framework schema API
+
+### Fixed
+- Fixed DB migration script for v3.0.0 schema changes
 
 ## [2.0.0] - 2023-06-09
 
