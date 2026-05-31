@@ -1,0 +1,19 @@
+{
+  "name": "syrattach-shop-plugin",
+  "private": true,
+  "scripts": {
+    "syrattach:dev": "vite build --mode development",
+    "syrattach:prod": "vite build --mode production"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.32",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "sass": "^1.87.0",
+    "typescript": "^5.8.3",
+    "terser": "^5.39.0",
+    "vite": "^6.3.5"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  }
+}
