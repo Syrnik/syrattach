@@ -29,8 +29,8 @@ try {
         $schema = include($schema_file);
 
         // 1. Make product_id nullable so new-style records can use NULL
-        $shop_syrattach_links_model = new shopSyrattachLinkModel();
-        $shop_syrattach_links_model->modifyColumn('product_id', $schema);
+        $shop_syrattach_file_model = new shopSyrattachFileModel();
+        $shop_syrattach_file_model->modifyColumn('product_id', $schema);
 
         // 2. Create the links table
         $model->createSchema(['shop_syrattach_links' => $schema['shop_syrattach_links']]);
