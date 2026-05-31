@@ -21,6 +21,7 @@ return array(
             'PRIMARY'    => 'id',
             'product_id' => array('product_id', 'sort'),
         ),
+        ':options'        => ['engine' => 'InnoDB'],
     ),
     'shop_syrattach_links' => array(
         'id'          => array('int', 11, 'null' => 0, 'autoincrement' => 1),
@@ -35,5 +36,6 @@ return array(
             'file_id'     => 'file_id',
             'file_entity' => array('file_id', 'entity_type', 'entity_id'),
         ),
+        ':options'    => ['engine' => 'InnoDB'],
     ),
 );
