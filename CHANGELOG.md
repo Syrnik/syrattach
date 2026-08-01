@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Locale strings rebuilt with `php wa.php locale shop/plugins/syrattach` (SATT-363). Thirteen message ids that existed in the code but not in the catalogs were added and translated into Russian, among them `Server error`, `Loading`, `or drag them here to start upload` and both `Error saving file: …` messages.
 - Compiled `.mo` catalogs are no longer stored in the repository; only `.po` sources are versioned. The release workflow now installs `gettext` and compiles every `.po` into a `.mo` before building the distribution archive, so released bundles always ship catalogs matching their sources.
 
+### Removed
+- Dead assets left over from earlier versions, together with a migration that deletes them from existing installations — the installer unpacks a release over the previous one and never removes files that vanished from the distribution (SATT-362).
+  - `js/fileupload-widget.js` — a trimmed copy of the blueimp jQuery File Upload UI Plugin 6.0.2 that no template loaded and that could not have worked anyway, because the blueimp core it extends was never part of the distribution.
+  - `css/syrattach.css` and its `css/syrattach.scss` source — a single rule for an element id that no longer exists, unreferenced since the assets moved to the current loading scheme.
+  - The migration also cleans up `js/loadcontent_hack.js`, `lib/shopSyrattachPluginHelper.class.php`, `css/syrattach.styl` and `css/syrattach-prod.styl`, all dropped from the repository in earlier releases without a matching cleanup.
+
 ### Fixed
 - Localization audit (SATT-361): every user-visible string now goes through the plugin's own locale domain.
   - Replaced compile-time `` [`…`] `` localization in templates with `{_wp('…')}` — the prefilter bakes the translation into the compiled template, which is unreliable for locales other than the one that compiled it first.
