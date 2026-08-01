@@ -34,23 +34,11 @@ msgstr "Сопутствующие файлы"
 msgid "Attached files"
 msgstr "Прикрепленные файлы"
 
-msgid "Empty result"
-msgstr "Пустой ответ"
-
-msgid "Stop upload"
-msgstr "Остановить загрузку"
-
 msgid "Close"
 msgstr "Закрыть"
 
-msgid "Files with extensions *.gif, *.jpg, *.jpeg, *.png are allowed only."
-msgstr "Разрешены только файлы с расширениями *.gif, *.jpg, *.jpeg, *.png."
-
 msgid "Save"
 msgstr "Сохранить"
-
-msgid "Unknown product"
-msgstr "Неизвестный товар"
 
 msgid "Deleted"
 msgstr "Удалено"
@@ -76,29 +64,11 @@ msgstr "Название хука для показа списка файлов.
 msgid "No. Disable hooks"
 msgstr "Нет. Запретить хуки"
 
-msgid "Product ID missing while file metadata saving"
-msgstr "Не указан идентификатор товара при записи мета-данных"
-
-msgid "Cannot find a record for attachment ID#%d"
-msgstr "Не могу найти запись для вложения с идентификатором %d"
-
 msgid "Delete error"
 msgstr "Ошибка удаления"
 
-msgid "SyrAttach Plugin cannot delete file %s. Message: %s"
-msgstr "Плагин SyrAttach не смог удалить файл %s. Сообщение: %s"
-
 msgid "Description is not set"
 msgstr "Описание не задано"
-
-msgid "Do you really want to reset the template to the original one? All changes you're made will lost!"
-msgstr "Вы действительно хотите восстановить шаблон по умолчанию? Все внесенные вами изменения будут потеряны!"
-
-msgid "Restore original template"
-msgstr "Восстановить стандартный шаблон"
-
-msgid "Variables available within the template:"
-msgstr "Переменные, доступные в шаблоне:"
 
 msgid "A list of file data. Each file item is an array with keys:"
 msgstr "Список данных о файлах. Каждая запись о файле представляет из себя массив со следующими ключами:"
@@ -142,17 +112,11 @@ msgstr "Не указан идентификатор (ID) для товара '%
 msgid "Wrong file name \"%s\" for product \"%s\". File not saved."
 msgstr "Неверное имя файла '%s' для товара '%s'. Файл не записан."
 
-msgid "File named \"%s\" not exists or it is not a file or file is not readable. File not saved."
-msgstr "Файл с именем '%s' не существует или недоступен для чтения. Или это вообще не файл. Файл не записан."
-
 msgid "Errors"
 msgstr "Ошибки"
 
 msgid "Product ID required"
 msgstr "Требуется id товара"
-
-msgid "Try to delete '%s'"
-msgstr "Попытка удалить '%s'"
 
 msgid "Cancel"
 msgstr "Отмена"
@@ -174,9 +138,6 @@ msgstr "Размер файла %name% превышает максимально
 
 msgid "You can't upload files to a new product. First, save the product."
 msgstr "К новому товару невозможно загрузить файлы. Сначала сохраните товар."
-
-msgid "Drag & drop files here or click this area to upload files."
-msgstr "Перетащите файлы сюда или кликните на этой области для загрузки файлов."
 
 msgid "Upload error"
 msgstr "Ошибка загрузки"
@@ -205,9 +166,6 @@ msgstr "Шаблон по-умолчанию"
 msgid "show"
 msgstr "показать"
 
-msgid "Now this code is used instead of the default template. Transfer its code to the design theme template then"
-msgstr "Теперь этот шаблон используется вместо шаблона по-умолчанию. Перенесите этот код в шаблон темы дизайна, а затем"
-
 msgid "Recommended: add a file named"
 msgstr "Рекомендуется: добавьте файл с именем"
 
@@ -234,9 +192,6 @@ msgstr "Вы действительно хотите удалить шаблон
 
 msgid "Storefront without template"
 msgstr "Витрина без шаблона"
-
-msgid "If the design theme used in the storefront does not have a template, the plugin can show the default template or switch self off"
-msgstr "Если в теме дизайна, использованной на витрине, нет шаблона для плагина, то плагин может либо показать шаблон по-умолчанию, либо отключиться для этой витрины"
 
 msgid "Applies when the design theme used in the storefront does not contain <code>plugin.syrattach.attachments.html</code>"
 msgstr "Применяется когда в теме дизайна на витрине нет файла <code>plugin.syrattach.attachments.html</code>"

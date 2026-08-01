@@ -33,22 +33,10 @@ msgstr ""
 msgid "Attached files"
 msgstr ""
 
-msgid "Empty result"
-msgstr ""
-
-msgid "Stop upload"
-msgstr ""
-
 msgid "Close"
 msgstr ""
 
-msgid "Files with extensions *.gif, *.jpg, *.jpeg, *.png are allowed only."
-msgstr ""
-
 msgid "Save"
-msgstr ""
-
-msgid "Unknown product"
 msgstr ""
 
 msgid "Deleted"
@@ -75,28 +63,10 @@ msgstr ""
 msgid "No. Disable hooks"
 msgstr ""
 
-msgid "Product ID missing while file metadata saving"
-msgstr ""
-
-msgid "Cannot find a record for attachment ID#%d"
-msgstr ""
-
 msgid "Delete error"
 msgstr ""
 
-msgid "SyrAttach Plugin cannot delete file %s. Message: %s"
-msgstr ""
-
 msgid "Description is not set"
-msgstr ""
-
-msgid "Do you really want to reset the template to the original one? All changes you're made will lost!"
-msgstr ""
-
-msgid "Restore original template"
-msgstr ""
-
-msgid "Variables available within the template:"
 msgstr ""
 
 msgid "A list of file data. Each file item is an array with keys:"
@@ -141,16 +111,10 @@ msgstr ""
 msgid "Wrong file name \"%s\" for product \"%s\". File not saved."
 msgstr ""
 
-msgid "File named \"%s\" not exists or it is not a file or file is not readable. File not saved."
-msgstr ""
-
 msgid "Errors"
 msgstr ""
 
 msgid "Product ID required"
-msgstr ""
-
-msgid "Try to delete '%s'"
 msgstr ""
 
 msgid "Cancel"
@@ -172,9 +136,6 @@ msgid "Size of %name% exceeds maximum upload size limit"
 msgstr ""
 
 msgid "You can't upload files to a new product. First, save the product."
-msgstr ""
-
-msgid "Drag & drop files here or click this area to upload files."
 msgstr ""
 
 msgid "Upload error"
@@ -204,9 +165,6 @@ msgstr ""
 msgid "show"
 msgstr ""
 
-msgid "Now this code is used instead of the default template. Transfer its code to the design theme template then"
-msgstr ""
-
 msgid "Recommended: add a file named"
 msgstr ""
 
@@ -232,9 +190,6 @@ msgid "Do you really want to delete your custom template?"
 msgstr ""
 
 msgid "Storefront without template"
-msgstr ""
-
-msgid "If the design theme used in the storefront does not have a template, the plugin can show the default template or switch self off"
 msgstr ""
 
 msgid "Applies when the design theme used in the storefront does not contain <code>plugin.syrattach.attachments.html</code>"
