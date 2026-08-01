@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Locale catalogs for `uk_UA`, `be_BY`, `kk_KZ`, `de_DE`, `nl_NL` and `fr_FR` — the message ids are collected, translations are yet to be contributed (SATT-363).
+
+### Changed
+- Locale strings rebuilt with `php wa.php locale shop/plugins/syrattach` (SATT-363). Thirteen message ids that existed in the code but not in the catalogs were added and translated into Russian, among them `Server error`, `Loading`, `or drag them here to start upload` and both `Error saving file: …` messages.
+- Compiled `.mo` catalogs are no longer stored in the repository; only `.po` sources are versioned. The release workflow now installs `gettext` and compiles every `.po` into a `.mo` before building the distribution archive, so released bundles always ship catalogs matching their sources.
+
 ### Fixed
 - Localization audit (SATT-361): every user-visible string now goes through the plugin's own locale domain.
   - Replaced compile-time `` [`…`] `` localization in templates with `{_wp('…')}` — the prefilter bakes the translation into the compiled template, which is unreliable for locales other than the one that compiled it first.

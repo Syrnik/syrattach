@@ -273,3 +273,42 @@ msgstr "Файлы не найдены"
 
 msgid "File not found"
 msgstr "Файл не найден"
+
+msgid "or drag them here to start upload"
+msgstr "или перетащите их сюда, чтобы начать загрузку"
+
+msgid "Entity ID required"
+msgstr "Не указан идентификатор объекта"
+
+msgid "Server error"
+msgstr "Ошибка сервера"
+
+msgid "Loading"
+msgstr "Загрузка"
+
+msgid "Database error"
+msgstr "Ошибка базы данных"
+
+msgid "Database error creating file link"
+msgstr "Ошибка базы данных при создании связи с файлом"
+
+msgid "Entity ID missing while saving file"
+msgstr "При сохранении файла не указан идентификатор объекта"
+
+msgid "Error saving file: directory not writable."
+msgstr "Ошибка сохранения файла: каталог недоступен для записи."
+
+msgid "Error saving file: cannot create directory."
+msgstr "Ошибка сохранения файла: не удалось создать каталог."
+
+msgid "Cannot find a link record ID#%d"
+msgstr "Не найдена запись связи ID#%d"
+
+msgid "SyrAttach cannot delete file for record %d: %s"
+msgstr "SyrAttach не может удалить файл для записи %d: %s"
+
+msgid "SyrAttach cannot delete dir for file %d: %s"
+msgstr "SyrAttach не может удалить каталог для файла %d: %s"
+
+msgid "File named \"%s\" not exists or not readable. File not saved."
+msgstr "Файл '%s' не существует или недоступен для чтения. Файл не записан."

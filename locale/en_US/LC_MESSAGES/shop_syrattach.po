@@ -272,3 +272,42 @@ msgstr ""
 
 msgid "File not found"
 msgstr ""
+
+msgid "or drag them here to start upload"
+msgstr ""
+
+msgid "Entity ID required"
+msgstr ""
+
+msgid "Server error"
+msgstr ""
+
+msgid "Loading"
+msgstr ""
+
+msgid "Database error"
+msgstr ""
+
+msgid "Database error creating file link"
+msgstr ""
+
+msgid "Entity ID missing while saving file"
+msgstr ""
+
+msgid "Error saving file: directory not writable."
+msgstr ""
+
+msgid "Error saving file: cannot create directory."
+msgstr ""
+
+msgid "Cannot find a link record ID#%d"
+msgstr ""
+
+msgid "SyrAttach cannot delete file for record %d: %s"
+msgstr ""
+
+msgid "SyrAttach cannot delete dir for file %d: %s"
+msgstr ""
+
+msgid "File named \"%s\" not exists or not readable. File not saved."
+msgstr ""
