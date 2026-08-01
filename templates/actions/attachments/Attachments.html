@@ -4,7 +4,7 @@
         {_wp('Select files')}
         <input type="file" name="files[]" multiple>
     </a>
-    <span class="gray">{_w('or drag them here to start upload')}</span>
+    <span class="gray">{_wp('or drag them here to start upload')}</span>
     {_wp("Max. file size for upload:")}
     {$max_file_size|wa_format_file_size}
     <input type="hidden" name="syrattach_product_id" value="{$product.id}">
@@ -27,15 +27,15 @@
             uri: '{$wa_app_static_url}plugins/syrattach/css/syrattach-product.css?v={$wa->shop->syrattachPlugin->version()}'
         }
     ]).done(()=> {
-        $.wa.locale['Errors'] = {_wp('Errors')|json_encode:256};
         $.product_syrattachments.init({
             container: 's-product-form.syrattachments',
             counter: '#s-product-edit-menu li.syrattachments span.hint',
             product_id: {$product.id},
             attachments: {json_encode($attachments)},
             count: {$count},
-            placeholder: '{_wp('Add file description')|escape:javascript}',
-            maxFileSize: {$max_file_size}
+            placeholder: {_wp('Add file description')|json_encode:256},
+            maxFileSize: {$max_file_size},
+            l10n: {$l10n|json_encode:256}
         });
     });
 </script>

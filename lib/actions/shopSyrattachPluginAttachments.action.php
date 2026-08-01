@@ -40,6 +40,22 @@ class shopSyrattachPluginAttachmentsAction extends waViewAction
             'count'         => count($attachments),
             'max_file_size' => (int)waRequest::getUploadMaxFilesize(),
             'product'       => $product,
+            'l10n'          => $this->getL10n(),
         ]);
+    }
+
+    /**
+     * Strings used by js/syrattach.js. Keys are the English source strings
+     * passed to `$.product_syrattachments.t()` — keep them in sync.
+     *
+     * @return string[]
+     */
+    protected function getL10n(): array
+    {
+        return [
+            'Save'   => _wp('Save'),
+            'Errors' => _wp('Errors'),
+            'Close'  => _wp('Close'),
+        ];
     }
 }

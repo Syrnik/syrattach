@@ -280,10 +280,10 @@ class shopSyrattachFileModel extends waModel
     private function ensureDirectory(string $dir): void
     {
         if (file_exists($dir) && !is_writable($dir)) {
-            throw new waException("Error saving file: directory not writable.");
+            throw new waException(_wp("Error saving file: directory not writable."));
         }
         if (!file_exists($dir) && !waFiles::create($dir, true)) {
-            throw new waException("Error saving file: cannot create directory.");
+            throw new waException(_wp("Error saving file: cannot create directory."));
         }
     }
 }

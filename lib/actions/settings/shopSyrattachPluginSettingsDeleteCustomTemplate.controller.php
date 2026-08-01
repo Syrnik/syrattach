@@ -17,7 +17,7 @@ class shopSyrattachPluginSettingsDeleteCustomTemplateController extends waJsonCo
     public function execute()
     {
         if (!$this->getUser()->getRights('shop', 'settings'))
-            throw new waException(_w('Access denied'), 403);
+            throw new waException(_wp('Access denied'), 403);
 
         $template_path = 'plugins/syrattach/templates/frontend_product.html';
         $modified_template = wa()->getDataPath($template_path, false, 'shop', false);

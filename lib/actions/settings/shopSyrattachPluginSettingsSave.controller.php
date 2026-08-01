@@ -13,7 +13,7 @@ class shopSyrattachPluginSettingsSaveController extends waJsonController
     public function execute()
     {
         if (!$this->getUser()->getRights('shop', 'settings')) {
-            throw new waException(_w('Access denied'));
+            throw new waException(_wp('Access denied'));
         }
 
         $namespace = 'shop_syrattach';

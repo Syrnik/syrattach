@@ -10393,7 +10393,7 @@ Expected function or array of functions, received type ${typeof value}.`
             errors.value = [t("Upload error") + (((_e = r.error) == null ? void 0 : _e.length) ? ": " + r.error : "")];
           }
         }).fail((r) => {
-          errors.value = ["Server error: " + (r.status ?? "") + " " + (r.statusText ?? "")];
+          errors.value = [t("Server error") + ": " + (r.status ?? "") + " " + (r.statusText ?? "")];
         }).always(() => {
           uploading.value = false;
         });
@@ -10764,7 +10764,7 @@ Expected function or array of functions, received type ${typeof value}.`
         });
         loadResults("");
         function loadResults(query) {
-          $results.html(`<p class="hint" style="padding:0.5rem 0">...</p>`);
+          $results.html(`<p class="hint" style="padding:0.5rem 0">${esc(t("Loading"))}…</p>`);
           $.ajax({
             url: "?plugin=syrattach&module=attachments&action=search",
             data: { query, entity_type: "product", entity_id: props.productId },

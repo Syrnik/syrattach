@@ -35,6 +35,23 @@
      */
     options: {},
 
+    /**
+     * Localized strings, passed in from the template via init options.
+     * {Object}
+     */
+    l10n: {},
+
+    /**
+     * Translate a string. Falls back to the English source when the key
+     * is missing from the map handed over by PHP.
+     *
+     * @param {String} key
+     * @returns {String}
+     */
+    t(key) {
+      return (this.l10n && this.l10n[key]) || key;
+    },
+
     errors: [],
 
     init(options) {
@@ -42,6 +59,7 @@
       $.shop.trace('$.product_syrattachments.init', 'Init');
 
       this.options = options;
+      this.l10n = options.l10n || {};
       this.product_id = parseInt(this.options.product_id, 10) || 0;
       const that = this;
 
@@ -216,7 +234,7 @@
             var button_id = this.id + '-button';
             var button = $('#' + button_id);
             if (!button.length) {
-              input.after('<br><input type="button" id="' + button_id + '" value="' + $_('Save') + '"> <em class="hint" id="' + this.id + '-hint">Ctrl+Enter</em>');
+              input.after('<br><input type="button" id="' + button_id + '" value="' + $.product_syrattachments.t('Save') + '"> <em class="hint" id="' + this.id + '-hint">Ctrl+Enter</em>');
               $('#' + button_id).click(function () {
                 self.trigger('readable');
               });
@@ -246,10 +264,9 @@
     },
   };
 
-  const syrattachupload = $("#s-plugin-syrattach-fileupload");
-
   function errorDialog(text) {
-    $(`<div class="s-plugin-syrattach-dialog__error"><form><div class="dialog-content"><header><h2>${$_('Errors')}</h2></header><section><p>${text}</p></section></div><div class="dialog-buttons"><button class="cancel button">Закрыть</button></div></form></div>`)
+    const t = key => $.product_syrattachments.t(key);
+    $(`<div class="s-plugin-syrattach-dialog__error"><form><div class="dialog-content"><header><h2>${t('Errors')}</h2></header><section><p>${text}</p></section></div><div class="dialog-buttons"><button class="cancel button">${t('Close')}</button></div></form></div>`)
       .waDialog({
         width: '550px',
         height: '150px',

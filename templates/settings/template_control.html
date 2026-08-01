@@ -1,10 +1,10 @@
 <div class="s-syrattach-settings-tip">
     <p>
-        [`Recommended: add a file named`]
+        {_wp('Recommended: add a file named')}
         <code>plugin.syrattach.attachments.html</code>
-        [`to your active design theme. The plugin will automatically use it instead of the built-in template.`]
+        {_wp('to your active design theme. The plugin will automatically use it instead of the built-in template.')}
     </p>
-    <p>[`JFYI. Variables available within the template:`]</p>
+    <p>{_wp('JFYI. Variables available within the template:')}</p>
     <code><b>$attachments</b></code> — {_wp('A list of file data. Each file item is an array with keys:')}
     <ul>
         <li><code>id</code> — {_wp('Attachment ID#')}</li>
@@ -19,14 +19,14 @@
 {if $modified_template}
     <div class="s-syrattach-settings-template s-syrattach-settings-modified-template">
         <p>
-            ⚠ [`Template saved from previous version of plugin`].
-            [`Transfer its code to`] <code>plugin.syrattach.attachments.html</code>
-            [`in your design theme, then`]
-            <a href="javascript:void(0)" class="inline-link s-syrattach-modified-delete"><b><i>[`delete it from here`]</i></b></a>.
+            ⚠ {_wp('Template saved from previous version of plugin')}.
+            {_wp('Transfer its code to')} <code>plugin.syrattach.attachments.html</code>
+            {_wp('in your design theme, then')}
+            <a href="javascript:void(0)" class="inline-link s-syrattach-modified-delete"><b><i>{_wp('delete it from here')}</i></b></a>.
         </p>
         <p>
             <a href="javascript:void(0)" class="inline-link s-syrattach-template-switcher"
-               data-template="modified"><b><i>[`show`]</i></b></a>
+               data-template="modified"><b><i>{_wp('show')}</i></b></a>
         </p>
         <div class="s-syrattach-settings-modified-template__content" style="display: none">
             <pre>{$modified_template|escape}</pre>
@@ -35,8 +35,8 @@
 {/if}
 
 <div class="s-syrattach-settings-template s-syrattach-settings-original-template">
-    <p>[`Default template`]: <a href="javascript:void(0)" class="inline-link s-syrattach-template-switcher"
-                                   data-template="original"><b><i>[`show`]</i></b></a></p>
+    <p>{_wp('Default template')}: <a href="javascript:void(0)" class="inline-link s-syrattach-template-switcher"
+                                   data-template="original"><b><i>{_wp('show')}</i></b></a></p>
     <div class="s-syrattach-settings-original-template__content" style="display: none">
         <pre>{$original_template|escape}
         </pre>

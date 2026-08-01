@@ -169,7 +169,7 @@ function initDrawerSearch($drawer: JQuery, onAttach: (file: AttachmentFile) => v
     loadResults('');
 
     function loadResults(query: string): void {
-        $results.html(`<p class="hint" style="padding:0.5rem 0">...</p>`);
+        $results.html(`<p class="hint" style="padding:0.5rem 0">${esc(t('Loading'))}…</p>`);
         $.ajax({
             url: '?plugin=syrattach&module=attachments&action=search',
             data: { query, entity_type: 'product', entity_id: props.productId },

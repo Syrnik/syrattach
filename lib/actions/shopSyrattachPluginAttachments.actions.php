@@ -89,7 +89,7 @@ class shopSyrattachPluginAttachmentsActions extends waJsonActions
 
         try {
             (new shopSyrattachLinkModel())->updateById($id, ['description' => $data['description']]);
-            $this->response = 'Saved';
+            $this->response = _wp('Saved');
         } catch (waException $exc) {
             $this->errors[] = [$exc->getMessage()];
         }

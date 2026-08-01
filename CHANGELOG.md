@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Localization audit (SATT-361): every user-visible string now goes through the plugin's own locale domain.
+  - Replaced compile-time `` [`…`] `` localization in templates with `{_wp('…')}` — the prefilter bakes the translation into the compiled template, which is unreliable for locales other than the one that compiled it first.
+  - `_w()` → `_wp()` for plugin strings (`Access denied`, `or drag them here to start upload`), so the plugin domain is tried before the app domain.
+  - Localized strings that were hardcoded: `Error saving file: …` in `shopSyrattachFileModel::ensureDirectory()`, the `Saved` response of `descriptionsaveAction`, and the `Server error` message in the upload component.
+  - Legacy product editor script (`js/syrattach.js`) no longer relies on `$_()`/`$.wa.locale` and no longer contains a hardcoded Russian button label; strings are passed in from PHP via the `l10n` init option and read through `$.product_syrattachments.t()`.
+  - The Vue app's string map moved to `shopSyrattachPluginBackendAttachmentsAction::getL10n()`; added the missing `Close`, `Loading` and `Server error` keys and dropped two unused ones.
+
 ## [3.0.0]
 
 ### Added

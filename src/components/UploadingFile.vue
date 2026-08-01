@@ -91,7 +91,7 @@ onMounted(() => {
             }
         })
         .fail((r: { status?: number; statusText?: string }) => {
-            errors.value = ['Server error: ' + (r.status ?? '') + ' ' + (r.statusText ?? '')];
+            errors.value = [t('Server error') + ': ' + (r.status ?? '') + ' ' + (r.statusText ?? '')];
         })
         .always(() => { uploading.value = false; });
 });
