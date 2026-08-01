@@ -5,6 +5,7 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Last-Translator: shop/plugins/syrattach\n"
 "Language-Team: shop/plugins/syrattach\n"
+"Language: kk_KZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,253 +17,253 @@ msgstr ""
 "X-Poedit-SearchPath-1: .\n"
 
 msgid "Select files"
-msgstr ""
+msgstr "Файлдарды таңдаңыз"
 
 msgid "or drag them here to start upload"
-msgstr ""
+msgstr "немесе жүктеуді бастау үшін оларды осы жерге сүйреңіз"
 
 msgid "Add file description"
-msgstr ""
+msgstr "Файл сипаттамасын қосу"
 
 msgid "Delete"
-msgstr ""
+msgstr "Жою"
 
 msgid "Max. file size for upload:"
-msgstr ""
+msgstr "Жүктеуге рұқсат етілген файлдың ең үлкен өлшемі:"
 
 msgid "Attached Files Plugin Setup"
-msgstr ""
+msgstr "«Тіркелген файлдар» плагинін баптау"
 
 msgid "Save"
-msgstr ""
+msgstr "Сақтау"
 
 msgid "Attached files"
-msgstr ""
+msgstr "Тіркелген файлдар"
 
 msgid "Files other than images that may be useful to the buyer: instructions, certificates, etc."
-msgstr ""
+msgstr "Сатып алушыға пайдалы болуы мүмкін суреттерден басқа файлдар: нұсқаулықтар, сертификаттар және т.б."
 
 msgid "Related files"
-msgstr ""
+msgstr "Ілеспе файлдар"
 
 msgid "Recommended: add a file named"
-msgstr ""
+msgstr "Ұсынылады: мына атаумен файл қосыңыз"
 
 msgid "to your active design theme. The plugin will automatically use it instead of the built-in template."
-msgstr ""
+msgstr "белсенді дизайн тақырыбына. Плагин оны кірістірілген үлгінің орнына автоматты түрде пайдаланады."
 
 msgid "JFYI. Variables available within the template:"
-msgstr ""
+msgstr "Анықтама үшін. Үлгіде қолжетімді айнымалылар:"
 
 msgid "A list of file data. Each file item is an array with keys:"
-msgstr ""
+msgstr "Файлдар туралы деректер тізімі. Әрбір файл жазбасы келесі кілттері бар массив болып табылады:"
 
 msgid "Attachment ID#"
-msgstr ""
+msgstr "ID"
 
 msgid "File name"
-msgstr ""
+msgstr "Файл атауы"
 
 msgid "File extension"
-msgstr ""
+msgstr "Файл кеңейтімі"
 
 msgid "File description"
-msgstr ""
+msgstr "Файл сипаттамасы"
 
 msgid "File size in bytes"
-msgstr ""
+msgstr "Файл өлшемі, байт"
 
 msgid "File URL"
-msgstr ""
+msgstr "URL"
 
 msgid "Template saved from previous version of plugin"
-msgstr ""
+msgstr "Плагиннің алдыңғы нұсқасында сақталған үлгі"
 
 msgid "Transfer its code to"
-msgstr ""
+msgstr "Оның кодын мына жерге көшіріңіз:"
 
 msgid "in your design theme, then"
-msgstr ""
+msgstr "дизайн тақырыбында, содан кейін"
 
 msgid "delete it from here"
-msgstr ""
+msgstr "осы кодты осы жерден жойыңыз"
 
 msgid "show"
-msgstr ""
+msgstr "көрсету"
 
 msgid "Default template"
-msgstr ""
+msgstr "Әдепкі үлгі"
 
 msgid "Error deleting modified template"
-msgstr ""
+msgstr "Пайдаланушы үлгісін жою қатесі"
 
 msgid "Do you really want to delete your custom template?"
-msgstr ""
+msgstr "Үлгіні шынымен жойғыңыз келе ме?"
 
 msgid "Access denied"
-msgstr ""
+msgstr "Рұқсат жоқ"
 
 msgid "Attached Files Plugin Settings"
-msgstr ""
+msgstr "«Тіркелген файлдар» плагинінің параметрлері"
 
 msgid "Saved"
-msgstr ""
+msgstr "Сақталды"
 
 msgid "Product ID required"
-msgstr ""
+msgstr "Тауардың ID-і қажет"
 
 msgid "Errors"
-msgstr ""
+msgstr "Қателер"
 
 msgid "Close"
-msgstr ""
+msgstr "Жабу"
 
 msgid "Deleted"
-msgstr ""
+msgstr "Жойылды"
 
 msgid "Unknown entity"
-msgstr ""
+msgstr "Белгісіз нысан"
 
 msgid "Unknown attachment ID"
-msgstr ""
+msgstr "Белгісіз тіркеме идентификаторы"
 
 msgid "Description is not set"
-msgstr ""
+msgstr "Сипаттама берілмеген"
 
 msgid "Invalid parameters"
-msgstr ""
+msgstr "Қате параметрлер"
 
 msgid "File not found"
-msgstr ""
+msgstr "Файл табылмады"
 
 msgid "Entity ID required"
-msgstr ""
+msgstr "Нысан идентификаторы көрсетілмеген"
 
 msgid "GB"
-msgstr ""
+msgstr "ГБ"
 
 msgid "MB"
-msgstr ""
+msgstr "МБ"
 
 msgid "KB"
-msgstr ""
+msgstr "КБ"
 
 msgid "bytes"
-msgstr ""
+msgstr "байт"
 
 msgid "of"
-msgstr ""
+msgstr "/"
 
 msgid "Upload or drag & drop files here"
-msgstr ""
+msgstr "Файлдарды жүктеңіз немесе осы жерге сүйреп әкеліңіз"
 
 msgid "Loading files"
-msgstr ""
+msgstr "Жүктелетін файлдар"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Болдырмау"
 
 msgid "File deletion confirmation"
-msgstr ""
+msgstr "Жоюды растау"
 
 msgid "Do you really want to delete this file?"
-msgstr ""
+msgstr "Осы файлды шынымен жойғыңыз келе ме?"
 
 msgid "Size of %name% exceeds maximum upload size limit"
-msgstr ""
+msgstr "%name% файлының өлшемі жүктеуге рұқсат етілген ең үлкен өлшемнен асып түседі"
 
 msgid "Upload error"
-msgstr ""
+msgstr "Жүктеу қатесі"
 
 msgid "Server error"
-msgstr ""
+msgstr "Сервер қатесі"
 
 msgid "Loading"
-msgstr ""
+msgstr "Жүктелуде"
 
 msgid "Drag to reorder"
-msgstr ""
+msgstr "Ретін өзгерту үшін сүйреңіз"
 
 msgid "Attach existing file"
-msgstr ""
+msgstr "Бар файлды тіркеу"
 
 msgid "Search by filename..."
-msgstr ""
+msgstr "Файл атауы бойынша іздеу..."
 
 msgid "Attach"
-msgstr ""
+msgstr "Тіркеу"
 
 msgid "No files found"
-msgstr ""
+msgstr "Файлдар табылмады"
 
 msgid "You can't upload files to a new product. First, save the product."
-msgstr ""
+msgstr "Жаңа тауарға файл жүктеу мүмкін емес. Алдымен тауарды сақтаңыз."
 
 msgid "Attached Files"
-msgstr ""
+msgstr "Тіркелген файлдар"
 
 msgid "Hook"
-msgstr ""
+msgstr "Хук"
 
 msgid "Hook name to display filelist. Each hook placement depends of theme design. <a href=\"http://www.webasyst.com/developers/docs/plugins/hooks/shop/frontend_product/\" target=\"_blank\">More info about hooks.</a>"
-msgstr ""
+msgstr "Файлдар тізімін көрсетуге арналған хуктың атауы. Хуктың нақты орналасқан жері дизайн тақырыбына байланысты. <a href=\"http://www.webasyst.com/developers/docs/plugins/hooks/shop/frontend_product/\" target=\"_blank\">Хуктар туралы толығырақ.</a>"
 
 msgid "No. Disable hooks"
-msgstr ""
+msgstr "Жоқ. Хуктарға тыйым салу"
 
 msgid "Storefront without template"
-msgstr ""
+msgstr "Үлгісіз витрина"
 
 msgid "Applies when the design theme used in the storefront does not contain <code>plugin.syrattach.attachments.html</code>"
-msgstr ""
+msgstr "Витринадағы дизайн тақырыбында <code>plugin.syrattach.attachments.html</code> файлы болмаған кезде қолданылады"
 
 msgid "Show default template"
-msgstr ""
+msgstr "Әдепкі үлгіні көрсету"
 
 msgid "Switch off"
-msgstr ""
+msgstr "Өшіру"
 
 msgid "Template"
-msgstr ""
+msgstr "Үлгі"
 
 msgid "Template to display at the hook position. HTML+Smarty"
-msgstr ""
+msgstr "Таңдалған хукта көрсетуге арналған үлгі. HTML және Smarty"
 
 msgid "Database error"
-msgstr ""
+msgstr "Дерекқор қатесі"
 
 msgid "Database error creating file link"
-msgstr ""
+msgstr "Файл байланысын жасау кезіндегі дерекқор қатесі"
 
 msgid "Entity ID missing while saving file"
-msgstr ""
+msgstr "Файлды сақтау кезінде нысан идентификаторы көрсетілмеген"
 
 msgid "Delete error"
-msgstr ""
+msgstr "Жою қатесі"
 
 msgid "Error saving file: directory not writable."
-msgstr ""
+msgstr "Файлды сақтау қатесі: каталогқа жазуға болмайды."
 
 msgid "Error saving file: cannot create directory."
-msgstr ""
+msgstr "Файлды сақтау қатесі: каталог жасау мүмкін болмады."
 
 msgid "Cannot find a link record ID#%d"
-msgstr ""
+msgstr "ID#%d байланыс жазбасы табылмады"
 
 msgid "SyrAttach cannot delete file for record %d: %s"
-msgstr ""
+msgstr "SyrAttach %d жазбасы үшін файлды жоя алмайды: %s"
 
 msgid "SyrAttach cannot delete dir for file %d: %s"
-msgstr ""
+msgstr "SyrAttach %d файлы үшін каталогты жоя алмайды: %s"
 
 msgid "Attached File"
-msgstr ""
+msgstr "Тіркелген файл"
 
 msgid "No ID given for product \"%s\""
-msgstr ""
+msgstr "«%s» тауары үшін идентификатор (ID) көрсетілмеген"
 
 msgid "Wrong file name \"%s\" for product \"%s\". File not saved."
-msgstr ""
+msgstr "«%s» тауары үшін «%s» файл атауы қате. Файл сақталмады."
 
 msgid "File named \"%s\" not exists or not readable. File not saved."
-msgstr ""
+msgstr "«%s» файлы жоқ немесе оқуға қолжетімді емес. Файл сақталмады."

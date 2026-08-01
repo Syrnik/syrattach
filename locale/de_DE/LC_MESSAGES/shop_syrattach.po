@@ -5,6 +5,7 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Last-Translator: shop/plugins/syrattach\n"
 "Language-Team: shop/plugins/syrattach\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,253 +17,253 @@ msgstr ""
 "X-Poedit-SearchPath-1: .\n"
 
 msgid "Select files"
-msgstr ""
+msgstr "Dateien auswählen"
 
 msgid "or drag them here to start upload"
-msgstr ""
+msgstr "oder ziehen Sie sie hierher, um den Upload zu starten"
 
 msgid "Add file description"
-msgstr ""
+msgstr "Dateibeschreibung hinzufügen"
 
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
 
 msgid "Max. file size for upload:"
-msgstr ""
+msgstr "Maximale Dateigröße für den Upload:"
 
 msgid "Attached Files Plugin Setup"
-msgstr ""
+msgstr "Einrichtung des Plugins „Angehängte Dateien“"
 
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 msgid "Attached files"
-msgstr ""
+msgstr "Angehängte Dateien"
 
 msgid "Files other than images that may be useful to the buyer: instructions, certificates, etc."
-msgstr ""
+msgstr "Dateien außer Bildern, die für den Käufer nützlich sein können: Anleitungen, Zertifikate usw."
 
 msgid "Related files"
-msgstr ""
+msgstr "Zugehörige Dateien"
 
 msgid "Recommended: add a file named"
-msgstr ""
+msgstr "Empfohlen: Fügen Sie eine Datei mit dem Namen"
 
 msgid "to your active design theme. The plugin will automatically use it instead of the built-in template."
-msgstr ""
+msgstr "zu Ihrem aktiven Design-Theme hinzu. Das Plugin verwendet sie dann automatisch anstelle des integrierten Templates."
 
 msgid "JFYI. Variables available within the template:"
-msgstr ""
+msgstr "Zur Information. Im Template verfügbare Variablen:"
 
 msgid "A list of file data. Each file item is an array with keys:"
-msgstr ""
+msgstr "Eine Liste von Dateidaten. Jeder Dateieintrag ist ein Array mit den folgenden Schlüsseln:"
 
 msgid "Attachment ID#"
-msgstr ""
+msgstr "ID"
 
 msgid "File name"
-msgstr ""
+msgstr "Dateiname"
 
 msgid "File extension"
-msgstr ""
+msgstr "Dateiendung"
 
 msgid "File description"
-msgstr ""
+msgstr "Dateibeschreibung"
 
 msgid "File size in bytes"
-msgstr ""
+msgstr "Dateigröße in Bytes"
 
 msgid "File URL"
-msgstr ""
+msgstr "URL"
 
 msgid "Template saved from previous version of plugin"
-msgstr ""
+msgstr "Template aus einer früheren Version des Plugins"
 
 msgid "Transfer its code to"
-msgstr ""
+msgstr "Übertragen Sie den Code in"
 
 msgid "in your design theme, then"
-msgstr ""
+msgstr "in Ihrem Design-Theme, danach"
 
 msgid "delete it from here"
-msgstr ""
+msgstr "löschen Sie ihn hier"
 
 msgid "show"
-msgstr ""
+msgstr "anzeigen"
 
 msgid "Default template"
-msgstr ""
+msgstr "Standard-Template"
 
 msgid "Error deleting modified template"
-msgstr ""
+msgstr "Fehler beim Löschen des benutzerdefinierten Templates"
 
 msgid "Do you really want to delete your custom template?"
-msgstr ""
+msgstr "Möchten Sie Ihr benutzerdefiniertes Template wirklich löschen?"
 
 msgid "Access denied"
-msgstr ""
+msgstr "Zugriff verweigert"
 
 msgid "Attached Files Plugin Settings"
-msgstr ""
+msgstr "Einstellungen des Plugins „Angehängte Dateien“"
 
 msgid "Saved"
-msgstr ""
+msgstr "Gespeichert"
 
 msgid "Product ID required"
-msgstr ""
+msgstr "Produkt-ID erforderlich"
 
 msgid "Errors"
-msgstr ""
+msgstr "Fehler"
 
 msgid "Close"
-msgstr ""
+msgstr "Schließen"
 
 msgid "Deleted"
-msgstr ""
+msgstr "Gelöscht"
 
 msgid "Unknown entity"
-msgstr ""
+msgstr "Unbekannte Entität"
 
 msgid "Unknown attachment ID"
-msgstr ""
+msgstr "Unbekannte Anhang-ID"
 
 msgid "Description is not set"
-msgstr ""
+msgstr "Keine Beschreibung angegeben"
 
 msgid "Invalid parameters"
-msgstr ""
+msgstr "Ungültige Parameter"
 
 msgid "File not found"
-msgstr ""
+msgstr "Datei nicht gefunden"
 
 msgid "Entity ID required"
-msgstr ""
+msgstr "Entitäts-ID erforderlich"
 
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 msgid "bytes"
-msgstr ""
+msgstr "Bytes"
 
 msgid "of"
-msgstr ""
+msgstr "von"
 
 msgid "Upload or drag & drop files here"
-msgstr ""
+msgstr "Dateien hochladen oder hierher ziehen"
 
 msgid "Loading files"
-msgstr ""
+msgstr "Dateien werden hochgeladen"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 msgid "File deletion confirmation"
-msgstr ""
+msgstr "Löschen bestätigen"
 
 msgid "Do you really want to delete this file?"
-msgstr ""
+msgstr "Möchten Sie diese Datei wirklich löschen?"
 
 msgid "Size of %name% exceeds maximum upload size limit"
-msgstr ""
+msgstr "Die Größe von %name% überschreitet die maximal zulässige Upload-Größe"
 
 msgid "Upload error"
-msgstr ""
+msgstr "Fehler beim Hochladen"
 
 msgid "Server error"
-msgstr ""
+msgstr "Serverfehler"
 
 msgid "Loading"
-msgstr ""
+msgstr "Wird geladen"
 
 msgid "Drag to reorder"
-msgstr ""
+msgstr "Zum Umsortieren ziehen"
 
 msgid "Attach existing file"
-msgstr ""
+msgstr "Vorhandene Datei anhängen"
 
 msgid "Search by filename..."
-msgstr ""
+msgstr "Nach Dateiname suchen …"
 
 msgid "Attach"
-msgstr ""
+msgstr "Anhängen"
 
 msgid "No files found"
-msgstr ""
+msgstr "Keine Dateien gefunden"
 
 msgid "You can't upload files to a new product. First, save the product."
-msgstr ""
+msgstr "Zu einem neuen Produkt können keine Dateien hochgeladen werden. Speichern Sie das Produkt zuerst."
 
 msgid "Attached Files"
-msgstr ""
+msgstr "Angehängte Dateien"
 
 msgid "Hook"
-msgstr ""
+msgstr "Hook"
 
 msgid "Hook name to display filelist. Each hook placement depends of theme design. <a href=\"http://www.webasyst.com/developers/docs/plugins/hooks/shop/frontend_product/\" target=\"_blank\">More info about hooks.</a>"
-msgstr ""
+msgstr "Name des Hooks, an dem die Dateiliste angezeigt wird. Die genaue Position des Hooks hängt vom Design-Theme ab. <a href=\"http://www.webasyst.com/developers/docs/plugins/hooks/shop/frontend_product/\" target=\"_blank\">Mehr über Hooks.</a>"
 
 msgid "No. Disable hooks"
-msgstr ""
+msgstr "Nein. Hooks deaktivieren"
 
 msgid "Storefront without template"
-msgstr ""
+msgstr "Storefront ohne Template"
 
 msgid "Applies when the design theme used in the storefront does not contain <code>plugin.syrattach.attachments.html</code>"
-msgstr ""
+msgstr "Gilt, wenn das im Storefront verwendete Design-Theme keine Datei <code>plugin.syrattach.attachments.html</code> enthält"
 
 msgid "Show default template"
-msgstr ""
+msgstr "Standard-Template anzeigen"
 
 msgid "Switch off"
-msgstr ""
+msgstr "Deaktivieren"
 
 msgid "Template"
-msgstr ""
+msgstr "Template"
 
 msgid "Template to display at the hook position. HTML+Smarty"
-msgstr ""
+msgstr "Template zur Anzeige an der Hook-Position. HTML und Smarty"
 
 msgid "Database error"
-msgstr ""
+msgstr "Datenbankfehler"
 
 msgid "Database error creating file link"
-msgstr ""
+msgstr "Datenbankfehler beim Erstellen der Dateiverknüpfung"
 
 msgid "Entity ID missing while saving file"
-msgstr ""
+msgstr "Beim Speichern der Datei fehlt die Entitäts-ID"
 
 msgid "Delete error"
-msgstr ""
+msgstr "Fehler beim Löschen"
 
 msgid "Error saving file: directory not writable."
-msgstr ""
+msgstr "Fehler beim Speichern der Datei: Verzeichnis ist nicht beschreibbar."
 
 msgid "Error saving file: cannot create directory."
-msgstr ""
+msgstr "Fehler beim Speichern der Datei: Verzeichnis konnte nicht erstellt werden."
 
 msgid "Cannot find a link record ID#%d"
-msgstr ""
+msgstr "Verknüpfungsdatensatz ID#%d nicht gefunden"
 
 msgid "SyrAttach cannot delete file for record %d: %s"
-msgstr ""
+msgstr "SyrAttach kann die Datei für den Datensatz %d nicht löschen: %s"
 
 msgid "SyrAttach cannot delete dir for file %d: %s"
-msgstr ""
+msgstr "SyrAttach kann das Verzeichnis für die Datei %d nicht löschen: %s"
 
 msgid "Attached File"
-msgstr ""
+msgstr "Angehängte Datei"
 
 msgid "No ID given for product \"%s\""
-msgstr ""
+msgstr "Keine ID für das Produkt „%s“ angegeben"
 
 msgid "Wrong file name \"%s\" for product \"%s\". File not saved."
-msgstr ""
+msgstr "Ungültiger Dateiname „%s“ für das Produkt „%s“. Datei nicht gespeichert."
 
 msgid "File named \"%s\" not exists or not readable. File not saved."
-msgstr ""
+msgstr "Die Datei „%s“ existiert nicht oder ist nicht lesbar. Datei nicht gespeichert."

@@ -5,10 +5,11 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Last-Translator: shop/plugins/syrattach\n"
 "Language-Team: shop/plugins/syrattach\n"
+"Language: uk_UA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
 "X-Poedit-Language: uk_UA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Basepath: utf-8\n"
@@ -16,253 +17,253 @@ msgstr ""
 "X-Poedit-SearchPath-1: .\n"
 
 msgid "Select files"
-msgstr ""
+msgstr "Виберіть файли"
 
 msgid "or drag them here to start upload"
-msgstr ""
+msgstr "або перетягніть їх сюди, щоб почати завантаження"
 
 msgid "Add file description"
-msgstr ""
+msgstr "Додати опис файлу"
 
 msgid "Delete"
-msgstr ""
+msgstr "Видалити"
 
 msgid "Max. file size for upload:"
-msgstr ""
+msgstr "Максимальний розмір файлу для завантаження:"
 
 msgid "Attached Files Plugin Setup"
-msgstr ""
+msgstr "Налаштування плагіна «Прикріплені файли»"
 
 msgid "Save"
-msgstr ""
+msgstr "Зберегти"
 
 msgid "Attached files"
-msgstr ""
+msgstr "Прикріплені файли"
 
 msgid "Files other than images that may be useful to the buyer: instructions, certificates, etc."
-msgstr ""
+msgstr "Файли, крім зображень, які можуть бути корисні покупцеві: інструкції, сертифікати тощо."
 
 msgid "Related files"
-msgstr ""
+msgstr "Супутні файли"
 
 msgid "Recommended: add a file named"
-msgstr ""
+msgstr "Рекомендовано: додайте файл з ім'ям"
 
 msgid "to your active design theme. The plugin will automatically use it instead of the built-in template."
-msgstr ""
+msgstr "до активної теми дизайну. Плагін автоматично використає його замість вбудованого шаблона."
 
 msgid "JFYI. Variables available within the template:"
-msgstr ""
+msgstr "Для довідки. Змінні, доступні в шаблоні:"
 
 msgid "A list of file data. Each file item is an array with keys:"
-msgstr ""
+msgstr "Список даних про файли. Кожен запис про файл є масивом із такими ключами:"
 
 msgid "Attachment ID#"
-msgstr ""
+msgstr "ID"
 
 msgid "File name"
-msgstr ""
+msgstr "Ім'я файлу"
 
 msgid "File extension"
-msgstr ""
+msgstr "Розширення файлу"
 
 msgid "File description"
-msgstr ""
+msgstr "Опис файлу"
 
 msgid "File size in bytes"
-msgstr ""
+msgstr "Розмір файлу в байтах"
 
 msgid "File URL"
-msgstr ""
+msgstr "URL"
 
 msgid "Template saved from previous version of plugin"
-msgstr ""
+msgstr "Шаблон, збережений у попередній версії плагіна"
 
 msgid "Transfer its code to"
-msgstr ""
+msgstr "Перенесіть його код у"
 
 msgid "in your design theme, then"
-msgstr ""
+msgstr "у темі дизайну, потім"
 
 msgid "delete it from here"
-msgstr ""
+msgstr "видаліть цей код тут"
 
 msgid "show"
-msgstr ""
+msgstr "показати"
 
 msgid "Default template"
-msgstr ""
+msgstr "Шаблон за замовчуванням"
 
 msgid "Error deleting modified template"
-msgstr ""
+msgstr "Помилка видалення користувацького шаблона"
 
 msgid "Do you really want to delete your custom template?"
-msgstr ""
+msgstr "Ви справді хочете видалити шаблон?"
 
 msgid "Access denied"
-msgstr ""
+msgstr "Доступ заборонено"
 
 msgid "Attached Files Plugin Settings"
-msgstr ""
+msgstr "Налаштування плагіна «Прикріплені файли»"
 
 msgid "Saved"
-msgstr ""
+msgstr "Збережено"
 
 msgid "Product ID required"
-msgstr ""
+msgstr "Потрібен ID товару"
 
 msgid "Errors"
-msgstr ""
+msgstr "Помилки"
 
 msgid "Close"
-msgstr ""
+msgstr "Закрити"
 
 msgid "Deleted"
-msgstr ""
+msgstr "Видалено"
 
 msgid "Unknown entity"
-msgstr ""
+msgstr "Невідома сутність"
 
 msgid "Unknown attachment ID"
-msgstr ""
+msgstr "Невідомий ідентифікатор вкладення"
 
 msgid "Description is not set"
-msgstr ""
+msgstr "Опис не задано"
 
 msgid "Invalid parameters"
-msgstr ""
+msgstr "Невірні параметри"
 
 msgid "File not found"
-msgstr ""
+msgstr "Файл не знайдено"
 
 msgid "Entity ID required"
-msgstr ""
+msgstr "Не вказано ідентифікатор об'єкта"
 
 msgid "GB"
-msgstr ""
+msgstr "ГБ"
 
 msgid "MB"
-msgstr ""
+msgstr "МБ"
 
 msgid "KB"
-msgstr ""
+msgstr "КБ"
 
 msgid "bytes"
-msgstr ""
+msgstr "байт"
 
 msgid "of"
-msgstr ""
+msgstr "з"
 
 msgid "Upload or drag & drop files here"
-msgstr ""
+msgstr "Завантажте або перетягніть файли сюди"
 
 msgid "Loading files"
-msgstr ""
+msgstr "Файли, що завантажуються"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Скасувати"
 
 msgid "File deletion confirmation"
-msgstr ""
+msgstr "Підтвердження видалення"
 
 msgid "Do you really want to delete this file?"
-msgstr ""
+msgstr "Ви справді хочете видалити цей файл?"
 
 msgid "Size of %name% exceeds maximum upload size limit"
-msgstr ""
+msgstr "Розмір файлу %name% перевищує максимально допустимий розмір для завантаження"
 
 msgid "Upload error"
-msgstr ""
+msgstr "Помилка завантаження"
 
 msgid "Server error"
-msgstr ""
+msgstr "Помилка сервера"
 
 msgid "Loading"
-msgstr ""
+msgstr "Завантаження"
 
 msgid "Drag to reorder"
-msgstr ""
+msgstr "Перетягніть, щоб змінити порядок"
 
 msgid "Attach existing file"
-msgstr ""
+msgstr "Прикріпити наявний файл"
 
 msgid "Search by filename..."
-msgstr ""
+msgstr "Пошук за ім'ям файлу..."
 
 msgid "Attach"
-msgstr ""
+msgstr "Прикріпити"
 
 msgid "No files found"
-msgstr ""
+msgstr "Файлів не знайдено"
 
 msgid "You can't upload files to a new product. First, save the product."
-msgstr ""
+msgstr "До нового товару не можна завантажити файли. Спочатку збережіть товар."
 
 msgid "Attached Files"
-msgstr ""
+msgstr "Прикріплені файли"
 
 msgid "Hook"
-msgstr ""
+msgstr "Хук"
 
 msgid "Hook name to display filelist. Each hook placement depends of theme design. <a href=\"http://www.webasyst.com/developers/docs/plugins/hooks/shop/frontend_product/\" target=\"_blank\">More info about hooks.</a>"
-msgstr ""
+msgstr "Назва хука для показу списку файлів. Конкретне місце розташування хука залежить від теми дизайну. <a href=\"http://www.webasyst.com/developers/docs/plugins/hooks/shop/frontend_product/\" target=\"_blank\">Докладніше про хуки.</a>"
 
 msgid "No. Disable hooks"
-msgstr ""
+msgstr "Ні. Заборонити хуки"
 
 msgid "Storefront without template"
-msgstr ""
+msgstr "Вітрина без шаблона"
 
 msgid "Applies when the design theme used in the storefront does not contain <code>plugin.syrattach.attachments.html</code>"
-msgstr ""
+msgstr "Застосовується, коли в темі дизайну на вітрині немає файлу <code>plugin.syrattach.attachments.html</code>"
 
 msgid "Show default template"
-msgstr ""
+msgstr "Показати шаблон за замовчуванням"
 
 msgid "Switch off"
-msgstr ""
+msgstr "Вимкнутися"
 
 msgid "Template"
-msgstr ""
+msgstr "Шаблон"
 
 msgid "Template to display at the hook position. HTML+Smarty"
-msgstr ""
+msgstr "Шаблон для відображення у вибраному хуці. HTML і Smarty"
 
 msgid "Database error"
-msgstr ""
+msgstr "Помилка бази даних"
 
 msgid "Database error creating file link"
-msgstr ""
+msgstr "Помилка бази даних під час створення зв'язку з файлом"
 
 msgid "Entity ID missing while saving file"
-msgstr ""
+msgstr "Під час збереження файлу не вказано ідентифікатор об'єкта"
 
 msgid "Delete error"
-msgstr ""
+msgstr "Помилка видалення"
 
 msgid "Error saving file: directory not writable."
-msgstr ""
+msgstr "Помилка збереження файлу: каталог недоступний для запису."
 
 msgid "Error saving file: cannot create directory."
-msgstr ""
+msgstr "Помилка збереження файлу: не вдалося створити каталог."
 
 msgid "Cannot find a link record ID#%d"
-msgstr ""
+msgstr "Не знайдено запис зв'язку ID#%d"
 
 msgid "SyrAttach cannot delete file for record %d: %s"
-msgstr ""
+msgstr "SyrAttach не може видалити файл для запису %d: %s"
 
 msgid "SyrAttach cannot delete dir for file %d: %s"
-msgstr ""
+msgstr "SyrAttach не може видалити каталог для файлу %d: %s"
 
 msgid "Attached File"
-msgstr ""
+msgstr "Прикріплений файл"
 
 msgid "No ID given for product \"%s\""
-msgstr ""
+msgstr "Не вказано ідентифікатор (ID) для товару «%s»"
 
 msgid "Wrong file name \"%s\" for product \"%s\". File not saved."
-msgstr ""
+msgstr "Невірне ім'я файлу «%s» для товару «%s». Файл не збережено."
 
 msgid "File named \"%s\" not exists or not readable. File not saved."
-msgstr ""
+msgstr "Файл «%s» не існує або недоступний для читання. Файл не збережено."

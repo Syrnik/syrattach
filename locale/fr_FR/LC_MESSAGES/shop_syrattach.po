@@ -5,10 +5,11 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Last-Translator: shop/plugins/syrattach\n"
 "Language-Team: shop/plugins/syrattach\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-Language: fr_FR\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Basepath: utf-8\n"
@@ -16,253 +17,253 @@ msgstr ""
 "X-Poedit-SearchPath-1: .\n"
 
 msgid "Select files"
-msgstr ""
+msgstr "Sélectionner des fichiers"
 
 msgid "or drag them here to start upload"
-msgstr ""
+msgstr "ou faites-les glisser ici pour lancer le téléversement"
 
 msgid "Add file description"
-msgstr ""
+msgstr "Ajouter une description du fichier"
 
 msgid "Delete"
-msgstr ""
+msgstr "Supprimer"
 
 msgid "Max. file size for upload:"
-msgstr ""
+msgstr "Taille maximale du fichier à téléverser :"
 
 msgid "Attached Files Plugin Setup"
-msgstr ""
+msgstr "Configuration du plugin « Fichiers joints »"
 
 msgid "Save"
-msgstr ""
+msgstr "Enregistrer"
 
 msgid "Attached files"
-msgstr ""
+msgstr "Fichiers joints"
 
 msgid "Files other than images that may be useful to the buyer: instructions, certificates, etc."
-msgstr ""
+msgstr "Fichiers autres que des images pouvant être utiles à l'acheteur : notices, certificats, etc."
 
 msgid "Related files"
-msgstr ""
+msgstr "Fichiers associés"
 
 msgid "Recommended: add a file named"
-msgstr ""
+msgstr "Recommandé : ajoutez un fichier nommé"
 
 msgid "to your active design theme. The plugin will automatically use it instead of the built-in template."
-msgstr ""
+msgstr "à votre thème de design actif. Le plugin l'utilisera automatiquement à la place du template intégré."
 
 msgid "JFYI. Variables available within the template:"
-msgstr ""
+msgstr "Pour information. Variables disponibles dans le template :"
 
 msgid "A list of file data. Each file item is an array with keys:"
-msgstr ""
+msgstr "Une liste de données de fichiers. Chaque élément est un tableau comportant les clés suivantes :"
 
 msgid "Attachment ID#"
-msgstr ""
+msgstr "ID"
 
 msgid "File name"
-msgstr ""
+msgstr "Nom du fichier"
 
 msgid "File extension"
-msgstr ""
+msgstr "Extension du fichier"
 
 msgid "File description"
-msgstr ""
+msgstr "Description du fichier"
 
 msgid "File size in bytes"
-msgstr ""
+msgstr "Taille du fichier en octets"
 
 msgid "File URL"
-msgstr ""
+msgstr "URL"
 
 msgid "Template saved from previous version of plugin"
-msgstr ""
+msgstr "Template enregistré dans une version précédente du plugin"
 
 msgid "Transfer its code to"
-msgstr ""
+msgstr "Transférez son code dans"
 
 msgid "in your design theme, then"
-msgstr ""
+msgstr "de votre thème de design, puis"
 
 msgid "delete it from here"
-msgstr ""
+msgstr "supprimez-le ici"
 
 msgid "show"
-msgstr ""
+msgstr "afficher"
 
 msgid "Default template"
-msgstr ""
+msgstr "Template par défaut"
 
 msgid "Error deleting modified template"
-msgstr ""
+msgstr "Erreur lors de la suppression du template personnalisé"
 
 msgid "Do you really want to delete your custom template?"
-msgstr ""
+msgstr "Voulez-vous vraiment supprimer votre template personnalisé ?"
 
 msgid "Access denied"
-msgstr ""
+msgstr "Accès refusé"
 
 msgid "Attached Files Plugin Settings"
-msgstr ""
+msgstr "Paramètres du plugin « Fichiers joints »"
 
 msgid "Saved"
-msgstr ""
+msgstr "Enregistré"
 
 msgid "Product ID required"
-msgstr ""
+msgstr "Identifiant du produit requis"
 
 msgid "Errors"
-msgstr ""
+msgstr "Erreurs"
 
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 msgid "Deleted"
-msgstr ""
+msgstr "Supprimé"
 
 msgid "Unknown entity"
-msgstr ""
+msgstr "Entité inconnue"
 
 msgid "Unknown attachment ID"
-msgstr ""
+msgstr "Identifiant de pièce jointe inconnu"
 
 msgid "Description is not set"
-msgstr ""
+msgstr "Aucune description renseignée"
 
 msgid "Invalid parameters"
-msgstr ""
+msgstr "Paramètres invalides"
 
 msgid "File not found"
-msgstr ""
+msgstr "Fichier introuvable"
 
 msgid "Entity ID required"
-msgstr ""
+msgstr "Identifiant de l'entité requis"
 
 msgid "GB"
-msgstr ""
+msgstr "Go"
 
 msgid "MB"
-msgstr ""
+msgstr "Mo"
 
 msgid "KB"
-msgstr ""
+msgstr "Ko"
 
 msgid "bytes"
-msgstr ""
+msgstr "octets"
 
 msgid "of"
-msgstr ""
+msgstr "sur"
 
 msgid "Upload or drag & drop files here"
-msgstr ""
+msgstr "Téléversez des fichiers ou faites-les glisser ici"
 
 msgid "Loading files"
-msgstr ""
+msgstr "Fichiers en cours de téléversement"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 msgid "File deletion confirmation"
-msgstr ""
+msgstr "Confirmation de la suppression"
 
 msgid "Do you really want to delete this file?"
-msgstr ""
+msgstr "Voulez-vous vraiment supprimer ce fichier ?"
 
 msgid "Size of %name% exceeds maximum upload size limit"
-msgstr ""
+msgstr "La taille de %name% dépasse la taille maximale autorisée pour le téléversement"
 
 msgid "Upload error"
-msgstr ""
+msgstr "Erreur de téléversement"
 
 msgid "Server error"
-msgstr ""
+msgstr "Erreur du serveur"
 
 msgid "Loading"
-msgstr ""
+msgstr "Chargement"
 
 msgid "Drag to reorder"
-msgstr ""
+msgstr "Faites glisser pour réorganiser"
 
 msgid "Attach existing file"
-msgstr ""
+msgstr "Joindre un fichier existant"
 
 msgid "Search by filename..."
-msgstr ""
+msgstr "Rechercher par nom de fichier…"
 
 msgid "Attach"
-msgstr ""
+msgstr "Joindre"
 
 msgid "No files found"
-msgstr ""
+msgstr "Aucun fichier trouvé"
 
 msgid "You can't upload files to a new product. First, save the product."
-msgstr ""
+msgstr "Impossible de téléverser des fichiers vers un nouveau produit. Enregistrez d'abord le produit."
 
 msgid "Attached Files"
-msgstr ""
+msgstr "Fichiers joints"
 
 msgid "Hook"
-msgstr ""
+msgstr "Hook"
 
 msgid "Hook name to display filelist. Each hook placement depends of theme design. <a href=\"http://www.webasyst.com/developers/docs/plugins/hooks/shop/frontend_product/\" target=\"_blank\">More info about hooks.</a>"
-msgstr ""
+msgstr "Nom du hook où afficher la liste des fichiers. L'emplacement exact du hook dépend du thème de design. <a href=\"http://www.webasyst.com/developers/docs/plugins/hooks/shop/frontend_product/\" target=\"_blank\">En savoir plus sur les hooks.</a>"
 
 msgid "No. Disable hooks"
-msgstr ""
+msgstr "Non. Désactiver les hooks"
 
 msgid "Storefront without template"
-msgstr ""
+msgstr "Vitrine sans template"
 
 msgid "Applies when the design theme used in the storefront does not contain <code>plugin.syrattach.attachments.html</code>"
-msgstr ""
+msgstr "S'applique lorsque le thème de design utilisé par la vitrine ne contient pas le fichier <code>plugin.syrattach.attachments.html</code>"
 
 msgid "Show default template"
-msgstr ""
+msgstr "Afficher le template par défaut"
 
 msgid "Switch off"
-msgstr ""
+msgstr "Se désactiver"
 
 msgid "Template"
-msgstr ""
+msgstr "Template"
 
 msgid "Template to display at the hook position. HTML+Smarty"
-msgstr ""
+msgstr "Template à afficher à l'emplacement du hook. HTML et Smarty"
 
 msgid "Database error"
-msgstr ""
+msgstr "Erreur de base de données"
 
 msgid "Database error creating file link"
-msgstr ""
+msgstr "Erreur de base de données lors de la création du lien vers le fichier"
 
 msgid "Entity ID missing while saving file"
-msgstr ""
+msgstr "Identifiant de l'entité manquant lors de l'enregistrement du fichier"
 
 msgid "Delete error"
-msgstr ""
+msgstr "Erreur de suppression"
 
 msgid "Error saving file: directory not writable."
-msgstr ""
+msgstr "Erreur lors de l'enregistrement du fichier : le répertoire n'est pas accessible en écriture."
 
 msgid "Error saving file: cannot create directory."
-msgstr ""
+msgstr "Erreur lors de l'enregistrement du fichier : impossible de créer le répertoire."
 
 msgid "Cannot find a link record ID#%d"
-msgstr ""
+msgstr "Enregistrement de liaison ID#%d introuvable"
 
 msgid "SyrAttach cannot delete file for record %d: %s"
-msgstr ""
+msgstr "SyrAttach ne peut pas supprimer le fichier de l'enregistrement %d : %s"
 
 msgid "SyrAttach cannot delete dir for file %d: %s"
-msgstr ""
+msgstr "SyrAttach ne peut pas supprimer le répertoire du fichier %d : %s"
 
 msgid "Attached File"
-msgstr ""
+msgstr "Fichier joint"
 
 msgid "No ID given for product \"%s\""
-msgstr ""
+msgstr "Aucun identifiant (ID) indiqué pour le produit « %s »"
 
 msgid "Wrong file name \"%s\" for product \"%s\". File not saved."
-msgstr ""
+msgstr "Nom de fichier « %s » incorrect pour le produit « %s ». Fichier non enregistré."
 
 msgid "File named \"%s\" not exists or not readable. File not saved."
-msgstr ""
+msgstr "Le fichier « %s » n'existe pas ou n'est pas lisible. Fichier non enregistré."

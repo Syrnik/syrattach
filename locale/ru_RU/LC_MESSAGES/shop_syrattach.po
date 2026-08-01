@@ -44,7 +44,7 @@ msgid "Close"
 msgstr "Закрыть"
 
 msgid "Files with extensions *.gif, *.jpg, *.jpeg, *.png are allowed only."
-msgstr ""
+msgstr "Разрешены только файлы с расширениями *.gif, *.jpg, *.jpeg, *.png."
 
 msgid "Save"
 msgstr "Сохранить"

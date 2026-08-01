@@ -5,6 +5,7 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Last-Translator: shop/plugins/syrattach\n"
 "Language-Team: shop/plugins/syrattach\n"
+"Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,253 +17,253 @@ msgstr ""
 "X-Poedit-SearchPath-1: .\n"
 
 msgid "Select files"
-msgstr ""
+msgstr "Bestanden selecteren"
 
 msgid "or drag them here to start upload"
-msgstr ""
+msgstr "of sleep ze hierheen om het uploaden te starten"
 
 msgid "Add file description"
-msgstr ""
+msgstr "Bestandsomschrijving toevoegen"
 
 msgid "Delete"
-msgstr ""
+msgstr "Verwijderen"
 
 msgid "Max. file size for upload:"
-msgstr ""
+msgstr "Max. bestandsgrootte voor uploaden:"
 
 msgid "Attached Files Plugin Setup"
-msgstr ""
+msgstr "Instellen van de plug-in ‘Bijgevoegde bestanden’"
 
 msgid "Save"
-msgstr ""
+msgstr "Opslaan"
 
 msgid "Attached files"
-msgstr ""
+msgstr "Bijgevoegde bestanden"
 
 msgid "Files other than images that may be useful to the buyer: instructions, certificates, etc."
-msgstr ""
+msgstr "Andere bestanden dan afbeeldingen die nuttig kunnen zijn voor de koper: handleidingen, certificaten enzovoort."
 
 msgid "Related files"
-msgstr ""
+msgstr "Bijbehorende bestanden"
 
 msgid "Recommended: add a file named"
-msgstr ""
+msgstr "Aanbevolen: voeg een bestand met de naam"
 
 msgid "to your active design theme. The plugin will automatically use it instead of the built-in template."
-msgstr ""
+msgstr "toe aan uw actieve ontwerpthema. De plug-in gebruikt het dan automatisch in plaats van het ingebouwde sjabloon."
 
 msgid "JFYI. Variables available within the template:"
-msgstr ""
+msgstr "Ter info. Variabelen die beschikbaar zijn in het sjabloon:"
 
 msgid "A list of file data. Each file item is an array with keys:"
-msgstr ""
+msgstr "Een lijst met bestandsgegevens. Elk bestandsitem is een array met de volgende sleutels:"
 
 msgid "Attachment ID#"
-msgstr ""
+msgstr "ID"
 
 msgid "File name"
-msgstr ""
+msgstr "Bestandsnaam"
 
 msgid "File extension"
-msgstr ""
+msgstr "Bestandsextensie"
 
 msgid "File description"
-msgstr ""
+msgstr "Bestandsomschrijving"
 
 msgid "File size in bytes"
-msgstr ""
+msgstr "Bestandsgrootte in bytes"
 
 msgid "File URL"
-msgstr ""
+msgstr "URL"
 
 msgid "Template saved from previous version of plugin"
-msgstr ""
+msgstr "Sjabloon opgeslagen in een eerdere versie van de plug-in"
 
 msgid "Transfer its code to"
-msgstr ""
+msgstr "Verplaats de code naar"
 
 msgid "in your design theme, then"
-msgstr ""
+msgstr "in uw ontwerpthema en"
 
 msgid "delete it from here"
-msgstr ""
+msgstr "verwijder hem hier"
 
 msgid "show"
-msgstr ""
+msgstr "tonen"
 
 msgid "Default template"
-msgstr ""
+msgstr "Standaardsjabloon"
 
 msgid "Error deleting modified template"
-msgstr ""
+msgstr "Fout bij het verwijderen van het aangepaste sjabloon"
 
 msgid "Do you really want to delete your custom template?"
-msgstr ""
+msgstr "Weet u zeker dat u uw aangepaste sjabloon wilt verwijderen?"
 
 msgid "Access denied"
-msgstr ""
+msgstr "Toegang geweigerd"
 
 msgid "Attached Files Plugin Settings"
-msgstr ""
+msgstr "Instellingen van de plug-in ‘Bijgevoegde bestanden’"
 
 msgid "Saved"
-msgstr ""
+msgstr "Opgeslagen"
 
 msgid "Product ID required"
-msgstr ""
+msgstr "Product-ID vereist"
 
 msgid "Errors"
-msgstr ""
+msgstr "Fouten"
 
 msgid "Close"
-msgstr ""
+msgstr "Sluiten"
 
 msgid "Deleted"
-msgstr ""
+msgstr "Verwijderd"
 
 msgid "Unknown entity"
-msgstr ""
+msgstr "Onbekende entiteit"
 
 msgid "Unknown attachment ID"
-msgstr ""
+msgstr "Onbekende bijlage-ID"
 
 msgid "Description is not set"
-msgstr ""
+msgstr "Geen omschrijving opgegeven"
 
 msgid "Invalid parameters"
-msgstr ""
+msgstr "Ongeldige parameters"
 
 msgid "File not found"
-msgstr ""
+msgstr "Bestand niet gevonden"
 
 msgid "Entity ID required"
-msgstr ""
+msgstr "Entiteits-ID vereist"
 
 msgid "GB"
-msgstr ""
+msgstr "GB"
 
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 msgid "bytes"
-msgstr ""
+msgstr "bytes"
 
 msgid "of"
-msgstr ""
+msgstr "van"
 
 msgid "Upload or drag & drop files here"
-msgstr ""
+msgstr "Upload bestanden of sleep ze hierheen"
 
 msgid "Loading files"
-msgstr ""
+msgstr "Bestanden worden geüpload"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 msgid "File deletion confirmation"
-msgstr ""
+msgstr "Verwijderen bevestigen"
 
 msgid "Do you really want to delete this file?"
-msgstr ""
+msgstr "Weet u zeker dat u dit bestand wilt verwijderen?"
 
 msgid "Size of %name% exceeds maximum upload size limit"
-msgstr ""
+msgstr "De grootte van %name% overschrijdt de maximaal toegestane uploadgrootte"
 
 msgid "Upload error"
-msgstr ""
+msgstr "Uploadfout"
 
 msgid "Server error"
-msgstr ""
+msgstr "Serverfout"
 
 msgid "Loading"
-msgstr ""
+msgstr "Bezig met laden"
 
 msgid "Drag to reorder"
-msgstr ""
+msgstr "Sleep om de volgorde te wijzigen"
 
 msgid "Attach existing file"
-msgstr ""
+msgstr "Bestaand bestand koppelen"
 
 msgid "Search by filename..."
-msgstr ""
+msgstr "Zoeken op bestandsnaam…"
 
 msgid "Attach"
-msgstr ""
+msgstr "Koppelen"
 
 msgid "No files found"
-msgstr ""
+msgstr "Geen bestanden gevonden"
 
 msgid "You can't upload files to a new product. First, save the product."
-msgstr ""
+msgstr "U kunt geen bestanden uploaden naar een nieuw product. Sla het product eerst op."
 
 msgid "Attached Files"
-msgstr ""
+msgstr "Bijgevoegde bestanden"
 
 msgid "Hook"
-msgstr ""
+msgstr "Hook"
 
 msgid "Hook name to display filelist. Each hook placement depends of theme design. <a href=\"http://www.webasyst.com/developers/docs/plugins/hooks/shop/frontend_product/\" target=\"_blank\">More info about hooks.</a>"
-msgstr ""
+msgstr "Naam van de hook waar de bestandslijst wordt weergegeven. De exacte positie van de hook hangt af van het ontwerpthema. <a href=\"http://www.webasyst.com/developers/docs/plugins/hooks/shop/frontend_product/\" target=\"_blank\">Meer over hooks.</a>"
 
 msgid "No. Disable hooks"
-msgstr ""
+msgstr "Nee. Hooks uitschakelen"
 
 msgid "Storefront without template"
-msgstr ""
+msgstr "Storefront zonder sjabloon"
 
 msgid "Applies when the design theme used in the storefront does not contain <code>plugin.syrattach.attachments.html</code>"
-msgstr ""
+msgstr "Van toepassing wanneer het ontwerpthema van de storefront geen bestand <code>plugin.syrattach.attachments.html</code> bevat"
 
 msgid "Show default template"
-msgstr ""
+msgstr "Standaardsjabloon tonen"
 
 msgid "Switch off"
-msgstr ""
+msgstr "Uitschakelen"
 
 msgid "Template"
-msgstr ""
+msgstr "Sjabloon"
 
 msgid "Template to display at the hook position. HTML+Smarty"
-msgstr ""
+msgstr "Sjabloon dat op de hookpositie wordt weergegeven. HTML en Smarty"
 
 msgid "Database error"
-msgstr ""
+msgstr "Databasefout"
 
 msgid "Database error creating file link"
-msgstr ""
+msgstr "Databasefout bij het aanmaken van de bestandskoppeling"
 
 msgid "Entity ID missing while saving file"
-msgstr ""
+msgstr "Entiteits-ID ontbreekt bij het opslaan van het bestand"
 
 msgid "Delete error"
-msgstr ""
+msgstr "Fout bij verwijderen"
 
 msgid "Error saving file: directory not writable."
-msgstr ""
+msgstr "Fout bij opslaan van bestand: map is niet beschrijfbaar."
 
 msgid "Error saving file: cannot create directory."
-msgstr ""
+msgstr "Fout bij opslaan van bestand: map kan niet worden aangemaakt."
 
 msgid "Cannot find a link record ID#%d"
-msgstr ""
+msgstr "Koppelingsrecord ID#%d niet gevonden"
 
 msgid "SyrAttach cannot delete file for record %d: %s"
-msgstr ""
+msgstr "SyrAttach kan het bestand voor record %d niet verwijderen: %s"
 
 msgid "SyrAttach cannot delete dir for file %d: %s"
-msgstr ""
+msgstr "SyrAttach kan de map voor bestand %d niet verwijderen: %s"
 
 msgid "Attached File"
-msgstr ""
+msgstr "Bijgevoegd bestand"
 
 msgid "No ID given for product \"%s\""
-msgstr ""
+msgstr "Geen ID opgegeven voor product ‘%s’"
 
 msgid "Wrong file name \"%s\" for product \"%s\". File not saved."
-msgstr ""
+msgstr "Ongeldige bestandsnaam ‘%s’ voor product ‘%s’. Bestand niet opgeslagen."
 
 msgid "File named \"%s\" not exists or not readable. File not saved."
-msgstr ""
+msgstr "Het bestand ‘%s’ bestaat niet of is niet leesbaar. Bestand niet opgeslagen."

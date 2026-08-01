@@ -5,10 +5,11 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Last-Translator: shop/plugins/syrattach\n"
 "Language-Team: shop/plugins/syrattach\n"
+"Language: be_BY\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
 "X-Poedit-Language: be_BY\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Basepath: utf-8\n"
@@ -16,253 +17,253 @@ msgstr ""
 "X-Poedit-SearchPath-1: .\n"
 
 msgid "Select files"
-msgstr ""
+msgstr "Выберыце файлы"
 
 msgid "or drag them here to start upload"
-msgstr ""
+msgstr "або перацягніце іх сюды, каб пачаць запампоўку"
 
 msgid "Add file description"
-msgstr ""
+msgstr "Дадаць апісанне файла"
 
 msgid "Delete"
-msgstr ""
+msgstr "Выдаліць"
 
 msgid "Max. file size for upload:"
-msgstr ""
+msgstr "Максімальны памер файла для запампоўкі:"
 
 msgid "Attached Files Plugin Setup"
-msgstr ""
+msgstr "Наладка плагіна «Прымацаваныя файлы»"
 
 msgid "Save"
-msgstr ""
+msgstr "Захаваць"
 
 msgid "Attached files"
-msgstr ""
+msgstr "Прымацаваныя файлы"
 
 msgid "Files other than images that may be useful to the buyer: instructions, certificates, etc."
-msgstr ""
+msgstr "Файлы, акрамя выяў, якія могуць быць карыснымі пакупніку: інструкцыі, сертыфікаты і да таго падобнае."
 
 msgid "Related files"
-msgstr ""
+msgstr "Спадарожныя файлы"
 
 msgid "Recommended: add a file named"
-msgstr ""
+msgstr "Рэкамендуецца: дадайце файл з імем"
 
 msgid "to your active design theme. The plugin will automatically use it instead of the built-in template."
-msgstr ""
+msgstr "у актыўную тэму дызайну. Плагін аўтаматычна выкарыстае яго замест убудаванага шаблона."
 
 msgid "JFYI. Variables available within the template:"
-msgstr ""
+msgstr "Для даведкі. Зменныя, даступныя ў шаблоне:"
 
 msgid "A list of file data. Each file item is an array with keys:"
-msgstr ""
+msgstr "Спіс звестак пра файлы. Кожны запіс пра файл — гэта масіў з наступнымі ключамі:"
 
 msgid "Attachment ID#"
-msgstr ""
+msgstr "ID"
 
 msgid "File name"
-msgstr ""
+msgstr "Імя файла"
 
 msgid "File extension"
-msgstr ""
+msgstr "Пашырэнне файла"
 
 msgid "File description"
-msgstr ""
+msgstr "Апісанне файла"
 
 msgid "File size in bytes"
-msgstr ""
+msgstr "Памер файла ў байтах"
 
 msgid "File URL"
-msgstr ""
+msgstr "URL"
 
 msgid "Template saved from previous version of plugin"
-msgstr ""
+msgstr "Шаблон, захаваны ў папярэдняй версіі плагіна"
 
 msgid "Transfer its code to"
-msgstr ""
+msgstr "Перанясіце яго код у"
 
 msgid "in your design theme, then"
-msgstr ""
+msgstr "у тэме дызайну, потым"
 
 msgid "delete it from here"
-msgstr ""
+msgstr "выдаліце гэты код тут"
 
 msgid "show"
-msgstr ""
+msgstr "паказаць"
 
 msgid "Default template"
-msgstr ""
+msgstr "Шаблон па змаўчанні"
 
 msgid "Error deleting modified template"
-msgstr ""
+msgstr "Памылка выдалення карыстальніцкага шаблона"
 
 msgid "Do you really want to delete your custom template?"
-msgstr ""
+msgstr "Вы сапраўды хочаце выдаліць шаблон?"
 
 msgid "Access denied"
-msgstr ""
+msgstr "Доступ забаронены"
 
 msgid "Attached Files Plugin Settings"
-msgstr ""
+msgstr "Налады плагіна «Прымацаваныя файлы»"
 
 msgid "Saved"
-msgstr ""
+msgstr "Захавана"
 
 msgid "Product ID required"
-msgstr ""
+msgstr "Патрэбны ID тавару"
 
 msgid "Errors"
-msgstr ""
+msgstr "Памылкі"
 
 msgid "Close"
-msgstr ""
+msgstr "Зачыніць"
 
 msgid "Deleted"
-msgstr ""
+msgstr "Выдалена"
 
 msgid "Unknown entity"
-msgstr ""
+msgstr "Невядомая сутнасць"
 
 msgid "Unknown attachment ID"
-msgstr ""
+msgstr "Невядомы ідэнтыфікатар укладання"
 
 msgid "Description is not set"
-msgstr ""
+msgstr "Апісанне не зададзена"
 
 msgid "Invalid parameters"
-msgstr ""
+msgstr "Няправільныя параметры"
 
 msgid "File not found"
-msgstr ""
+msgstr "Файл не знойдзены"
 
 msgid "Entity ID required"
-msgstr ""
+msgstr "Не пазначаны ідэнтыфікатар аб'екта"
 
 msgid "GB"
-msgstr ""
+msgstr "ГБ"
 
 msgid "MB"
-msgstr ""
+msgstr "МБ"
 
 msgid "KB"
-msgstr ""
+msgstr "КБ"
 
 msgid "bytes"
-msgstr ""
+msgstr "байт"
 
 msgid "of"
-msgstr ""
+msgstr "з"
 
 msgid "Upload or drag & drop files here"
-msgstr ""
+msgstr "Запампуйце або перацягніце файлы сюды"
 
 msgid "Loading files"
-msgstr ""
+msgstr "Файлы, якія запампоўваюцца"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Скасаваць"
 
 msgid "File deletion confirmation"
-msgstr ""
+msgstr "Пацвярджэнне выдалення"
 
 msgid "Do you really want to delete this file?"
-msgstr ""
+msgstr "Вы сапраўды хочаце выдаліць гэты файл?"
 
 msgid "Size of %name% exceeds maximum upload size limit"
-msgstr ""
+msgstr "Памер файла %name% перавышае максімальна дапушчальны памер для запампоўкі"
 
 msgid "Upload error"
-msgstr ""
+msgstr "Памылка запампоўкі"
 
 msgid "Server error"
-msgstr ""
+msgstr "Памылка сервера"
 
 msgid "Loading"
-msgstr ""
+msgstr "Загрузка"
 
 msgid "Drag to reorder"
-msgstr ""
+msgstr "Перацягніце, каб змяніць парадак"
 
 msgid "Attach existing file"
-msgstr ""
+msgstr "Прымацаваць наяўны файл"
 
 msgid "Search by filename..."
-msgstr ""
+msgstr "Пошук па імені файла..."
 
 msgid "Attach"
-msgstr ""
+msgstr "Прымацаваць"
 
 msgid "No files found"
-msgstr ""
+msgstr "Файлаў не знойдзена"
 
 msgid "You can't upload files to a new product. First, save the product."
-msgstr ""
+msgstr "Да новага тавару немагчыма запампаваць файлы. Спачатку захавайце тавар."
 
 msgid "Attached Files"
-msgstr ""
+msgstr "Прымацаваныя файлы"
 
 msgid "Hook"
-msgstr ""
+msgstr "Хук"
 
 msgid "Hook name to display filelist. Each hook placement depends of theme design. <a href=\"http://www.webasyst.com/developers/docs/plugins/hooks/shop/frontend_product/\" target=\"_blank\">More info about hooks.</a>"
-msgstr ""
+msgstr "Назва хука для паказу спіса файлаў. Канкрэтнае месца размяшчэння хука залежыць ад тэмы дызайну. <a href=\"http://www.webasyst.com/developers/docs/plugins/hooks/shop/frontend_product/\" target=\"_blank\">Падрабязней пра хукі.</a>"
 
 msgid "No. Disable hooks"
-msgstr ""
+msgstr "Не. Забараніць хукі"
 
 msgid "Storefront without template"
-msgstr ""
+msgstr "Вітрына без шаблона"
 
 msgid "Applies when the design theme used in the storefront does not contain <code>plugin.syrattach.attachments.html</code>"
-msgstr ""
+msgstr "Ужываецца, калі ў тэме дызайну на вітрыне няма файла <code>plugin.syrattach.attachments.html</code>"
 
 msgid "Show default template"
-msgstr ""
+msgstr "Паказаць шаблон па змаўчанні"
 
 msgid "Switch off"
-msgstr ""
+msgstr "Адключыцца"
 
 msgid "Template"
-msgstr ""
+msgstr "Шаблон"
 
 msgid "Template to display at the hook position. HTML+Smarty"
-msgstr ""
+msgstr "Шаблон для адлюстравання ў выбраным хуку. HTML і Smarty"
 
 msgid "Database error"
-msgstr ""
+msgstr "Памылка базы даных"
 
 msgid "Database error creating file link"
-msgstr ""
+msgstr "Памылка базы даных пры стварэнні сувязі з файлам"
 
 msgid "Entity ID missing while saving file"
-msgstr ""
+msgstr "Пры захаванні файла не пазначаны ідэнтыфікатар аб'екта"
 
 msgid "Delete error"
-msgstr ""
+msgstr "Памылка выдалення"
 
 msgid "Error saving file: directory not writable."
-msgstr ""
+msgstr "Памылка захавання файла: каталог недаступны для запісу."
 
 msgid "Error saving file: cannot create directory."
-msgstr ""
+msgstr "Памылка захавання файла: не ўдалося стварыць каталог."
 
 msgid "Cannot find a link record ID#%d"
-msgstr ""
+msgstr "Не знойдзены запіс сувязі ID#%d"
 
 msgid "SyrAttach cannot delete file for record %d: %s"
-msgstr ""
+msgstr "SyrAttach не можа выдаліць файл для запісу %d: %s"
 
 msgid "SyrAttach cannot delete dir for file %d: %s"
-msgstr ""
+msgstr "SyrAttach не можа выдаліць каталог для файла %d: %s"
 
 msgid "Attached File"
-msgstr ""
+msgstr "Прымацаваны файл"
 
 msgid "No ID given for product \"%s\""
-msgstr ""
+msgstr "Не пазначаны ідэнтыфікатар (ID) для тавару «%s»"
 
 msgid "Wrong file name \"%s\" for product \"%s\". File not saved."
-msgstr ""
+msgstr "Няправільнае імя файла «%s» для тавару «%s». Файл не захаваны."
 
 msgid "File named \"%s\" not exists or not readable. File not saved."
-msgstr ""
+msgstr "Файл «%s» не існуе або недаступны для чытання. Файл не захаваны."
