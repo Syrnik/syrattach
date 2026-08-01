@@ -18,6 +18,7 @@ return array(
     'phpcompatinfo.json',
     'phpunit.xml',
     'tests',
+    'node_modules',
     'js/node_modules',
     'js/.babelrc',
     'js/package.json',
