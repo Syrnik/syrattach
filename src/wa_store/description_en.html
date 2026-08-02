@@ -1,0 +1,123 @@
+<p class="wi-intro">The plugin lets you attach any number of files with descriptions to every product — manuals, drivers, firmware, certificates, drawings. The file list appears on the product page, so customers download what they need without contacting your support.</p>
+
+<div class="wi-columns fixed space-30">
+    <div class="wi-column">
+        <div class="wi-section">
+            <h4 class="wi-section-title"><span class="wi-icon black size-22"><i class="fas fa-cloud-upload-alt"></i>&nbsp;</span>Drag &amp; drop upload</h4>
+            <p>Drop files onto the product page or pick them in the usual file dialog. A progress bar shows the upload status.</p>
+        </div>
+        <div class="wi-section">
+            <h4 class="wi-section-title"><span class="wi-icon black size-22"><i class="fas fa-link"></i>&nbsp;</span>One file, many products</h4>
+            <p>A manual shared across a product line is uploaded once and attached to every product that needs it by searching its filename.</p>
+        </div>
+    </div>
+    <div class="wi-column">
+        <div class="wi-section">
+            <h4 class="wi-section-title"><span class="wi-icon black size-22"><i class="fas fa-sort"></i>&nbsp;</span>Your own file order</h4>
+            <p>Reorder files by dragging them — customers see the list exactly in the order you set.</p>
+        </div>
+        <div class="wi-section">
+            <h4 class="wi-section-title"><span class="wi-icon black size-22"><i class="fas fa-paint-brush"></i>&nbsp;</span>Template in your design theme</h4>
+            <p>The storefront markup of the file list lives in a regular template file inside your theme folder, so your edits survive plugin updates.</p>
+        </div>
+    </div>
+</div>
+
+<h3>Managing files in the backend</h3>
+
+<p>The plugin adds an <strong>“Attached files”</strong> section to the product page. It works in both the new and the legacy product editor.</p>
+
+<ul class="wi-list disc">
+    <li>Upload any number of files by drag &amp; drop or through the file dialog</li>
+    <li>Progress bar, with the file added to the list right after the upload</li>
+    <li>A custom description for every file</li>
+    <li>Manual reordering by dragging files</li>
+    <li>An “Attach existing file” button that searches already uploaded files by name</li>
+</ul>
+
+<p>A file attached to several products is stored on disk only once, yet its description and position in the list are kept separately for each product.</p>
+
+<h3>Displaying the file list on the storefront</h3>
+
+<p>The file list is rendered on the product page at the position your design theme reserves for the <code>frontend_product.block</code> or <code>frontend_product.block_aux</code> hook. Which one to use is chosen in the plugin settings.</p>
+
+<blockquote class="wi-columns space-20 align-left">
+    <div class="wi-image">
+        <span class="wi-icon size-52"><i class="fas fa-paint-brush"></i></span>
+    </div>
+    <div class="wi-text middle">
+        <p>To change the markup of the file list, put a <code>plugin.syrattach.attachments.html</code> file into the folder of your active design theme. The plugin picks it up automatically, and a plugin update never touches it. If the theme has no such file, the built-in template is used.</p>
+    </div>
+</blockquote>
+
+<p>Inside the template the <code>$attachments</code> variable holds the data of the attached files:</p>
+
+<pre class="prettyprint">
+$attachments = array(
+    array(
+        'id'          => $id,      /* attachment ID */
+        'file_id'     => $file_id, /* file ID */
+        'name'        => $name,    /* file name */
+        'ext'         => $ext,     /* file extension */
+        'description' => $desc,    /* file description */
+        'size'        => $size,    /* file size in bytes */
+        'url'         => $url      /* file URL */
+    ),
+);
+</pre>
+
+<div class="wi-line">
+    <a href="https://www.syrnik.com/docs/11/syrattach/" target="_blank">More about templates in the documentation<span class="wi-icon size-20">&nbsp;›</span></a> <span class="bold">(in Russian)</span>
+</div>
+
+<h3>Built-in view helper</h3>
+
+<p>If you need the file list somewhere other than the hook position, call the plugin's view helper anywhere in the product template. It returns either ready-made HTML or an array of file data you can lay out entirely yourself.</p>
+
+<pre class="prettyprint">
+{* ready-made HTML from the plugin or design theme template *}
+{$wa->shop->syrattachPlugin->render($product.id)}
+
+{* file array for your own markup *}
+{$files = $wa->shop->syrattachPlugin->getList($product.id)}
+</pre>
+
+<p>Such a call is safe: if the plugin is disabled or removed, the template will not break. The legacy helper call syntax is supported as well.</p>
+
+<h3>Attaching files during CSV import</h3>
+
+<p>When importing products from CSV, files can be attached right away instead of opening product pages one by one.</p>
+
+<ul class="wi-list decimal">
+    <li>Create a <code>wa-data/public/site/syrattach</code> folder on the server — for example, in the file manager of the Site app</li>
+    <li>Upload the files you want to attach to products into that folder</li>
+    <li>Add one or more “Attached File” columns to your CSV file</li>
+    <li>In a product row, put the name of a file from <code>wa-data/public/site/syrattach</code> into that column</li>
+</ul>
+
+<blockquote class="wi-columns space-20 align-left">
+    <div class="wi-image">
+        <span class="wi-icon size-52"><i class="fas fa-exclamation-triangle"></i></span>
+    </div>
+    <div class="wi-text middle">
+        <p>The file must be located strictly in that folder: URLs and nested folders are not supported. The import never deletes anything — on a repeated import, and whenever a file name is already taken, the existing file is not overwritten and the new one is added under a modified name. Once the import is over, the contents of <code>wa-data/public/site/syrattach</code> can be deleted.</p>
+    </div>
+</blockquote>
+
+<h3>Maximum upload size</h3>
+
+<p>The limit comes from the server your store runs on, not from the plugin. If a file fails to upload, check the <code>upload_max_filesize</code>, <code>post_max_size</code> and <code>memory_limit</code> values in <code>php.ini</code>. The plugin shows the effective limit right in the upload area.</p>
+
+<h3>Requirements</h3>
+
+<ul class="wi-list checklist">
+    <li>Shop-Script 10.0 or higher</li>
+    <li>Webasyst 3.0 or higher</li>
+    <li>PHP 7.4 or higher</li>
+</ul>
+
+<p>The plugin interface is localized into English, Russian, Ukrainian, Belarusian, Kazakh, German, Dutch and French.</p>
+
+<div class="wi-line">
+    <a href="https://www.syrnik.com/docs/11/syrattach/" target="_blank">Plugin documentation<span class="wi-icon size-20">&nbsp;›</span></a> <span class="bold">(in Russian)</span>
+</div>
