@@ -1,6 +1,7 @@
 <?php
 return array(
     'README.md',
+    'README_en.md',
     'CHANGELOG.md',
     'CONTRIBUTING.md',
     'LICENSE',
