@@ -76,7 +76,9 @@ wa-data/public/shop/attachments/files/{file_id}/{filename}
 wa-data/public/shop/products/{folder}/{product_id}/attachments/{filename}
 ```
 
-where `{folder}` is computed via `shopProduct::getFolder($product_id)`. Old-style files are only created during CSV import; all new uploads go to central storage. When a product is deleted, Shop-Script cleans up its directory (and old-style files); new-style orphaned files are removed by the plugin itself.
+where `{folder}` is computed via `shopProduct::getFolder($product_id)`. Old-style is legacy data created before 3.0.0 and is never produced again: `shopSyrattachFileModel::add()` unconditionally writes `product_id => null`, so both product editor uploads and files attached during CSV import land in central storage. When a product is deleted, Shop-Script cleans up its directory (and old-style files); new-style orphaned files are removed by the plugin itself.
+
+Every file lives in its own directory named after its `id`, created fresh for the row that was just inserted. Name collisions are therefore impossible: files sharing a name coexist, and nothing is renamed or overwritten.
 
 ### Plugin helper methods
 
